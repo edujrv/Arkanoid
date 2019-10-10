@@ -1,0 +1,4 @@
+ToolSet: w64 6.0 (local)@C:\Users\Camilo\Downloads\INFO\mingw64
+Options: 
+
+Options:

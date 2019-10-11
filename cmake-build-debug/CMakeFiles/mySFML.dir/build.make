@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2\bin\cmake\win\bin\cmake.exe" -E re
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1"
+CMAKE_SOURCE_DIR = C:\Users\edujr\CLionProjects\Arkanoid
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug"
+CMAKE_BINARY_DIR = C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/mySFML.dir/depend.make
@@ -59,44 +59,44 @@ include CMakeFiles/mySFML.dir/flags.make
 CMakeFiles/mySFML.dir/main.cpp.obj: CMakeFiles/mySFML.dir/flags.make
 CMakeFiles/mySFML.dir/main.cpp.obj: CMakeFiles/mySFML.dir/includes_CXX.rsp
 CMakeFiles/mySFML.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mySFML.dir/main.cpp.obj"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\main.cpp.obj -c "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mySFML.dir/main.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\main.cpp.obj -c C:\Users\edujr\CLionProjects\Arkanoid\main.cpp
 
 CMakeFiles/mySFML.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mySFML.dir/main.cpp.i"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\main.cpp" > CMakeFiles\mySFML.dir\main.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\edujr\CLionProjects\Arkanoid\main.cpp > CMakeFiles\mySFML.dir\main.cpp.i
 
 CMakeFiles/mySFML.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mySFML.dir/main.cpp.s"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\main.cpp" -o CMakeFiles\mySFML.dir\main.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\edujr\CLionProjects\Arkanoid\main.cpp -o CMakeFiles\mySFML.dir\main.cpp.s
 
 CMakeFiles/mySFML.dir/Playerbar.cpp.obj: CMakeFiles/mySFML.dir/flags.make
 CMakeFiles/mySFML.dir/Playerbar.cpp.obj: CMakeFiles/mySFML.dir/includes_CXX.rsp
 CMakeFiles/mySFML.dir/Playerbar.cpp.obj: ../Playerbar.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mySFML.dir/Playerbar.cpp.obj"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\Playerbar.cpp.obj -c "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Playerbar.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mySFML.dir/Playerbar.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\Playerbar.cpp.obj -c C:\Users\edujr\CLionProjects\Arkanoid\Playerbar.cpp
 
 CMakeFiles/mySFML.dir/Playerbar.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mySFML.dir/Playerbar.cpp.i"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Playerbar.cpp" > CMakeFiles\mySFML.dir\Playerbar.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\edujr\CLionProjects\Arkanoid\Playerbar.cpp > CMakeFiles\mySFML.dir\Playerbar.cpp.i
 
 CMakeFiles/mySFML.dir/Playerbar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mySFML.dir/Playerbar.cpp.s"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Playerbar.cpp" -o CMakeFiles\mySFML.dir\Playerbar.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\edujr\CLionProjects\Arkanoid\Playerbar.cpp -o CMakeFiles\mySFML.dir\Playerbar.cpp.s
 
 CMakeFiles/mySFML.dir/Ball.cpp.obj: CMakeFiles/mySFML.dir/flags.make
 CMakeFiles/mySFML.dir/Ball.cpp.obj: CMakeFiles/mySFML.dir/includes_CXX.rsp
 CMakeFiles/mySFML.dir/Ball.cpp.obj: ../Ball.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mySFML.dir/Ball.cpp.obj"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\Ball.cpp.obj -c "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Ball.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mySFML.dir/Ball.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mySFML.dir\Ball.cpp.obj -c C:\Users\edujr\CLionProjects\Arkanoid\Ball.cpp
 
 CMakeFiles/mySFML.dir/Ball.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mySFML.dir/Ball.cpp.i"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Ball.cpp" > CMakeFiles\mySFML.dir\Ball.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\edujr\CLionProjects\Arkanoid\Ball.cpp > CMakeFiles\mySFML.dir\Ball.cpp.i
 
 CMakeFiles/mySFML.dir/Ball.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mySFML.dir/Ball.cpp.s"
-	C:\Users\Camilo\Downloads\INFO\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\Ball.cpp" -o CMakeFiles\mySFML.dir\Ball.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\edujr\CLionProjects\Arkanoid\Ball.cpp -o CMakeFiles\mySFML.dir\Ball.cpp.s
 
 # Object files for target mySFML
 mySFML_OBJECTS = \
@@ -114,7 +114,7 @@ mySFML.exe: CMakeFiles/mySFML.dir/build.make
 mySFML.exe: CMakeFiles/mySFML.dir/linklibs.rsp
 mySFML.exe: CMakeFiles/mySFML.dir/objects1.rsp
 mySFML.exe: CMakeFiles/mySFML.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable mySFML.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable mySFML.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\mySFML.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -127,6 +127,6 @@ CMakeFiles/mySFML.dir/clean:
 .PHONY : CMakeFiles/mySFML.dir/clean
 
 CMakeFiles/mySFML.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1" "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1" "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug" "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug" "C:\Users\Camilo\Downloads\Github\Arkanoid-master\Arkanoid V1.1\cmake-build-debug\CMakeFiles\mySFML.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\edujr\CLionProjects\Arkanoid C:\Users\edujr\CLionProjects\Arkanoid C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug C:\Users\edujr\CLionProjects\Arkanoid\cmake-build-debug\CMakeFiles\mySFML.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/mySFML.dir/depend
 

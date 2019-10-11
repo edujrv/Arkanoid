@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/Ball.cpp" "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/cmake-build-debug/CMakeFiles/mySFML.dir/Ball.cpp.obj"
-  "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/Playerbar.cpp" "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/cmake-build-debug/CMakeFiles/mySFML.dir/Playerbar.cpp.obj"
-  "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/main.cpp" "C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/cmake-build-debug/CMakeFiles/mySFML.dir/main.cpp.obj"
+  "C:/Users/edujr/CLionProjects/Arkanoid/Ball.cpp" "C:/Users/edujr/CLionProjects/Arkanoid/cmake-build-debug/CMakeFiles/mySFML.dir/Ball.cpp.obj"
+  "C:/Users/edujr/CLionProjects/Arkanoid/Playerbar.cpp" "C:/Users/edujr/CLionProjects/Arkanoid/cmake-build-debug/CMakeFiles/mySFML.dir/Playerbar.cpp.obj"
+  "C:/Users/edujr/CLionProjects/Arkanoid/main.cpp" "C:/Users/edujr/CLionProjects/Arkanoid/cmake-build-debug/CMakeFiles/mySFML.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "C:/Users/Camilo/Downloads/INFO/mingw64/include"
+  "C:/Program Files/JetBrains/CLion 2019.2/mingw32/include"
   )
 
 # Targets to which this target links.

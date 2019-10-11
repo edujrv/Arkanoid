@@ -15,16 +15,17 @@ private:
     bool direccion;
     Sprite sBall;
     float radioBall;
-    bool isDrew = false;
+
 
     //Public Variables.
 public:
+    bool isDrew = false;
     Ball(float xBall, float yBall, Texture *texturaBall);
     ~Ball();
-    float getLongX(Texture *texturaBall);
-    void dibujar(RenderWindow *w);
-    void drawBall(RenderWindow *w);
-    float moverBall(char direccion, float);
+    float getRadio(Texture *texturaBall);
+    void draw(RenderWindow *w);
+    void move();
+    void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
 
 
 };//End Ball Class.

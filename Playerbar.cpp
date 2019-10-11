@@ -46,7 +46,13 @@ void Playerbar::dibujar(RenderWindow *w) {
 float Playerbar::getLongX(Texture *texturaPlayer) {
     longPlayerbar = texturaPlayer->getSize().x;
     return longPlayerbar;
-                                                 }//End getLongX.
+                                                 }
+
+float Playerbar::getLongY(Texture *texturaPlayerbar) {
+    highPLayerbar = texturaPlayerbar->getSize().y;
+    return highPLayerbar;
+}
+//End getLongX.
 
 //Destroyer.
 Playerbar::~Playerbar() = default;

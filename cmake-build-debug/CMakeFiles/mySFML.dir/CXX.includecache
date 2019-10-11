@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/Ball.cpp
+C:/Users/usuario/CLionProjects/Arkanoid/Ball.cpp
 Ball.h
-C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/Ball.h
+C:/Users/usuario/CLionProjects/Arkanoid/Ball.h
 
-C:/Users/Camilo/Downloads/Github/Arkanoid-master/Arkanoid V1.1/Ball.h
+C:/Users/usuario/CLionProjects/Arkanoid/Ball.h
 SFML/Graphics.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Config.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Config.hpp
 TargetConditionals.h
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/TargetConditionals.h
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/TargetConditionals.h
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics.hpp
 SFML/Window.hpp
 -
 SFML/Graphics/BlendMode.hpp
@@ -74,21 +74,21 @@ SFML/Graphics/VertexBuffer.hpp
 SFML/Graphics/View.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/BlendMode.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/BlendMode.hpp
 SFML/Graphics/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/CircleShape.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/CircleShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Color.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Color.hpp
 SFML/Graphics/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/ConvexShape.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/ConvexShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
@@ -96,17 +96,17 @@ SFML/Graphics/Shape.hpp
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Drawable.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Drawable.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/RenderStates.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Export.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Export.hpp
 SFML/Config.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Font.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Font.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Glyph.hpp
@@ -126,7 +126,7 @@ string
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Glsl.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Glsl.hpp
 SFML/Graphics/Transform.hpp
 -
 SFML/Graphics/Color.hpp
@@ -138,15 +138,15 @@ SFML/System/Vector3.hpp
 SFML/Graphics/Glsl.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Glsl.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Glsl.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Glyph.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Glyph.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Image.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Image.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -158,9 +158,9 @@ string
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/PrimitiveType.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/PrimitiveType.hpp
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Rect.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Rect.hpp
 SFML/System/Vector2.hpp
 -
 algorithm
@@ -168,15 +168,15 @@ algorithm
 SFML/Graphics/Rect.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Rect.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Rect.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/RectangleShape.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/RectangleShape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Shape.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/RenderStates.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/RenderStates.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/BlendMode.hpp
@@ -184,7 +184,7 @@ SFML/Graphics/BlendMode.hpp
 SFML/Graphics/Transform.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/RenderTarget.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/RenderTarget.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -206,7 +206,7 @@ SFML/Graphics/Vertex.hpp
 SFML/System/NonCopyable.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/RenderTexture.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/RenderTexture.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Texture.hpp
@@ -216,7 +216,7 @@ SFML/Graphics/RenderTarget.hpp
 SFML/Window/ContextSettings.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/RenderWindow.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/RenderWindow.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/RenderTarget.hpp
@@ -228,7 +228,7 @@ SFML/Window/Window.hpp
 string
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Shader.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Shader.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Glsl.hpp
@@ -246,7 +246,7 @@ map
 string
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Shape.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Shape.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -258,7 +258,7 @@ SFML/Graphics/VertexArray.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Sprite.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Sprite.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -270,7 +270,7 @@ SFML/Graphics/Vertex.hpp
 SFML/Graphics/Rect.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Text.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Text.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Drawable.hpp
@@ -290,7 +290,7 @@ string
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Texture.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Texture.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Image.hpp
@@ -298,7 +298,7 @@ SFML/Graphics/Image.hpp
 SFML/Window/GlResource.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Transform.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Transform.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
@@ -306,13 +306,13 @@ SFML/Graphics/Rect.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Transformable.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Transformable.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Transform.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/Vertex.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/Vertex.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Color.hpp
@@ -320,7 +320,7 @@ SFML/Graphics/Color.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/VertexArray.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/VertexArray.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Vertex.hpp
@@ -334,7 +334,7 @@ SFML/Graphics/Drawable.hpp
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/VertexBuffer.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/VertexBuffer.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/PrimitiveType.hpp
@@ -344,7 +344,7 @@ SFML/Graphics/Drawable.hpp
 SFML/Window/GlResource.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Graphics/View.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Graphics/View.hpp
 SFML/Graphics/Export.hpp
 -
 SFML/Graphics/Rect.hpp
@@ -354,7 +354,7 @@ SFML/Graphics/Transform.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System.hpp
 SFML/Config.hpp
 -
 SFML/System/Clock.hpp
@@ -392,23 +392,23 @@ SFML/System/Vector2.hpp
 SFML/System/Vector3.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Clock.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Clock.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Time.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Err.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Err.hpp
 SFML/System/Export.hpp
 -
 ostream
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Export.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Export.hpp
 SFML/Config.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/FileInputStream.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/FileInputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/Export.hpp
@@ -422,19 +422,19 @@ cstdio
 string
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/InputStream.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/InputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Lock.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Lock.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/MemoryInputStream.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/MemoryInputStream.hpp
 SFML/Config.hpp
 -
 SFML/System/InputStream.hpp
@@ -444,23 +444,23 @@ SFML/System/Export.hpp
 cstdlib
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Mutex.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Mutex.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/NonCopyable.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/NonCopyable.hpp
 SFML/System/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Sleep.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Sleep.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Time.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/String.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/String.hpp
 SFML/System/Export.hpp
 -
 SFML/System/Utf.hpp
@@ -474,9 +474,9 @@ string
 SFML/System/String.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/String.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/String.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Thread.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Thread.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -486,9 +486,9 @@ cstdlib
 SFML/System/Thread.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Thread.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Thread.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/ThreadLocal.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/ThreadLocal.hpp
 SFML/System/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -496,19 +496,19 @@ SFML/System/NonCopyable.hpp
 cstdlib
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/ThreadLocalPtr.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/ThreadLocalPtr.hpp
 SFML/System/ThreadLocal.hpp
 -
 SFML/System/ThreadLocalPtr.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/ThreadLocalPtr.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/ThreadLocalPtr.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Time.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Time.hpp
 SFML/System/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Utf.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Utf.hpp
 SFML/Config.hpp
 -
 algorithm
@@ -522,21 +522,21 @@ cstdlib
 SFML/System/Utf.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Utf.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Utf.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Vector2.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Vector2.hpp
 SFML/System/Vector2.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Vector2.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Vector2.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Vector3.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Vector3.hpp
 SFML/System/Vector3.inl
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/System/Vector3.inl
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/System/Vector3.inl
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window.hpp
 SFML/System.hpp
 -
 SFML/Window/Clipboard.hpp
@@ -568,13 +568,13 @@ SFML/Window/WindowHandle.hpp
 SFML/Window/WindowStyle.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Clipboard.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Clipboard.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/String.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Context.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Context.hpp
 SFML/Window/Export.hpp
 -
 SFML/Window/GlResource.hpp
@@ -584,11 +584,11 @@ SFML/Window/ContextSettings.hpp
 SFML/System/NonCopyable.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/ContextSettings.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/ContextSettings.hpp
 SFML/Config.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Cursor.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Cursor.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/NonCopyable.hpp
@@ -596,7 +596,7 @@ SFML/System/NonCopyable.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Event.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Event.hpp
 SFML/Config.hpp
 -
 SFML/Window/Joystick.hpp
@@ -608,33 +608,33 @@ SFML/Window/Mouse.hpp
 SFML/Window/Sensor.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Export.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Export.hpp
 SFML/Config.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/GlResource.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/GlResource.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/NonCopyable.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Joystick.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Joystick.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/String.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Keyboard.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Keyboard.hpp
 SFML/Window/Export.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Mouse.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Mouse.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Sensor.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Sensor.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector3.hpp
@@ -642,19 +642,19 @@ SFML/System/Vector3.hpp
 SFML/System/Time.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Touch.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Touch.hpp
 SFML/Window/Export.hpp
 -
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/VideoMode.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/VideoMode.hpp
 SFML/Window/Export.hpp
 -
 vector
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/Window.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/Window.hpp
 SFML/Window/ContextSettings.hpp
 -
 SFML/Window/Cursor.hpp
@@ -678,9 +678,9 @@ SFML/System/String.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/WindowHandle.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/WindowHandle.hpp
 SFML/Config.hpp
 -
 
-C:/Users/Camilo/Downloads/INFO/mingw64/include/SFML/Window/WindowStyle.hpp
+D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include/SFML/Window/WindowStyle.hpp
 

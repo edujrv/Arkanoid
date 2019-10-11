@@ -7,21 +7,22 @@ using namespace sf;
 
 //Beginning of Main.
 int main() {
-    //Variables.
 
-    //Main Windows Dimensions.
-    unsigned int windowHigh=1366u; //1920u (valores felipe)
-    unsigned int windowWidth=768u; //1080u (valores felipe)
-
-    //Window Loading.
-    RenderWindow w(VideoMode::getDesktopMode(), "Breaking Bricks");
+    RenderWindow w(VideoMode::getDesktopMode(), "Breaking Bricks");  //Window Loading.
 
 
     //Initial Object Positions.
     //--->//Playerbar:
-    int xPlayerbar= (w.getSize().x/2)-60.0, yPlayerbar= 1300 / 2;//-120   1800 (valores felipe)
+    float DesktopX = (float)VideoMode::getDesktopMode().width;
+    float DesktopY = (float)VideoMode::getDesktopMode().height;
+
+    float xPlayerbar = DesktopX / 2;
+    float yPlayerbar = DesktopY - 200;
+
     //--->//Ball:
-    int xBall= xPlayerbar+50.0, yBall= 1240 / 2;//+50   1750 (valores felipe)
+
+    float xBall = xPlayerbar;
+    float yBall = yPlayerbar + 2;
 
     //Textures.
     Texture tPlayerbar;
@@ -64,25 +65,21 @@ int main() {
                                 w.close();
                             }
 
-                            //Move Right.
+                        float longBar = playerbar.getLongX(&tPlayerbar);
+                        float  highBar = playerbar.getLongY(&tPlayerbar);
+                        //Move Right.
                             if(Keyboard::isKeyPressed(Keyboard::Right)){
                                     playerbar.mover('d');
+                                    if(!ball.isDrew){
+                                        ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                                    }
                                 }
 
                             //Move Left.
                             if(Keyboard::isKeyPressed(Keyboard::Left)){
                             playerbar.mover('i');
-                                }
-
-                            // Move ball together with racket
-                            if(!Keyboard::isKeyPressed(Keyboard::Space)){
-                                //Move Right.
-                                if(Keyboard::isKeyPressed(Keyboard::Right)){
-                                    ball.moverBall('d',xPlayerbar);
-                                }
-                                //Move Left.
-                                if(Keyboard::isKeyPressed(Keyboard::Left)){
-                                    ball.moverBall('i',xPlayerbar);
+                                if(!ball.isDrew){
+                                    ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                                 }
                             }
 
@@ -96,7 +93,7 @@ int main() {
                 //Object Illustration.
                 w.draw(sScreenBackground);
                 playerbar.dibujar(&w);
-                ball.dibujar(&w);
+                ball.draw(&w);
 
 
 

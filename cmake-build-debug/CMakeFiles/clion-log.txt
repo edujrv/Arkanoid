@@ -1,4 +1,0 @@
-"D:\Program Files (x86)\JetBrians\CLion 2019.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\usuario\CLionProjects\Arkanoid
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/usuario/CLionProjects/Arkanoid/cmake-build-debug

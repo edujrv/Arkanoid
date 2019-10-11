@@ -33,16 +33,20 @@ int main() {
     Sprite sScreenBackground;
 
     //Texture Loading.
-    tPlayerbar.loadFromFile("playerbar.png");
-    tBall.loadFromFile("ball.png");
-    tScreenBackground.loadFromFile("screen background.jpg");
+    tPlayerbar.loadFromFile("imagenes/playerbar.png");
+    tBall.loadFromFile("imagenes/ball.png");
+    tScreenBackground.loadFromFile("imagenes/fondo.jpg");
 
     // Background sprite and full screen setting
     sScreenBackground.setTexture(tScreenBackground);
     sScreenBackground.setScale(((float)w.getSize().x / sScreenBackground.getTexture()->getSize().x), ((float)w.getSize().y / sScreenBackground.getTexture()->getSize().y));
 
+
+
     //Texture Assignment.
     Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
+    yBall = playerbar.xPlayerbar;
+    yBall = yPlayerbar + playerbar.getLongY(&tPlayerbar);
     Ball ball(xBall, yBall, &tBall);
 
     //Performance Settings.

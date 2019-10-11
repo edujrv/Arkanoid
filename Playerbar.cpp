@@ -6,7 +6,7 @@ Playerbar::Playerbar(float xPlayerbar, float yPlayerbar, Texture *texturaPlayerb
     //Sprite Loading.
     sPlayerbar.setTexture(*texturaPlayerbar);
     //Object Size.
-    sPlayerbar.setScale(0.2,0.5);
+    sPlayerbar.setScale(0.5,0.5);
 
     //Initial Variables.
     this->xPlayerbar = xPlayerbar;

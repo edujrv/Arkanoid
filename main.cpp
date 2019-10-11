@@ -7,6 +7,11 @@ using namespace sf;
 
 //Beginning of Main.
 int main() {
+    // Variables
+    // Original ball size
+    float ballSize = 28.7;
+    // Original playerbar size
+    float playerbarSize = 127.8;
 
     RenderWindow w(VideoMode::getDesktopMode(), "Breaking Bricks");  //Window Loading.
 
@@ -16,12 +21,12 @@ int main() {
     float DesktopX = (float)VideoMode::getDesktopMode().width;
     float DesktopY = (float)VideoMode::getDesktopMode().height;
 
-    float xPlayerbar = DesktopX / 2;
+    float xPlayerbar= (DesktopX / 2) - (playerbarSize/2);
     float yPlayerbar = DesktopY - 200;
 
     //--->//Ball:
 
-    float xBall = xPlayerbar;
+    float xBall = (w.getSize().x/2)-(ballSize/2);
     float yBall = yPlayerbar + 2;
 
     //Textures.
@@ -45,8 +50,8 @@ int main() {
 
     //Texture Assignment.
     Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
-    yBall = playerbar.xPlayerbar;
-    yBall = yPlayerbar + playerbar.getLongY(&tPlayerbar);
+    xBall = playerbar.xPlayerbar - ((playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2));
+    yBall = yPlayerbar - playerbar.getLongY(&tPlayerbar);
     Ball ball(xBall, yBall, &tBall);
 
     //Performance Settings.
@@ -69,27 +74,29 @@ int main() {
                                 w.close();
                             }
 
-                        float longBar = playerbar.getLongX(&tPlayerbar);
-                        float  highBar = playerbar.getLongY(&tPlayerbar);
-                        //Move Right.
-                            if(Keyboard::isKeyPressed(Keyboard::Right)){
-                                    playerbar.mover('d');
-                                    if(!ball.isDrew){
-                                        ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
-                                    }
-                                }
 
-                            //Move Left.
-                            if(Keyboard::isKeyPressed(Keyboard::Left)){
-                            playerbar.mover('i');
-                                if(!ball.isDrew){
-                                    ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
-                                }
-                            }
+
 
                         //End If.
 
                     }//End While Event Action.
+                //Move Right.
+                float longBar = playerbar.getLongX(&tPlayerbar);
+                                float  highBar = playerbar.getLongY(&tPlayerbar);
+                if(Keyboard::isKeyPressed(Keyboard::Right)){
+                    playerbar.mover('d');
+                    if(!ball.isDrew){
+                        ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                    }
+                }
+
+                //Move Left.
+                if(Keyboard::isKeyPressed(Keyboard::Left)){
+                    playerbar.mover('i');
+                    if(!ball.isDrew){
+                        ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                    }
+                }
 
                 //Refresh Screen.
                 w.clear(Color(20, 20, 100, 150));

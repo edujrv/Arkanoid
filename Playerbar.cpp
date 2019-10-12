@@ -11,7 +11,7 @@ Playerbar::Playerbar(float xPlayerbar, float yPlayerbar, Texture *texturaPlayerb
     //Initial Variables.
     this->xPlayerbar = xPlayerbar;
     this->yPlayerbar = yPlayerbar;
-    velPlayerbar = 30;
+    velPlayerbar = 10;
     longPlayerbar = 0;
     direccion = ' ';
                                                                                     }//End Builder.

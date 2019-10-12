@@ -50,7 +50,7 @@ int main() {
 
     //Texture Assignment.
     Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
-    xBall = playerbar.xPlayerbar - ((playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2));
+    xBall = playerbar.xPlayerbar + (playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2);
     yBall = yPlayerbar - playerbar.getLongY(&tPlayerbar);
     Ball ball(xBall, yBall, &tBall);
 
@@ -80,9 +80,13 @@ int main() {
                         //End If.
 
                     }//End While Event Action.
+
+                    float longBar = playerbar.getLongX(&tPlayerbar);
+                    float highBar = playerbar.getLongY(&tPlayerbar);
+                    if (!ball.isDrew)
+                    ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar); // Start on the middle of the bar
+
                 //Move Right.
-                float longBar = playerbar.getLongX(&tPlayerbar);
-                                float  highBar = playerbar.getLongY(&tPlayerbar);
                 if(Keyboard::isKeyPressed(Keyboard::Right)){
                     playerbar.mover('d');
                     if(!ball.isDrew){
@@ -97,6 +101,21 @@ int main() {
                         ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                     }
                 }
+
+                //Set ball free
+                if(Keyboard::isKeyPressed(Keyboard::Space)){
+                   // playerbar.mover('i');
+                    if(!ball.isDrew){
+                        ball.isDrew = true;
+                    }
+                }
+                if (ball.isDrew){
+                    ball.move(yBall);
+                }
+
+
+
+
 
                 //Refresh Screen.
                 w.clear(Color(20, 20, 100, 150));

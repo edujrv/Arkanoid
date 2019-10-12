@@ -12,10 +12,10 @@ private:
     float velBall;
     float xBall;
     float yBall;
-    bool direccion;
+    bool direccion; // True = Up . False = Down
     Sprite sBall;
     float radioBall;
-
+    Texture tBall;
 
     //Public Variables.
 public:
@@ -24,7 +24,7 @@ public:
     ~Ball();
     float getRadio(Texture *texturaBall);
     void draw(RenderWindow *w);
-    void move();
+    void move(float yButton);
     void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
 
 

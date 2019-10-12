@@ -110,7 +110,7 @@ int main() {
                     }
                 }
                 if (ball.isDrew){
-                    ball.move(yBall);
+                    ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                 }
 
 

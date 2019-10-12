@@ -24,7 +24,7 @@ public:
     ~Ball();
     float getRadio(Texture *texturaBall);
     void draw(RenderWindow *w);
-    void move(float yButton);
+    void move(float  longBar, float  highBar, float xBar, float yBar);
     void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
 
 

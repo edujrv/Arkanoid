@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "Playerbar.h"
 
 //Builder.
 Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
@@ -52,7 +53,9 @@ float Ball::getRadio(Texture *texturaBall) {
 
 
 
-void Ball::move(float yButton) {
+void Ball::move(float  longBar, float  highBar, float xBar, float yBar) {
+
+
     if (isDrew){
 
         if(direccion){
@@ -74,9 +77,14 @@ void Ball::move(float yButton) {
             sBall.setPosition(xBall,yBall);
 
             //CONDICION DEFAULT
-             if (yBall >= yButton){
-                 direccion = true;
+             if (yBall >= yBar - highBar) {
+                 if (xBall >= xBar && xBall <= (xBar + longBar)) {
+                     direccion = true;
+                 } else {
+                     isDrew = false;
+                 }
              }
+
             /*
              * INSERTAR CONDICION DE COLISIONES
              * */

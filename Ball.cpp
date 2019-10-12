@@ -78,7 +78,7 @@ void Ball::move(float  longBar, float  highBar, float xBar, float yBar) {
 
             //CONDICION DEFAULT
              if (yBall >= yBar - highBar) {
-                 if (xBall >= xBar && xBall <= (xBar + longBar)) {
+                 if (xBall >= (xBar - 10) && xBall <= (xBar + longBar)) {
                      direccion = true;
                  } else {
                      isDrew = false;

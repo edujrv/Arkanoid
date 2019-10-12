@@ -87,16 +87,27 @@ int main() {
                     ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar); // Start on the middle of the bar
 
                 //Move Right.
-                if(Keyboard::isKeyPressed(Keyboard::Right)){
+                if(Keyboard::isKeyPressed(Keyboard::Right)) {
+                    if (playerbar.xPlayerbar >= (float)VideoMode::getDesktopMode().width - 400) {
+
+                    } else {
                     playerbar.mover('d');
+                    }
                     if(!ball.isDrew){
                         ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                     }
+
+
+
                 }
 
                 //Move Left.
                 if(Keyboard::isKeyPressed(Keyboard::Left)){
-                    playerbar.mover('i');
+                    if (playerbar.xPlayerbar <= 0 + 400) {
+                        std::cout<<playerbar.getLongX(&tPlayerbar)<<std::endl;
+                    } else {
+                        playerbar.mover('i');
+                    }
                     if(!ball.isDrew){
                         ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                     }

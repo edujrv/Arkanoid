@@ -1,5 +1,5 @@
 #include "Ball.h"
-#include "Playerbar.h"
+#include "Playerbar.h"      //Podriamos eliminar esta linea ya que no es usada.
 
 //Builder.
 Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
@@ -43,7 +43,7 @@ void Ball::draw(RenderWindow *w) {
 
 
 
-//getRadio.
+//getRadio.     //En realidad aqui estamos obteniendo el diametro podriamos cambiar los nombres de variables es confuso.
 float Ball::getRadio(Texture *texturaBall) {
     radioBall = texturaBall->getSize().x;
     return radioBall;
@@ -53,7 +53,7 @@ float Ball::getRadio(Texture *texturaBall) {
 
 
 
-void Ball::move(float  longBar, float  highBar, float xBar, float yBar) {
+void Ball::move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, int *vidas, char *resetPosition) {
 
 
     if (isDrew){
@@ -78,10 +78,15 @@ void Ball::move(float  longBar, float  highBar, float xBar, float yBar) {
 
             //CONDICION DEFAULT
              if (yBall >= yBar - highBar) {
-                 if (xBall >= (xBar - 10) && xBall <= (xBar + longBar)) {
+                 if (xBall >= (xBar) && xBall <= (xBar + (longBar * 0.2))) {
                      direccion = true;
                  } else {
-                     isDrew = false;
+                     if (yBall >= desktopY){
+                         isDrew = false;
+                         (*vidas)--;
+                         *resetPosition= 'V';
+                     }
+
                  }
              }
 

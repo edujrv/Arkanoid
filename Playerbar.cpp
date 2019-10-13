@@ -54,6 +54,12 @@ float Playerbar::getLongY(Texture *texturaPlayerbar) {
 }
 //End getLongX.
 
+//Centrar.
+void Playerbar::centrar(float desktopX, float playerbarSize) {
+    xPlayerbar= (desktopX / 2) - (playerbarSize / 2);
+}
+//End Centrar.
+
 //Destroyer.
 Playerbar::~Playerbar() = default;
 //End Destroyer.

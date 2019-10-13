@@ -25,7 +25,7 @@ class Playerbar{
             float getLongX(Texture *texturaPlayerbar);                              //Returns the size in x of the Player
             void dibujar(RenderWindow *w);
             float getLongY(Texture *texturaPlayerbar);
-
+            void centrar(float desktopX, float playerbarSize);                      //Centra la playerbar al perder vida.
 };//End Playerbar Class.
 
 

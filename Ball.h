@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+
 //Class Ball Statement.
 class Ball {
     //Private Variables.

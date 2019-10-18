@@ -5,6 +5,7 @@
 
 using namespace sf;
 
+
 //Beginning of Main.
 int main() {
     // Variables

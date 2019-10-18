@@ -1,6 +1,7 @@
 
 #include "Playerbar.h"
 
+
 //Builder.
 Playerbar::Playerbar(float xPlayerbar, float yPlayerbar, Texture *texturaPlayerbar) {
     //Sprite Loading.

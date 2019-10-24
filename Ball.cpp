@@ -14,7 +14,8 @@ Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
     this->yBall = yBall;
     velBall = 30;
     radioBall = 0;
-    direccion = ' ';
+    direccionY = ' ';
+    direccionX = ' ';
     isDrew = false; // QUIERO CAMBIAR ESTE NOMBRE POR isPlaying o isAlive PERO NO ME DEJA EL CLION ASI QUE BUENO. ESTA VARIABLE QUIERE DECIR QUE SI LA PELOTA ESTA REBOTANDO POR LA PANTALLA O ESTA PEGADA A LA RAQUETA O MUERTA.
 
 }//End Builder.
@@ -54,33 +55,37 @@ float Ball::getRadio(Texture *texturaBall) {
 
 
 
-void Ball::move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, int *vidas, char *resetPosition) {
+void Ball::move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition) {
 
 
     if (isDrew){
 
-        if(direccion){
 
+        if(direccionY){
             yBall -= 5;
             sBall.setPosition(xBall,yBall);
 
             // DEFAULT CONDITION
             if (yBall <= 0){
-                direccion = false;
+                direccionY = false;
             }
 
             /*
-             * INSERTAR CONDICION DE COLISIONES
-             * */
-        }else {
+             * INSERTAR CONDICION DE COLISIONES EJE Y
+             **/
 
+        }
+
+
+        if(!direccionY) {
             yBall += 5;
             sBall.setPosition(xBall,yBall);
+
 
             //CONDICION DEFAULT
              if (yBall >= yBar - highBar) {
                  if (xBall >= (xBar) && xBall <= (xBar + (longBar * 0.2))) {
-                     direccion = true;
+                     direccionY = true;
                  } else {
                      if (yBall >= desktopY){
                          isDrew = false;
@@ -92,9 +97,24 @@ void Ball::move(float  longBar, float  highBar, float xBar, float yBar, float de
              }
 
             /*
-             * INSERTAR CONDICION DE COLISIONES
-             * */
+                    * INSERTAR CONDICION DE COLISIONES EJE Y
+                    **/
         }
+
+        if (direccionX) {
+            xBall -= 5;
+            // sBall.setPosition(xBall, yBall);
+            if (xBall <= 0) {
+                direccionX = false;
+            }
+        }else if (!direccionX) {
+            xBall += 5;
+            //  sBall.setPosition(xBall, yBall);
+            if (xBall >= (desktopX - ballSize)) {
+                direccionX = true;
+            }
+        }
+
     }
 
 }

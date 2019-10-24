@@ -11,8 +11,8 @@ int main() {
     // Variables
 
     // Windows Resolutions.
-    unsigned int windowHeight= 900u;
-    unsigned int windowWidth= 1600u;
+   unsigned int windowHeight= 720;
+   unsigned int windowWidth= 1080;
 
     // Original ball size
     float ballSize = 28.7;
@@ -158,9 +158,8 @@ int main() {
                             }
                         }
                         if (ball.isDrew) {
-                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, desktopY, &vidas,
+                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, desktopY, desktopX, ballSize,  &vidas,
                                       &resetPosition);
-
                             if (resetPosition == 'V') {
                                 playerbar.centrar(desktopX, playerbarSize);
                                 resetPosition = 'F';

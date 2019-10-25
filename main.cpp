@@ -50,13 +50,15 @@ int main() {
     numVidas=new Text();
     Text * txtPerdiste;
     txtPerdiste=new Text();
+    Text *txtTryAgain = nullptr;
+    txtTryAgain=new Text();
 
     //Font Assignment.
     fuenteRetro->loadFromFile("Retro.ttf");
 
     //Text Configuration.
     txtVidas->setFont(*fuenteRetro);
-    txtVidas->setString("VIDAS");
+    txtVidas->setString("LIFES");
     txtVidas->setPosition(0,0);
     txtVidas->setColor(Color::Red);
     txtVidas->setCharacterSize(20);
@@ -66,13 +68,19 @@ int main() {
     numVidas->setColor(Color::Red);
     numVidas->setCharacterSize(20);
 
-    txtPerdiste->setString("PERDISTE");
+    txtPerdiste->setString("GAME OVER");
     txtPerdiste->setFont(*fuenteRetro);
     txtPerdiste->setColor(Color::Red);
     txtPerdiste->setCharacterSize(60);
     txtPerdiste->setPosition(desktopX/2,desktopY/2);
     txtPerdiste->setOrigin(txtPerdiste->getGlobalBounds().width/2, txtPerdiste->getGlobalBounds().height/2);
 
+    txtTryAgain->setString("Press space to try again");
+    txtTryAgain->setFont(*fuenteRetro);
+    txtTryAgain->setColor(Color::Red);
+    txtTryAgain->setCharacterSize(30);
+    txtTryAgain->setPosition(desktopX/2 - 25,desktopY/2 + 75);
+    txtTryAgain->setOrigin(txtPerdiste->getGlobalBounds().width/2, txtPerdiste->getGlobalBounds().height/2);
     //Textures.
     Texture tPlayerbar;
     Texture tBall;
@@ -101,6 +109,7 @@ int main() {
 
     //Windows Open.
         //Beginning While.
+    //do {
             while (w.isOpen()){
                 //Event Statement:
                 Event e;
@@ -184,6 +193,10 @@ int main() {
 
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
                     w.draw(*txtPerdiste);
+                    w.draw(*txtTryAgain);
+                    if (Keyboard::isKeyPressed(Keyboard::Space)) {
+                        vidas = 3;
+                    }
                 }
 
                 //Paste Objects in Window.

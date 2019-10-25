@@ -13,7 +13,8 @@ private:
     float velBall;
     float xBall;
     float yBall;
-    bool direccion; // True = Up . False = Down
+    bool direccionY; // True = Up . False = Down
+    bool direccionX; // True = Right . False = Left
     Sprite sBall;
     float radioBall;
     Texture tBall;
@@ -25,7 +26,7 @@ public:
     ~Ball();
     float getRadio(Texture *texturaBall);
     void draw(RenderWindow *w);
-    void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, int *vidas, char *resetPosition);
+    void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition);
     void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
 
 

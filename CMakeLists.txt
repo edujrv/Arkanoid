@@ -8,7 +8,6 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(mySFML main.cpp Playerbar.cpp Playerbar.h Ball.cpp Ball.h)
 
-# target_link_libraries(mySFML ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(mySFML sfml-graphics sfml-window sfml-system)
 
 file(GLOB IMAGENES "imagenes/*")

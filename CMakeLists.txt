@@ -12,3 +12,9 @@ target_link_libraries(mySFML sfml-graphics sfml-window sfml-system sfml-audio)
 
 file(GLOB IMAGENES "imagenes/*")
 file(COPY ${IMAGENES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/imagenes)
+
+file(GLOB AUDIOS "audios/*")
+file(COPY ${AUDIOS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/audios)
+
+file(GLOB FUENTES "fuentes/*")
+file(COPY ${FUENTES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fuentes)

@@ -60,17 +60,17 @@ int main() {
     txtVidas->setFont(*fuenteRetro);
     txtVidas->setString("VIDAS");
     txtVidas->setPosition(0,0);
-    txtVidas->setColor(Color::Red);
+    txtVidas->setFillColor(Color::Red);
     txtVidas->setCharacterSize(20);
 
     numVidas->setFont(*fuenteRetro);
     numVidas->setPosition(50,0);
-    numVidas->setColor(Color::Red);
+    numVidas->setFillColor(Color::Red);
     numVidas->setCharacterSize(20);
 
     txtPerdiste->setString("PERDISTE");
     txtPerdiste->setFont(*fuenteRetro);
-    txtPerdiste->setColor(Color::Red);
+    txtPerdiste->setFillColor(Color::Red);
     txtPerdiste->setCharacterSize(60);
     txtPerdiste->setPosition(desktopX/2,desktopY/2);
     txtPerdiste->setOrigin(txtPerdiste->getGlobalBounds().width/2, txtPerdiste->getGlobalBounds().height/2);

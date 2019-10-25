@@ -1,7 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Playerbar.h"
 #include "Ball.h"
+#include <windows.h>
 
 using namespace sf;
 
@@ -20,7 +22,7 @@ int main() {
     float playerbarSize = 127.8;
 
     //Scoreboard Settings.
-    int vidas= 3;
+    int vidas = 3;
     char resetPosition = 'F'; //Setea la playerbar en el centro cuando la pelota cae por el vacio.
 
     //Window Loading.
@@ -31,7 +33,7 @@ int main() {
     float desktopX = (float)windowWidth;
     float desktopY = (float)windowHeight;
 
-    float xPlayerbar= (desktopX / 2) - (playerbarSize / 2);
+    float xPlayerbar = (desktopX / 2) - (playerbarSize / 2);
     float yPlayerbar = desktopY - 100;
 
     //--->//Ball:
@@ -41,15 +43,15 @@ int main() {
 
     //Font Print on Windows Declaration.
     Font * fuenteRetro;
-    fuenteRetro= new Font();
+    fuenteRetro = new Font();
 
     //Text Print on Windows Declaration.
     Text * txtVidas;
-    txtVidas=new Text();
+    txtVidas = new Text();
     Text * numVidas;
-    numVidas=new Text();
+    numVidas = new Text();
     Text * txtPerdiste;
-    txtPerdiste=new Text();
+    txtPerdiste = new Text();
 
     //Font Assignment.
     fuenteRetro->loadFromFile("Retro.ttf");
@@ -72,6 +74,49 @@ int main() {
     txtPerdiste->setCharacterSize(60);
     txtPerdiste->setPosition(desktopX/2,desktopY/2);
     txtPerdiste->setOrigin(txtPerdiste->getGlobalBounds().width/2, txtPerdiste->getGlobalBounds().height/2);
+
+    //Buffers.
+    SoundBuffer bufferGolpe;
+    SoundBuffer bufferRebote;
+    SoundBuffer bufferBye;
+
+    //Sounds.
+    Sound soundGolpe;
+    if(!bufferGolpe.loadFromFile("Golpe.wav")){
+        std::cout<<"No se pudo cargar el sonido"<<std::endl;
+    }
+    Sound soundRebote;
+    if(!bufferRebote.loadFromFile("Rebote.wav")){
+        std::cout<<"No se pudo cargar el sonido"<<std::endl;
+    }
+    Sound soundBye;
+    if(!bufferBye.loadFromFile("Bye.wav")){
+        std::cout<<"No se pudo cargar el sonido"<<std::endl;
+    }
+
+    //Music.
+    Music music;
+    if(!music.openFromFile("Tetrismusic.wav")){
+        std::cout<<"No se pudo cargar la musica"<<std::endl;
+    }
+
+    Music sadMusic;
+    if(!sadMusic.openFromFile("Sadmusic.wav")){
+        std::cout<<"No se pudo cargar la musica"<<std::endl;
+    }
+
+    //Music Loading.
+    music.setVolume(20);
+    music.play();
+    music.setLoop(true);
+
+    sadMusic.setVolume(60);//Arreglar musica triste.
+    sadMusic.setLoop(true);
+
+    //Sounds Assignment.
+    soundGolpe.setBuffer(bufferGolpe);
+    soundRebote.setBuffer(bufferRebote);
+    soundBye.setBuffer(bufferBye);
 
     //Textures.
     Texture tPlayerbar;
@@ -111,10 +156,13 @@ int main() {
 
                         //Beginning If.
 
-                            //Close Window.
-                            if(e.type==Event::Closed) {
-                                w.close();
-                            }//End If.
+                        //Close Window.
+                        if(e.type==Event::Closed) {
+                            music.stop();
+                            soundBye.play();
+                            Sleep(1000);
+                            w.close();
+                        }//End If.
 
                     }//End While Event Action.
 
@@ -182,8 +230,11 @@ int main() {
                 w.draw(*numVidas);
                 w.draw(*txtVidas);
 
+
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
+                    music.stop();
                     w.draw(*txtPerdiste);
+                    sadMusic.play();
                 }
 
                 //Paste Objects in Window.

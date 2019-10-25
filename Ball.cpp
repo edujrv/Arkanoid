@@ -102,13 +102,13 @@ void Ball::move(float  longBar, float  highBar, float xBar, float yBar, float de
         }
 
         if (direccionX) {
-            xBall -= 5;
+            xBall -= 2;
             // sBall.setPosition(xBall, yBall);
             if (xBall <= 0) {
                 direccionX = false;
             }
         }else if (!direccionX) {
-            xBall += 5;
+            xBall += 2;
             //  sBall.setPosition(xBall, yBall);
             if (xBall >= (desktopX - ballSize)) {
                 direccionX = true;

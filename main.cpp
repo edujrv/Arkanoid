@@ -3,7 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "Playerbar.h"
 #include "Ball.h"
-#include <windows.h>
+//#include <windows.h>
 
 using namespace sf;
 
@@ -161,7 +161,9 @@ int main() {
                             if(e.type==Event::Closed) {
                                 music.stop();
                                 soundBye.play();
-                                Sleep(1000);
+
+                                sleep(seconds(1));
+
                                 w.close();
                             }//End If.
 

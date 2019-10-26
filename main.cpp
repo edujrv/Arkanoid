@@ -3,10 +3,8 @@
 #include <SFML/Audio.hpp>
 #include "Playerbar.h"
 #include "Ball.h"
-//#include <windows.h>
 
 using namespace sf;
-
 
 //Beginning of Main.
 int main() {
@@ -43,7 +41,7 @@ int main() {
 
     //Font Print on Windows Declaration.
     Font * fuenteRetro;
-    fuenteRetro= new Font();
+    fuenteRetro = new Font();
 
     //Text Print on Windows Declaration.
     Text * txtVidas;
@@ -100,6 +98,7 @@ int main() {
         std::cout<<"No se pudo cargar la musica"<<std::endl;
     }
 
+    bool missed = false; //Para musica triste
     Music sadMusic;
     if(!sadMusic.openFromFile("Sadmusic.wav")){
         std::cout<<"No se pudo cargar la musica"<<std::endl;
@@ -117,7 +116,6 @@ int main() {
     soundGolpe.setBuffer(bufferGolpe);
     soundRebote.setBuffer(bufferRebote);
     soundBye.setBuffer(bufferBye);
-
 
     //Textures.
     Texture tPlayerbar;
@@ -143,7 +141,7 @@ int main() {
     Ball ball(xBall, yBall, &tBall);
 
     //Performance Settings.
-    w.setFramerateLimit(120);
+    w.setFramerateLimit(30);
 
     //Windows Open.
         //Beginning While.
@@ -160,14 +158,19 @@ int main() {
                             //Close Window.
                             if(e.type==Event::Closed) {
                                 music.stop();
+                                sadMusic.stop();
                                 soundBye.play();
-
-                                sleep(seconds(1));
-
+                                sleep(seconds(1.5));
                                 w.close();
                             }//End If.
 
                     }//End While Event Action.
+
+                if(vidas == 0 && !missed){ //Si las vidas son iguales a 0 aparece un cartel de perdiste y la musica triste.
+                    music.stop();
+                    sadMusic.play();
+                    missed=true;
+                }
 
                     if(vidas > 0) {//Comienzo if si la vidas son mayores a 0 podes jugar.
 
@@ -187,6 +190,15 @@ int main() {
                             if (!ball.isDrew) {
                                 ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
                             }
+                        }
+
+                        // Para el turbo
+                        if (Keyboard::isKeyPressed(Keyboard::T)) {
+
+                            w.setFramerateLimit(120);
+                        }else{
+
+                            w.setFramerateLimit(30);
                         }
 
                         //Move Left.
@@ -222,6 +234,7 @@ int main() {
 
                     }//Fin if si vidas > 0.
 
+
                 //Refresh Screen.
                 w.clear(Color(20, 20, 100, 150));
 
@@ -236,9 +249,7 @@ int main() {
                 w.draw(*txtVidas);
 
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
-                    music.stop();
                     w.draw(*txtPerdiste);
-                    sadMusic.play();
                 }
 
                 //Paste Objects in Window.

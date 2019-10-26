@@ -11,10 +11,10 @@ class Ball {
     //Private Variables.
 private:
     float velBall;
+    float velBallX;
+    float velBallY;
     float xBall;
     float yBall;
-    bool direccionY; // True = Up . False = Down
-    bool direccionX; // True = Right . False = Left
     Sprite sBall;
     float radioBall;
     Texture tBall;
@@ -25,6 +25,7 @@ public:
     Ball(float xBall, float yBall, Texture *texturaBall);
     ~Ball();
     float getRadio(Texture *texturaBall);
+    float deltaX(float xBall, float longbar, float xBar, float ballSize);
     void draw(RenderWindow *w);
     void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition);
     void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);

@@ -52,7 +52,7 @@ int main() {
     txtPerdiste = new Text();
 
     //Font Assignment.
-    fuenteRetro->loadFromFile("Retro.ttf");
+    fuenteRetro->loadFromFile("fuentes/Retro.ttf");
 
     //Text Configuration.
     txtVidas->setFont(*fuenteRetro);
@@ -80,27 +80,27 @@ int main() {
 
     //Sounds.
     Sound soundGolpe;
-    if(!bufferGolpe.loadFromFile("Golpe.wav")){
+    if(!bufferGolpe.loadFromFile("audios/Golpe.wav")){
         std::cout<<"No se pudo cargar el sonido"<<std::endl;
     }
     Sound soundRebote;
-    if(!bufferRebote.loadFromFile("Rebote.wav")){
+    if(!bufferRebote.loadFromFile("audios/Rebote.wav")){
         std::cout<<"No se pudo cargar el sonido"<<std::endl;
     }
     Sound soundBye;
-    if(!bufferBye.loadFromFile("Bye.wav")){
+    if(!bufferBye.loadFromFile("audios/Bye.wav")){
         std::cout<<"No se pudo cargar el sonido"<<std::endl;
     }
 
     //Music.
     Music music;
-    if(!music.openFromFile("Tetrismusic.wav")){
+    if(!music.openFromFile("audios/Tetrismusic.wav")){
         std::cout<<"No se pudo cargar la musica"<<std::endl;
     }
 
     bool missed = false; //Para musica triste
     Music sadMusic;
-    if(!sadMusic.openFromFile("Sadmusic.wav")){
+    if(!sadMusic.openFromFile("audios/Sadmusic.wav")){
         std::cout<<"No se pudo cargar la musica"<<std::endl;
     }
 

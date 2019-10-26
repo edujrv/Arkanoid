@@ -48,15 +48,18 @@ int main() {
     txtVidas = new Text();
     Text * numVidas;
     numVidas = new Text();
-    Text * txtPerdiste;
-    txtPerdiste = new Text();
+    Text * txtGameOver;
+    txtGameOver = new Text();
+    Text * txtTryAgain;
+    txtTryAgain = new Text();
+
 
     //Font Assignment.
     fuenteRetro->loadFromFile("fuentes/Retro.ttf");
 
     //Text Configuration.
     txtVidas->setFont(*fuenteRetro);
-    txtVidas->setString("VIDAS");
+    txtVidas->setString("LIFES");
     txtVidas->setPosition(0,0);
     txtVidas->setFillColor(Color::Red);
     txtVidas->setCharacterSize(20);
@@ -66,12 +69,19 @@ int main() {
     numVidas->setFillColor(Color::Red);
     numVidas->setCharacterSize(20);
 
-    txtPerdiste->setString("PERDISTE");
-    txtPerdiste->setFont(*fuenteRetro);
-    txtPerdiste->setFillColor(Color::Red);
-    txtPerdiste->setCharacterSize(60);
-    txtPerdiste->setPosition(desktopX/2,desktopY/2);
-    txtPerdiste->setOrigin(txtPerdiste->getGlobalBounds().width/2, txtPerdiste->getGlobalBounds().height/2);
+    txtGameOver->setString("GAME OVER");
+    txtGameOver->setFont(*fuenteRetro);
+    txtGameOver->setFillColor(Color::Red);
+    txtGameOver->setCharacterSize(60);
+    txtGameOver->setPosition(desktopX / 2, desktopY / 2 - 120);
+    txtGameOver->setOrigin(txtGameOver->getGlobalBounds().width / 2, txtGameOver->getGlobalBounds().height / 2);
+
+    txtTryAgain->setString("Press space to try again");
+    txtTryAgain->setFont(*fuenteRetro);
+    txtTryAgain->setFillColor(Color::Red);
+    txtTryAgain->setCharacterSize(30);
+    txtTryAgain->setPosition(desktopX/2 - 3,desktopY/2 - 30);
+    txtTryAgain->setOrigin(txtTryAgain->getGlobalBounds().width/2, txtTryAgain->getGlobalBounds().height/2);
 
     //Buffers.
     SoundBuffer bufferGolpe;
@@ -249,7 +259,14 @@ int main() {
                 w.draw(*txtVidas);
 
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
-                    w.draw(*txtPerdiste);
+                    w.draw(*txtGameOver);
+                    w.draw(*txtTryAgain);
+                    if (Keyboard::isKeyPressed(Keyboard::Space)){
+                        vidas = 3;
+                        sadMusic.stop();
+                        music.play();
+                    }
+
                 }
 
                 //Paste Objects in Window.

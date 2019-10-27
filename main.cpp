@@ -3,12 +3,15 @@
 #include <SFML/Audio.hpp>
 #include "Playerbar.h"
 #include "Ball.h"
+#include "Menu.h"
 
 using namespace sf;
 
 //Beginning of Main.
 int main() {
     // Variables
+    char menu='V';
+
 
     // Windows Resolutions.
    unsigned int windowHeight= 720;
@@ -25,6 +28,9 @@ int main() {
 
     //Window Loading.
     RenderWindow w(VideoMode(windowWidth,windowHeight), "Breaking Bricks");
+
+    //Menu.
+    Menu menuprincipal(w.getSize().x, w.getSize().y);
 
     //Initial Object Positions.
     //--->//Playerbar:
@@ -52,6 +58,8 @@ int main() {
     txtGameOver = new Text();
     Text * txtTryAgain;
     txtTryAgain = new Text();
+    Text * txtQuit;
+    txtQuit = new Text();
 
 
     //Font Assignment.
@@ -82,6 +90,13 @@ int main() {
     txtTryAgain->setCharacterSize(30);
     txtTryAgain->setPosition(desktopX/2 - 3,desktopY/2 - 30);
     txtTryAgain->setOrigin(txtTryAgain->getGlobalBounds().width/2, txtTryAgain->getGlobalBounds().height/2);
+
+    txtQuit->setString("Press esc to quit");
+    txtQuit->setFont(*fuenteRetro);
+    txtQuit->setFillColor(Color::Red);
+    txtQuit->setCharacterSize(30);
+    txtQuit->setPosition(desktopX/2 + 40 ,desktopY/2 + 30);
+    txtQuit->setOrigin(txtTryAgain->getGlobalBounds().width/2, txtTryAgain->getGlobalBounds().height/2);
 
     //Buffers.
     SoundBuffer bufferGolpe;
@@ -114,13 +129,21 @@ int main() {
         std::cout<<"No se pudo cargar la musica"<<std::endl;
     }
 
+    Music menuMusic;
+    if(!menuMusic.openFromFile("audios/Boquita.wav")){
+        std::cout<<"No se pudo cargar la musica"<<std::endl;
+    }
+
     //Music Loading.
     music.setVolume(10);
-    music.play();
     music.setLoop(true);
 
-    sadMusic.setVolume(60);//Arreglar musica triste.
+    sadMusic.setVolume(60);
     sadMusic.setLoop(true);
+
+    menuMusic.setVolume(20);
+    menuMusic.play();
+    menuMusic.setLoop(true);
 
     //Sounds Assignment.
     soundGolpe.setBuffer(bufferGolpe);
@@ -131,18 +154,24 @@ int main() {
     Texture tPlayerbar;
     Texture tBall;
     Texture tScreenBackground;
+    Texture tMenuBackground;
 
     // Sprite screen background
     Sprite sScreenBackground;
+    Sprite sMenuBackground;
 
     //Texture Loading.
     tPlayerbar.loadFromFile("imagenes/playerbar.png");
     tBall.loadFromFile("imagenes/ball.png");
     tScreenBackground.loadFromFile("imagenes/fondo.jpg");
+    tMenuBackground.loadFromFile("imagenes/fondomenu.jpg");
 
     // Background sprite and full screen setting
     sScreenBackground.setTexture(tScreenBackground);
     sScreenBackground.setScale(((float)w.getSize().x / sScreenBackground.getTexture()->getSize().x), ((float)w.getSize().y / sScreenBackground.getTexture()->getSize().y));
+
+    sMenuBackground.setTexture(tMenuBackground);
+    sMenuBackground.setScale(((float)w.getSize().x / sMenuBackground.getTexture()->getSize().x), ((float)w.getSize().y / sMenuBackground.getTexture()->getSize().y));
 
     //Texture Assignment.
     Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
@@ -168,14 +197,40 @@ int main() {
                             //Close Window.
                             if(e.type==Event::Closed) {
                                 music.stop();
+                                menuMusic.stop();
                                 sadMusic.stop();
                                 soundBye.play();
                                 sleep(seconds(1.5));
                                 w.close();
                             }//End If.
+                            if(menu=='V'){
+                                if (Keyboard::isKeyPressed(Keyboard::Up)) {
+                                    menuprincipal.moveup();
+                                }
+                                if (Keyboard::isKeyPressed(Keyboard::Down)) {
+                                    menuprincipal.movedown();
+                                }
+                                if (Keyboard::isKeyPressed(Keyboard::Enter)) {
+                                    switch (menuprincipal.getselecteditemindex()){
+                                        case 0:
+                                            menuMusic.stop();
+                                            music.play();
+                                            menu='F';
+                                            break;
+                                        case 1:
+                                            menuMusic.stop();
+                                            soundBye.play();
+                                            sleep(seconds(1.5));
+                                            w.close();
+                                            break;
+                                    }
+
+                                }
+                            }
 
                     }//End While Event Action.
 
+                    if(menu=='F'){
                 if(vidas == 0 && !missed){ //Si las vidas son iguales a 0 aparece un cartel de perdiste y la musica triste.
                     music.stop();
                     sadMusic.play();
@@ -244,12 +299,13 @@ int main() {
 
                     }//Fin if si vidas > 0.
 
-
                 //Refresh Screen.
                 w.clear(Color(20, 20, 100, 150));
 
+                    if(menu=='F'){
                 //Asignacion de la cantidad de vidas actuales.
                 numVidas->setString(std::to_string(vidas));
+            }
 
                 //Object Illustration.
                 w.draw(sScreenBackground);
@@ -261,14 +317,26 @@ int main() {
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
                     w.draw(*txtGameOver);
                     w.draw(*txtTryAgain);
+                    w.draw(*txtQuit);
                     if (Keyboard::isKeyPressed(Keyboard::Space)){
                         vidas = 3;
                         sadMusic.stop();
+                        missed=false;
                         music.play();
+                    }
+                    if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                        sadMusic.stop();
+                        soundBye.play();
+                        sleep(seconds(1.5));
+                        w.close();
                     }
 
                 }
-
+                    }//Fin menu
+                    else{
+                        w.draw(sMenuBackground);
+                        menuprincipal.draw(w);
+                    }
                 //Paste Objects in Window.
                 w.display();
 

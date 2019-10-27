@@ -18,7 +18,7 @@ Menu::Menu(float width, float hight) {
     textm[1].setCharacterSize(40);
     textm[1].setPosition(Vector2f(width-(width/6), hight/3 * 2));
 
-    selecteditemindex=0;
+    selectedItemIndex=0;
 }
 
 void Menu::draw(RenderWindow &w) {
@@ -31,30 +31,30 @@ void Menu::draw(RenderWindow &w) {
 
 }
 
-void Menu::moveup() {
+void Menu::moveUp() {
 
-    if(selecteditemindex-1 >= 0){
-        textm[selecteditemindex].setFillColor(Color::White);
-        textm[selecteditemindex].setCharacterSize(40);
-        selecteditemindex--;
-        textm[selecteditemindex].setFillColor(Color::Red);
-        textm[selecteditemindex].setCharacterSize(60);
+    if(selectedItemIndex-1 >= 0){
+        textm[selectedItemIndex].setFillColor(Color::White);
+        textm[selectedItemIndex].setCharacterSize(40);
+        selectedItemIndex--;
+        textm[selectedItemIndex].setFillColor(Color::Red);
+        textm[selectedItemIndex].setCharacterSize(60);
     }
 
 }
 
-void Menu::movedown() {
-    if(selecteditemindex+1 <2){
-        textm[selecteditemindex].setFillColor(Color::White);
-        textm[selecteditemindex].setCharacterSize(40);
-        selecteditemindex++;
-        textm[selecteditemindex].setFillColor(Color::Red);
-        textm[selecteditemindex].setCharacterSize(60);
+void Menu::moveDown() {
+    if(selectedItemIndex+1 <2){
+        textm[selectedItemIndex].setFillColor(Color::White);
+        textm[selectedItemIndex].setCharacterSize(40);
+        selectedItemIndex++;
+        textm[selectedItemIndex].setFillColor(Color::Red);
+        textm[selectedItemIndex].setCharacterSize(60);
     }
 }
 
-int Menu::getselecteditemindex() {
-    return selecteditemindex;
+int Menu::getSelectedItemIndex() {
+    return selectedItemIndex;
 }
 
 Menu::~Menu() = default;

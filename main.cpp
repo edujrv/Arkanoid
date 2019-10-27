@@ -17,10 +17,10 @@ int main() {
    unsigned int windowHeight= 720;
    unsigned int windowWidth= 1080;
 
-    // Original ball size
-    float ballSize = 28.7;
-    // Original playerbar size
-    float playerbarSize = 127.8;
+
+    float ballSize = 28.7;  // Original ball size
+
+    float playerbarSize = 127.8;    // Original playerbar size
 
     //Scoreboard Settings.
     int vidas= 3;
@@ -205,13 +205,13 @@ int main() {
                             }//End If.
                             if(menu=='V'){
                                 if (Keyboard::isKeyPressed(Keyboard::Up)) {
-                                    menuprincipal.moveup();
+                                    menuprincipal.moveUp();
                                 }
                                 if (Keyboard::isKeyPressed(Keyboard::Down)) {
-                                    menuprincipal.movedown();
+                                    menuprincipal.moveDown();
                                 }
                                 if (Keyboard::isKeyPressed(Keyboard::Enter)) {
-                                    switch (menuprincipal.getselecteditemindex()){
+                                    switch (menuprincipal.getSelectedItemIndex()){
                                         case 0:
                                             menuMusic.stop();
                                             music.play();

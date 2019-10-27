@@ -1,6 +1,3 @@
-//
-// Created by fbara_ on 10/27/2019.
-//
 
 #ifndef ARKANOID_MENU_H
 #define ARKANOID_MENU_H
@@ -11,7 +8,7 @@ using namespace sf;
 
 class Menu {
 private:
-    int selecteditemindex;
+    int selectedItemIndex;
     Font fontm;
     Text textm[2];
 public:
@@ -19,9 +16,9 @@ public:
     ~Menu();
 
     void draw(RenderWindow &w);
-    void moveup();
-    void movedown();
-    int getselecteditemindex();
+    void moveUp();
+    void moveDown();
+    int getSelectedItemIndex();
 
 };
 

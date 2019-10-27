@@ -6,7 +6,7 @@
 Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
 
     sBall.setTexture(*texturaBall);   //Sprite Loading.
-    sBall.setScale(0.7, 0.7);  //Object Size.
+    sBall.setScale(0.7, 0.7);  //Object Size. 0.7
     tBall = *texturaBall;
 
 

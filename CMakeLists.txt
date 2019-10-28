@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(SFML REQUIRED COMPONENTS system graphics window audio)
 set(SFML_STATIC_LIBRARIES TRUE)
 
-add_executable(mySFML main.cpp Playerbar.cpp Playerbar.h Ball.cpp Ball.h Menu.cpp Menu.h)
+add_executable(mySFML main.cpp Playerbar.cpp Playerbar.h Ball.cpp Ball.h Menu.cpp Menu.h Textos.cpp Textos.h)
 
 target_link_libraries(mySFML sfml-graphics sfml-window sfml-system sfml-audio)
 

@@ -4,6 +4,7 @@
 #include "Playerbar.h"
 #include "Ball.h"
 #include "Menu.h"
+#include "Textos.h"
 
 using namespace sf;
 
@@ -12,19 +13,28 @@ int main() {
     // Variables
     char menu='V';
 
-
     // Windows Resolutions.
    unsigned int windowHeight= 720;
    unsigned int windowWidth= 1080;
 
 
     float ballSize = 28.7;  // Original ball size
-
     float playerbarSize = 127.8;    // Original playerbar size
 
     //Scoreboard Settings.
-    int vidas= 3;
+    int vidas = 3;
     char resetPosition = 'F'; //Setea la playerbar en el centro cuando la pelota cae por el vacio.
+
+    //Texts
+    Font * retroFont = new Font();
+    retroFont->loadFromFile("fuentes/Retro.ttf");
+    Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
+    Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) - 80);
+    Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) - 40);
+    Textos lifes("LIFES: ",retroFont,40, 0, 0);
+    Textos numLifes("3",retroFont,40, 100, 0);
+
+
 
     //Window Loading.
     RenderWindow w(VideoMode(windowWidth,windowHeight), "Breaking Bricks");
@@ -45,58 +55,7 @@ int main() {
     float xBall = (w.getSize().x/2)-(ballSize/2);
     float yBall = yPlayerbar + 2;
 
-    //Font Print on Windows Declaration.
-    Font * fuenteRetro;
-    fuenteRetro = new Font();
 
-    //Text Print on Windows Declaration.
-    Text * txtVidas;
-    txtVidas = new Text();
-    Text * numVidas;
-    numVidas = new Text();
-    Text * txtGameOver;
-    txtGameOver = new Text();
-    Text * txtTryAgain;
-    txtTryAgain = new Text();
-    Text * txtQuit;
-    txtQuit = new Text();
-
-
-    //Font Assignment.
-    fuenteRetro->loadFromFile("fuentes/Retro.ttf");
-
-    //Text Configuration.
-    txtVidas->setFont(*fuenteRetro);
-    txtVidas->setString("LIFES");
-    txtVidas->setPosition(0,0);
-    txtVidas->setFillColor(Color::Red);
-    txtVidas->setCharacterSize(20);
-
-    numVidas->setFont(*fuenteRetro);
-    numVidas->setPosition(50,0);
-    numVidas->setFillColor(Color::Red);
-    numVidas->setCharacterSize(20);
-
-    txtGameOver->setString("GAME OVER");
-    txtGameOver->setFont(*fuenteRetro);
-    txtGameOver->setFillColor(Color::Red);
-    txtGameOver->setCharacterSize(60);
-    txtGameOver->setPosition(desktopX / 2, desktopY / 2 - 120);
-    txtGameOver->setOrigin(txtGameOver->getGlobalBounds().width / 2, txtGameOver->getGlobalBounds().height / 2);
-
-    txtTryAgain->setString("Press space to try again");
-    txtTryAgain->setFont(*fuenteRetro);
-    txtTryAgain->setFillColor(Color::Red);
-    txtTryAgain->setCharacterSize(30);
-    txtTryAgain->setPosition(desktopX/2 - 3,desktopY/2 - 30);
-    txtTryAgain->setOrigin(txtTryAgain->getGlobalBounds().width/2, txtTryAgain->getGlobalBounds().height/2);
-
-    txtQuit->setString("Press esc to quit");
-    txtQuit->setFont(*fuenteRetro);
-    txtQuit->setFillColor(Color::Red);
-    txtQuit->setCharacterSize(30);
-    txtQuit->setPosition(desktopX/2 + 40 ,desktopY/2 + 30);
-    txtQuit->setOrigin(txtTryAgain->getGlobalBounds().width/2, txtTryAgain->getGlobalBounds().height/2);
 
     //Buffers.
     SoundBuffer bufferGolpe;
@@ -303,21 +262,43 @@ int main() {
                 w.clear(Color(20, 20, 100, 150));
 
                     if(menu=='F'){
+
                 //Asignacion de la cantidad de vidas actuales.
-                numVidas->setString(std::to_string(vidas));
+                switch (vidas) {
+                    case 1:{
+                        numLifes.setMessage("1");
+                        break;
+                    }
+                    case 2:{
+                        numLifes.setMessage("2");
+                        break;
+                    }
+                    case 3:{
+                        numLifes.setMessage("3");
+                        break;
+                    }
+                    default:{
+                        numLifes.setMessage("0");
+                        break;
+                    }
+                }
+
             }
 
                 //Object Illustration.
                 w.draw(sScreenBackground);
                 playerbar.dibujar(&w);
                 ball.draw(&w);
-                w.draw(*numVidas);
-                w.draw(*txtVidas);
+
+                lifes.draw(&w);
+                numLifes.draw(&w);
+
 
                 if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
-                    w.draw(*txtGameOver);
-                    w.draw(*txtTryAgain);
-                    w.draw(*txtQuit);
+                   gameOver.draw(&w);
+                    tryAgain.draw(&w);
+                    quit.draw(&w);
+
                     if (Keyboard::isKeyPressed(Keyboard::Space)){
                         vidas = 3;
                         sadMusic.stop();

@@ -14,8 +14,8 @@ int main() {
     char menu='V';
 
     // Windows Resolutions.
-   unsigned int windowHeight= 952; // original del fondo 1152
-   unsigned int windowWidth= 1848; // original del fondo 2048
+   unsigned int windowHeight= 782; // original del fondo 1152
+   unsigned int windowWidth= 1368; // original del fondo 2048
 
 
     float ballSize = 28.7;  // Original ball size

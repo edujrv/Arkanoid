@@ -14,8 +14,8 @@ int main() {
     char menu='V';
 
     // Windows Resolutions.
-   unsigned int windowHeight= 720;
-   unsigned int windowWidth= 1080;
+   unsigned int windowHeight= 952; // original del fondo 1152
+   unsigned int windowWidth= 1848; // original del fondo 2048
 
 
     float ballSize = 28.7;  // Original ball size
@@ -44,15 +44,15 @@ int main() {
 
     //Initial Object Positions.
     //--->//Playerbar:
-    float desktopX = (float)windowWidth;
-    float desktopY = (float)windowHeight;
 
-    float xPlayerbar= (desktopX / 2) - (playerbarSize / 2);
-    float yPlayerbar = desktopY - 100;
+
+
+    float xPlayerbar= (float) (windowWidth / 2) - (playerbarSize / 2);
+    float yPlayerbar =(float) windowHeight - 100;
 
     //--->//Ball:
 
-    float xBall = (w.getSize().x/2)-(ballSize/2);
+    float xBall =(float) (w.getSize().x/2)-(ballSize/2);
     float yBall = yPlayerbar + 2;
 
 
@@ -122,7 +122,7 @@ int main() {
     //Texture Loading.
     tPlayerbar.loadFromFile("imagenes/playerbar.png");
     tBall.loadFromFile("imagenes/ball.png");
-    tScreenBackground.loadFromFile("imagenes/fondo.jpg");
+    tScreenBackground.loadFromFile("imagenes/fondoAlargado.jpg");
     tMenuBackground.loadFromFile("imagenes/fondomenu.jpg");
 
     // Background sprite and full screen setting
@@ -206,7 +206,7 @@ int main() {
 
                         //Move Right.
                         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                            if (playerbar.xPlayerbar >= (float) desktopX - (longBar * 0.2)) {
+                            if (playerbar.xPlayerbar >= (float) windowWidth - (longBar * 0.2)) {
                                 std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
                             } else {
                                 playerbar.mover('d');
@@ -246,11 +246,11 @@ int main() {
                             }
                         }
                         if (ball.isDrew) {
-                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, desktopY, desktopX, ballSize,  &vidas,
+                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, windowHeight, windowWidth, ballSize, &vidas,
                                       &resetPosition);
                             if (resetPosition == 'V') {
                                 soundGolpe.play();
-                                playerbar.centrar(desktopX, playerbarSize);
+                                playerbar.centrar(windowWidth, playerbarSize);
                                 resetPosition = 'F';
                             }
 

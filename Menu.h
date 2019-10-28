@@ -2,7 +2,7 @@
 #ifndef ARKANOID_MENU_H
 #define ARKANOID_MENU_H
 
-
+#include "Textos.h"
 #include <SFML/Graphics.hpp>
 using namespace sf;
 

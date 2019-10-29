@@ -5,6 +5,7 @@
 #include "Ball.h"
 #include "Menu.h"
 #include "Textos.h"
+#include "Vidas.h"
 
 using namespace sf;
 
@@ -15,13 +16,14 @@ int main() {
 
     // Windows Resolutions.
    unsigned int windowHeight= 782; // original del fondo 1152
-   unsigned int windowWidth= 1368; // original del fondo 2048
+   unsigned int windowWidth= 1368; // original del fondo 2048   1368
 
 
     float ballSize = 28.7;  // Original ball size
     float playerbarSize = 127.8;    // Original playerbar size
 
     //Scoreboard Settings.
+
     int vidas = 3;
     char resetPosition = 'F'; //Setea la playerbar en el centro cuando la pelota cae por el vacio.
 

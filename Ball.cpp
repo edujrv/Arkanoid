@@ -74,7 +74,9 @@ float Ball::getRadio(Texture *texturaBall) {
 
 
 void Ball::move(float longBar, float highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize,
-                int *vidas, char *resetPosition) {
+                int *vidas, char *resetPosition,char* perdidaVida, char* colisiono) {
+
+
 
     if (isDrew) {
 
@@ -84,6 +86,7 @@ void Ball::move(float longBar, float highBar, float xBar, float yBar, float desk
         // DEFAULT CONDITION
         if (yBall <= 0) {
             velBallY *= -1;
+            *colisiono='V';
         }
 
         //CONDICION DEFAULT
@@ -92,15 +95,18 @@ void Ball::move(float longBar, float highBar, float xBar, float yBar, float desk
                 velBallY *= -1;
                 velBallX = deltaX(xBall, longBar, xBar, ballSize);
                 yBall = (yBar-1)-ballSize;
+                *colisiono='V';
             } else {
                 if (yBall >= desktopY) {
                     isDrew = false;
+                    *perdidaVida='V';
                     (*vidas)--;
                     *resetPosition = 'V';
                     velBallY = abs(velBallY);
                 }
 
             }
+
         }
 
         /*
@@ -112,6 +118,7 @@ void Ball::move(float longBar, float highBar, float xBar, float yBar, float desk
         // sBall.setPosition(xBall, yBall);
         if ((xBall <= 0) || (xBall >= (desktopX - ballSize))) {
             velBallX *= -1;
+            *colisiono='V';
         }
     }
 

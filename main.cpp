@@ -1,3 +1,4 @@
+//LIBRARIES:
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -6,326 +7,404 @@
 #include "Menu.h"
 #include "Textos.h"
 #include "Vidas.h"
+#include "Stack.h"
+//  //  //  //  //  //  //  //  //  //  //
 
+//TERMINOLOGY:
 using namespace sf;
+//  //  //  //  //  //  //  //  //  //  //
 
-//Beginning of Main.
+
+//BEGINNING OF MAIN:
 int main() {
-    // Variables
-    char menu='V';
 
-    // Windows Resolutions.
-   unsigned int windowHeight= 782; // original del fondo 1152
-   unsigned int windowWidth= 1368; // original del fondo 2048   1368
+    // VARIABLES:
 
+       //*  WINDOW:
+         //-   RESOLUTIONS:
+            unsigned int windowHeight= 782;
+            unsigned int windowWidth= 1368;
+            /*
+             * windowHeight:    Alto de la pantalla. -> Original del fondo |1152|.
+             * windowWidth:     Ancho de la pantalla. ->Original del fondo |2048|o|1368|.
+             * */
+         //-   LOADING:
+            RenderWindow w(VideoMode(windowWidth,windowHeight), "Breaking Bricks");
+         //-   PERFORMANCE:
+            w.setFramerateLimit(40);
+            char resetPosition = 'F';
+            char colisiono = 'F';
+            /*
+             * resetPosition: Si esta es verdadera, la barra del usuario se dibujara en el centro de la pantalla.
+             * colisiono: Si es verdadera signufica que la pelota colisiono con algo.
+             */
 
-    float ballSize = 28.7;  // Original ball size
-    float playerbarSize = 127.8;    // Original playerbar size
+       //*  MENU:
+         //-   LOADING:
+            Menu menuPrincipal(w.getSize().x, w.getSize().y);
+         //-   PROPERTIES:
+            char menu='V';
+            /*
+             * Mientras este en verdadero, el usuario se mantendrá en el menú.
+             */
 
-    //Scoreboard Settings.
+       //*  STACKS:
+         //-   LOADING:
+            Stack<int> stackFullHeart;
+            Stack<int> stackEmptyHeart;
+            /*
+             * stackFullHeart:  Esta pila contiente la cantidad de corazones llenos.
+             * stackEmptyHeart: Esta pila contiente la cantidad de corazones vacíos.
+             */
 
-    int vidas = 3;
-    char resetPosition = 'F'; //Setea la playerbar en el centro cuando la pelota cae por el vacio.
+       //*  LIFES:
+         //-   LOADING:
+            int vidas = 3;
+         //-   STACK CHARGING:
+            for(int i=0;i<3;i++){
+                stackFullHeart.push(1);
+             }//END FOR.
+         //-   PROPERTIES:
+            char perdidaVida='F';
+            /*
+             * Cuando esta se vuelva verdadera, significara que el usuario perdió una vida.
+             */
 
-    //Texts
-    Font * retroFont = new Font();
-    retroFont->loadFromFile("fuentes/Retro.ttf");
-    Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
-    Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) - 80);
-    Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) - 40);
-    Textos lifes("LIFES: ",retroFont,40, 0, 0);
-    Textos numLifes("3",retroFont,40, 100, 0);
+       //*  TEXTS:
+         //-   FONT LOADING:
+            Font * retroFont = new Font();
+            retroFont->loadFromFile("fuentes/Retro.ttf");
+         //-   TEXTS LOADING:
+            Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
+            Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) - 80);
+            Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) - 40);
+            Textos lifes("LIFES: ",retroFont,40, 0, 0);
+            Textos numLifes("3",retroFont,40, 100, 0);
 
+       //*  NOISES:
+         //-   BUFFERS LOADING:
+            SoundBuffer bufferHerida;
+            SoundBuffer bufferRebote;
+            SoundBuffer bufferBye;
+            SoundBuffer bufferMenuMove;
+            SoundBuffer bufferMenuSelect;
+            /*
+             * bufferHerida: Sonara cuando se pierda una vida.
+             * bufferRebote:Sonara cuando la pelota rebote en alguna superficie.
+             * bufferBye:   Sonara cuando se cierre el programa.
+             * bufferMenuMove: Sonara cuando se baje o suba por las opciones del menu.
+             * bufferMenuSelect: Sonara cuando se seleccione una opcion en el menu.
+             */
+         //-   SOUNDS LOADING:
+            Sound soundMenuSelect;
+            if(!bufferMenuSelect.loadFromFile("audios/Menuselect.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
+            Sound soundMenuMove;
+            if(!bufferMenuMove.loadFromFile("audios/Menumove.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
+            Sound soundHerida;
+            if(!bufferHerida.loadFromFile("audios/Golpe.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
+            Sound soundRebote;
+            if(!bufferRebote.loadFromFile("audios/Rebote.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
+            Sound soundBye;
+            if(!bufferBye.loadFromFile("audios/Bye.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
+         //-   SOUNDS ASSIGNMENT:
+            soundHerida.setBuffer(bufferHerida);
+            soundRebote.setBuffer(bufferRebote);
+            soundBye.setBuffer(bufferBye);
+            soundMenuMove.setBuffer(bufferMenuMove);
+            soundMenuMove.setVolume(30);
+            soundMenuSelect.setBuffer(bufferMenuSelect);
+            soundMenuSelect.setVolume(60);
+         //-   MUSIC LOADING:
+            Music turboMusic;
+            if(!turboMusic.openFromFile("audios/Turbomusic.wav")){
+                std::cout<<"No se pudo cargar la musica"<<std::endl;
+            }
+            Music gameMusic;
+            if(!gameMusic.openFromFile("audios/Tetrismusic.wav")){
+                std::cout<<"No se pudo cargar la musica"<<std::endl;
+            }
+            Music sadMusic;
+            if(!sadMusic.openFromFile("audios/Sadmusic.wav")){
+                std::cout<<"No se pudo cargar la musica"<<std::endl;
+            }
+            Music menuMusic;
+            if(!menuMusic.openFromFile("audios/Menumusic.wav")){
+                std::cout<<"No se pudo cargar la musica"<<std::endl;
+            }
+         //-   MUSIC SETTINGS:
+            gameMusic.setVolume(40);
+            gameMusic.setLoop(true);
+            sadMusic.setVolume(60);
+            sadMusic.setLoop(true);
+            menuMusic.setVolume(40);
+            menuMusic.play();
+            menuMusic.setLoop(true);
+            turboMusic.setVolume(40);
+            turboMusic.setLoop(true);
+            /*
+             * gameMusic:   Musica que sonara durante la partida.
+             * sadMusic:    Musica que sonara al perder.
+             * menuMusic:   Musica que sonara durante el menú.
+             */
+         //-   PROPERTIES:
+            bool missed = false;
+            int turboOn=1;
+            /*
+             * missed: Si esta en verdadero, indicara que se ha perdido y empezara a sonar la música triste.
+             * turboOn: Si vale 1, entonces se activara la musica rapida.
+             */
 
+       //*  OBJECTS:
+         //-   SET TEXTURES:
+            Texture tPlayerbar;
+            tPlayerbar.loadFromFile("imagenes/playerbar.png");
+            Texture tBall;
+            tBall.loadFromFile("imagenes/ball.png");
+            Texture tScreenBackground;
+            tScreenBackground.loadFromFile("imagenes/fondoAlargado.jpg");
+            Texture tMenuBackground;
+            tMenuBackground.loadFromFile("imagenes/fondomenu.jpg");
+            /*
+             * tPlayerbar:          Textura de la barra del jugador.
+             * tBall:               Textura de la pelota.
+             * tScreenBackground:   Textura del fondo de pantalla al jugar.
+             * tMenuBackground:     Textura del fondo de pantalla en el menú.
+             */
+         //-   SET SPRITES:
+            Sprite sScreenBackground;
+            sScreenBackground.setTexture(tScreenBackground);
+            sScreenBackground.setScale(((float)w.getSize().x / sScreenBackground.getTexture()->getSize().x), ((float)w.getSize().y / sScreenBackground.getTexture()->getSize().y));
+            Sprite sMenuBackground;
+            sMenuBackground.setTexture(tMenuBackground);
+            sMenuBackground.setScale(((float)w.getSize().x / sMenuBackground.getTexture()->getSize().x), ((float)w.getSize().y / sMenuBackground.getTexture()->getSize().y));
+         //-   SET DIMENSIONS:
+            float ballSize = 28.7;  // Original ball size
+            float playerbarSize = 127.8;    // Original playerbar size
+            /*
+             * ballSize:        Tamaño original de la pelota.
+             * playerbarSize:   Tamaño original de la barra del jugador.
+             */
+         //-   SET POSITIONS:
+            float xPlayerbar= (float) (windowWidth / 2) - (playerbarSize / 2);
+            float yPlayerbar =(float) windowHeight - 100;
+            float xBall;
+            float yBall;
+         //-   START OBJECTS:
+            Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
+            xBall = playerbar.xPlayerbar + (playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2);
+            yBall = yPlayerbar - playerbar.getLongY(&tPlayerbar);
+            Ball ball(xBall, yBall, &tBall);
+            float longBar = playerbar.getLongX(&tPlayerbar);
+            float highBar = playerbar.getLongY(&tPlayerbar);
+       //*  SCOREBOARD:
+         //-   SCOREBOARD SETTINGS:
 
-    //Window Loading.
-    RenderWindow w(VideoMode(windowWidth,windowHeight), "Breaking Bricks");
+//  //  //  //  //  //  //  //  //  //  //
 
-    //Menu.
-    Menu menuprincipal(w.getSize().x, w.getSize().y);
-
-    //Initial Object Positions.
-    //--->//Playerbar:
-
-
-
-    float xPlayerbar= (float) (windowWidth / 2) - (playerbarSize / 2);
-    float yPlayerbar =(float) windowHeight - 100;
-
-    //--->//Ball:
-
-    float xBall =(float) (w.getSize().x/2)-(ballSize/2);
-    float yBall = yPlayerbar + 2;
-
-
-
-    //Buffers.
-    SoundBuffer bufferGolpe;
-    SoundBuffer bufferRebote;
-    SoundBuffer bufferBye;
-
-    //Sounds.
-    Sound soundGolpe;
-    if(!bufferGolpe.loadFromFile("audios/Golpe.wav")){
-        std::cout<<"No se pudo cargar el sonido"<<std::endl;
-    }
-    Sound soundRebote;
-    if(!bufferRebote.loadFromFile("audios/Rebote.wav")){
-        std::cout<<"No se pudo cargar el sonido"<<std::endl;
-    }
-    Sound soundBye;
-    if(!bufferBye.loadFromFile("audios/Bye.wav")){
-        std::cout<<"No se pudo cargar el sonido"<<std::endl;
-    }
-
-    //Music.
-    Music music;
-    if(!music.openFromFile("audios/Tetrismusic.wav")){
-        std::cout<<"No se pudo cargar la musica"<<std::endl;
-    }
-
-    bool missed = false; //Para musica triste
-    Music sadMusic;
-    if(!sadMusic.openFromFile("audios/Sadmusic.wav")){
-        std::cout<<"No se pudo cargar la musica"<<std::endl;
-    }
-
-    Music menuMusic;
-    if(!menuMusic.openFromFile("audios/Boquita.wav")){
-        std::cout<<"No se pudo cargar la musica"<<std::endl;
-    }
-
-    //Music Loading.
-    music.setVolume(10);
-    music.setLoop(true);
-
-    sadMusic.setVolume(60);
-    sadMusic.setLoop(true);
-
-    menuMusic.setVolume(20);
-    menuMusic.play();
-    menuMusic.setLoop(true);
-
-    //Sounds Assignment.
-    soundGolpe.setBuffer(bufferGolpe);
-    soundRebote.setBuffer(bufferRebote);
-    soundBye.setBuffer(bufferBye);
-
-    //Textures.
-    Texture tPlayerbar;
-    Texture tBall;
-    Texture tScreenBackground;
-    Texture tMenuBackground;
-
-    // Sprite screen background
-    Sprite sScreenBackground;
-    Sprite sMenuBackground;
-
-    //Texture Loading.
-    tPlayerbar.loadFromFile("imagenes/playerbar.png");
-    tBall.loadFromFile("imagenes/ball.png");
-    tScreenBackground.loadFromFile("imagenes/fondoAlargado.jpg");
-    tMenuBackground.loadFromFile("imagenes/fondomenu.jpg");
-
-    // Background sprite and full screen setting
-    sScreenBackground.setTexture(tScreenBackground);
-    sScreenBackground.setScale(((float)w.getSize().x / sScreenBackground.getTexture()->getSize().x), ((float)w.getSize().y / sScreenBackground.getTexture()->getSize().y));
-
-    sMenuBackground.setTexture(tMenuBackground);
-    sMenuBackground.setScale(((float)w.getSize().x / sMenuBackground.getTexture()->getSize().x), ((float)w.getSize().y / sMenuBackground.getTexture()->getSize().y));
-
-    //Texture Assignment.
-    Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
-    xBall = playerbar.xPlayerbar + (playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2);
-    yBall = yPlayerbar - playerbar.getLongY(&tPlayerbar);
-    Ball ball(xBall, yBall, &tBall);
-
-    //Performance Settings.
-    w.setFramerateLimit(30);
-
-    //Windows Open.
-        //Beginning While.
-            while (w.isOpen()){
-                //Event Statement:
+       //*  WINDOWS OPEN:
+            while (w.isOpen()){//Beginning While.
+         //-   EVENT STATEMENT:
                 Event e;
-
-                //Event Action.
-                    //Beginning While.
-                    while(w.pollEvent(e)){
-
-                        //Beginning If.
-
-                            //Close Window.
-                            if(e.type==Event::Closed) {
-                                music.stop();
+         //-   EVENT ACTION:
+                    while(w.pollEvent(e)){//Beginning While.
+                        //-   EVENT ACTION:
+                            //--   CLOSE WINDOW:
+                            if(e.type == Event::Closed) {//Beginning If.
+                                gameMusic.stop();
                                 menuMusic.stop();
                                 sadMusic.stop();
                                 soundBye.play();
                                 sleep(seconds(1.5));
                                 w.close();
                             }//End If.
-                            if(menu=='V'){
+                            //--   MENU ACTIONS:
+                            if(menu == 'V'){//Beginning If.
+                                //---   MOVE UP:
                                 if (Keyboard::isKeyPressed(Keyboard::Up)) {
-                                    menuprincipal.moveUp();
+                                    menuPrincipal.moveUp();
+                                    soundMenuMove.play();
                                 }
+                                //---   MOVE DOWN:
                                 if (Keyboard::isKeyPressed(Keyboard::Down)) {
-                                    menuprincipal.moveDown();
+                                    menuPrincipal.moveDown();
+                                    soundMenuMove.play();
                                 }
-                                if (Keyboard::isKeyPressed(Keyboard::Enter)) {
-                                    switch (menuprincipal.getSelectedItemIndex()){
-                                        case 0:
+                                //---   SELECT:
+                                if (Keyboard::isKeyPressed(Keyboard::Enter)) {//Beginning If.
+                                    switch (menuPrincipal.getSelectedItemIndex()){//Beginning Switch.
+                                        case 0://START.
+                                            soundMenuSelect.play();
                                             menuMusic.stop();
-                                            music.play();
+                                            gameMusic.play();
                                             menu='F';
                                             break;
-                                        case 1:
+                                        case 1://QUIT.
+                                            soundMenuSelect.play();
                                             menuMusic.stop();
                                             soundBye.play();
                                             sleep(seconds(1.5));
                                             w.close();
                                             break;
+                                    }//End switch.
+                                }//End if.
+                            }//End if menu.
+                    }//End while event action.
+                            //--   INGAME ACTIONS:
+                                if(menu=='F'){//Beginning If.
+                                    if((stackFullHeart.size()==0) && !missed){ //If user lose.
+                                        gameMusic.stop();
+                                        sadMusic.play();
+                                        missed=true;
+                                    }//End if.
+                                    if(stackFullHeart.size() > 0) {//If user play.
+                                        if (!ball.isDrew){//Move ball with the playerbar.
+                                            ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar,yPlayerbar); // Start on the middle of the bar
+                                        }
+                                //---   MOVE RIGHT:
+                                    if (Keyboard::isKeyPressed(Keyboard::Right)) {
+                                        if (playerbar.xPlayerbar >= (float) windowWidth - (longBar * 0.2)) {//Check limit.
+                                            std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
+                                        } else {
+                                            playerbar.mover('d');
+                                        }
+                                        if (!ball.isDrew) {//Follow the playerbar.
+                                            ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                                        }
                                     }
+                                //---   MOVE LEFT:
+                                        if (Keyboard::isKeyPressed(Keyboard::Left)) {
+                                            if (playerbar.xPlayerbar <= 0) {//Check limit.
+                                                std::cout << "Limite izquierdo de la pantalla alcanzado" << std::endl;
+                                            } else {
+                                                playerbar.mover('i');
+                                            }
+                                            if (!ball.isDrew) {//Follow the playerbar.
+                                                ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                                            }
+                                        }
+                                //---   TURBO:
+                                        if (Keyboard::isKeyPressed(Keyboard::T)) {
+                                            w.setFramerateLimit(200);
+                                            if(turboOn == 1){
+                                                gameMusic.setVolume(5);
+                                                turboMusic.play();
+                                                turboOn=0;
+                                            }
 
+                                        }else{
+                                            gameMusic.setVolume(40);
+                                            turboOn=1;
+                                            w.setFramerateLimit(40);
+                                            turboMusic.stop();
+                                        }
+                                //---   BALL RELEASE:
+                                        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+                                            if (!ball.isDrew) {
+                                                soundRebote.play();
+                                                ball.isDrew = true;
+                                            }
+                                        }
+                                //---   BALL DISPLACEMENT:
+                                        if (ball.isDrew) {//Beginning If.
+                                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, windowHeight,windowWidth,ballSize,&vidas,&resetPosition,&perdidaVida,&colisiono);
+                                            if(perdidaVida=='V'){//Lose a life.
+                                                perdidaVida='F';
+                                                stackFullHeart.pop();
+                                                stackEmptyHeart.push(1);
+                                            }
+                                            if (resetPosition == 'V') {//Restart position.
+                                            soundHerida.play();
+                                            playerbar.centrar(windowWidth, playerbarSize);
+                                            resetPosition = 'F';
+                                            }
+                                            if(colisiono == 'V'){
+                                                colisiono='F';
+                                                soundRebote.play();
+                                            }
+                                        }//End if.
+                                    }//End if user play.
+                            //--   REFRESH SCREEN:
+                                w.clear(Color(20, 20, 100, 150));
+                            //--   LIFES CONTROL:
+                                if(menu == 'F'){//Beginning of play.
+                                    switch (vidas) {//Beginning of switch.
+                                        case 1:{
+                                            numLifes.setMessage("1");
+                                            break;
+                                        }
+                                        case 2:{
+                                            numLifes.setMessage("2");
+                                            break;
+                                        }
+                                        case 3:{
+                                            numLifes.setMessage("3");
+                                            break;
+                                        }
+                                        default:{
+                                            numLifes.setMessage("0");
+                                            break;
+                                        }
+                                    }//End switch.
+                                }//End if play.
+                        //-   OBJECT ILLUSTRATION:
+                            w.draw(sScreenBackground);
+                            playerbar.dibujar(&w);
+                            ball.draw(&w);
+                            lifes.draw(&w);
+                            numLifes.draw(&w);
+                            int aux=0;
+                            for (int i=0;i<stackFullHeart.size();i++){//Draw full hearts.
+                                aux=i+1;
+                                Vidas vid(windowWidth,windowHeight,aux);
+                                vid.draw(&w,1);
+                            }
+                            for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
+                                aux=aux+1;
+                                Vidas vid(windowWidth,windowHeight,aux);
+                                vid.draw(&w,0);
+                            }
+                            //--   LOSE CONDITIONS:
+                            if(stackFullHeart.size() == 0){ //Beginning of if lose.
+                                gameOver.draw(&w);
+                                tryAgain.draw(&w);
+                                quit.draw(&w);
+                                if (Keyboard::isKeyPressed(Keyboard::Space)){
+                                    vidas = 3;
+                                    for(int i=0;i<3;i++){//Charge full hearts.
+                                        stackFullHeart.push(1);
+                                    }
+                                    for(int i=0;i<3;i++){//Empty empty hearts.
+                                        stackEmptyHeart.pop();
+                                    }
+                                    sadMusic.stop();
+                                    missed=false;
+                                    gameMusic.play();
                                 }
-                            }
-
-                    }//End While Event Action.
-
-                    if(menu=='F'){
-                if(vidas == 0 && !missed){ //Si las vidas son iguales a 0 aparece un cartel de perdiste y la musica triste.
-                    music.stop();
-                    sadMusic.play();
-                    missed=true;
-                }
-
-                    if(vidas > 0) {//Comienzo if si la vidas son mayores a 0 podes jugar.
-
-                        float longBar = playerbar.getLongX(&tPlayerbar);
-                        float highBar = playerbar.getLongY(&tPlayerbar);
-                        if (!ball.isDrew)
-                            ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar,
-                                                       yPlayerbar); // Start on the middle of the bar
-
-                        //Move Right.
-                        if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                            if (playerbar.xPlayerbar >= (float) windowWidth - (longBar * 0.2)) {
-                                std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
-                            } else {
-                                playerbar.mover('d');
-                            }
-                            if (!ball.isDrew) {
-                                ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
-                            }
-                        }
-
-                        // Para el turbo
-                        if (Keyboard::isKeyPressed(Keyboard::T)) {
-
-                            w.setFramerateLimit(120);
-                        }else{
-
-                            w.setFramerateLimit(30);
-                        }
-
-                        //Move Left.
-                        if (Keyboard::isKeyPressed(Keyboard::Left)) {
-                            if (playerbar.xPlayerbar <= 0) {
-                                std::cout << "Limite izquierdo de la pantalla alcanzado" << std::endl;
-                            } else {
-                                playerbar.mover('i');
-                            }
-                            if (!ball.isDrew) {
-                                ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
-                            }
-                        }
-
-                        //Set ball free
-                        if (Keyboard::isKeyPressed(Keyboard::Space)) {
-                            // playerbar.mover('i');
-                            if (!ball.isDrew) {
-                                soundRebote.play();
-                                ball.isDrew = true;
-                            }
-                        }
-                        if (ball.isDrew) {
-                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, windowHeight, windowWidth, ballSize, &vidas,
-                                      &resetPosition);
-                            if (resetPosition == 'V') {
-                                soundGolpe.play();
-                                playerbar.centrar(windowWidth, playerbarSize);
-                                resetPosition = 'F';
-                            }
-
-                        }
-
-                    }//Fin if si vidas > 0.
-
-                //Refresh Screen.
-                w.clear(Color(20, 20, 100, 150));
-
-                    if(menu=='F'){
-
-                //Asignacion de la cantidad de vidas actuales.
-                switch (vidas) {
-                    case 1:{
-                        numLifes.setMessage("1");
-                        break;
-                    }
-                    case 2:{
-                        numLifes.setMessage("2");
-                        break;
-                    }
-                    case 3:{
-                        numLifes.setMessage("3");
-                        break;
-                    }
-                    default:{
-                        numLifes.setMessage("0");
-                        break;
-                    }
-                }
-
-            }
-
-                //Object Illustration.
-                w.draw(sScreenBackground);
-                playerbar.dibujar(&w);
-                ball.draw(&w);
-
-                lifes.draw(&w);
-                numLifes.draw(&w);
-
-
-                if(vidas == 0){ //Si las vidas son iguales a 0 aparece un cartel de perdiste.
-                   gameOver.draw(&w);
-                    tryAgain.draw(&w);
-                    quit.draw(&w);
-
-                    if (Keyboard::isKeyPressed(Keyboard::Space)){
-                        vidas = 3;
-                        sadMusic.stop();
-                        missed=false;
-                        music.play();
-                    }
-                    if (Keyboard::isKeyPressed(Keyboard::Escape)){
-                        sadMusic.stop();
-                        soundBye.play();
-                        sleep(seconds(1.5));
-                        w.close();
-                    }
-
-                }
-                    }//Fin menu
+                                if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                                    sadMusic.stop();
+                                    soundBye.play();
+                                    sleep(seconds(1.5));
+                                    w.close();
+                                }
+                            }//End if lose.
+                    }//End if play.
                     else{
                         w.draw(sMenuBackground);
-                        menuprincipal.draw(w);
+                        menuPrincipal.draw(w);
                     }
-                //Paste Objects in Window.
-                w.display();
-
+                        //-   OBJECT ILLUSTRATION:
+                            w.display();
                               }//End While Windows Open.
-    //Closing Program.
+    //*  CLOSING PROGRAM:
     return 0;
-
-
-}
+}//END MAIN.

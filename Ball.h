@@ -3,6 +3,7 @@
 #define ARKANOID_BALL_H
 
 #include <SFML/Graphics.hpp>
+#include "Stack.h"
 using namespace sf;
 
 
@@ -27,7 +28,7 @@ public:
     float getRadio(Texture *texturaBall);
     float deltaX(float xBall, float longbar, float xBar, float ballSize);
     void draw(RenderWindow *w);
-    void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition);
+    void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition,char* perdidaVida, char* colisiono);
     void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
 
 

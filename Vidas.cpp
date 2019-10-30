@@ -4,26 +4,38 @@
 
 //using namespace sf;
 
-Vidas::Vidas(int idVida) {
+Vidas::Vidas( float width, float hight, int num) {
 
-    tVida.loadFromFile("imagenes/vida.png");
-    sVida.setTexture(tVida);
-    sVida.setScale(0.13 , 0.13);
-    posY = posY + (float)(tVida.getSize().y * idVida);
-    sVida.setPosition(posX , posY);
-    estado = true;
+
+        tVidaEmpty.loadFromFile("imagenes/vidaPerdida.png");
+        sVidaEmpty.setTexture(tVidaEmpty);
+        sVidaEmpty.setScale(0.13 , 0.13);
+        sVidaEmpty.setPosition(Vector2f(0 + (width/30),100 + hight/8 * num));
+
+
+
+
+        tVidaFull.loadFromFile("imagenes/vida.png");
+        sVidaFull.setTexture(tVidaFull);
+        sVidaFull.setScale(0.13 , 0.13);
+        sVidaFull.setPosition(Vector2f(0 + (width/30),100 + hight/8 * num));
+
+
 
 }
 
-void Vidas::setEstado(bool nuevoEstado) {
-    this->estado = nuevoEstado;
+void Vidas::cambioIndicator(int indicador){
+  indicator=indicador;
 }
 
-void Vidas::draw(RenderWindow *w) {
-    if(estado){
-        tVida.loadFromFile("imagenes/vida.png");
-    }else{
-        tVida.loadFromFile("imagenes/vidaPerdida.png");
+void Vidas::draw(RenderWindow *w, int indicador) {
+
+
+    if(indicador==0){
+        w->draw(sVidaEmpty);
     }
-    w->draw(sVida);
+        if(indicador==1){
+            w->draw(sVidaFull);
+        }
+
 }

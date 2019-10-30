@@ -363,15 +363,15 @@ int main() {
                             lifes.draw(&w);
                             numLifes.draw(&w);
                             int aux=0;
-                            for (int i=0;i<stackFullHeart.size();i++){//Draw full hearts.
+                            for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
                                 aux=i+1;
                                 Vidas vid(windowWidth,windowHeight,aux);
-                                vid.draw(&w,1);
+                                vid.draw(&w,0);
                             }
-                            for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
+                            for (int i=0;i<stackFullHeart.size();i++){//Draw full hearts.
                                 aux=aux+1;
                                 Vidas vid(windowWidth,windowHeight,aux);
-                                vid.draw(&w,0);
+                                vid.draw(&w,1);
                             }
                             //--   LOSE CONDITIONS:
                             if(stackFullHeart.size() == 0){ //Beginning of if lose.

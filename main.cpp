@@ -88,14 +88,20 @@ int main() {
             SoundBuffer bufferBye;
             SoundBuffer bufferMenuMove;
             SoundBuffer bufferMenuSelect;
+            SoundBuffer bufferBubbles;
             /*
              * bufferHerida: Sonara cuando se pierda una vida.
              * bufferRebote:Sonara cuando la pelota rebote en alguna superficie.
              * bufferBye:   Sonara cuando se cierre el programa.
              * bufferMenuMove: Sonara cuando se baje o suba por las opciones del menu.
              * bufferMenuSelect: Sonara cuando se seleccione una opcion en el menu.
+             * bufferBubbles: Sonara cuando se recarguen las vidas.
              */
          //-   SOUNDS LOADING:
+            Sound soundBubbles;
+            if(!bufferBubbles.loadFromFile("audios/Bubbles.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
             Sound soundMenuSelect;
             if(!bufferMenuSelect.loadFromFile("audios/Menuselect.wav")){
                 std::cout<<"No se pudo cargar el sonido"<<std::endl;
@@ -124,6 +130,8 @@ int main() {
             soundMenuMove.setVolume(30);
             soundMenuSelect.setBuffer(bufferMenuSelect);
             soundMenuSelect.setVolume(60);
+            soundBubbles.setBuffer(bufferBubbles);
+            soundBubbles.setVolume(60);
          //-   MUSIC LOADING:
             Music turboMusic;
             if(!turboMusic.openFromFile("audios/Turbomusic.wav")){
@@ -245,12 +253,14 @@ int main() {
                                         case 0://START.
                                             soundMenuSelect.play();
                                             menuMusic.stop();
+                                            sleep(seconds(1));
                                             gameMusic.play();
                                             menu='F';
                                             break;
                                         case 1://QUIT.
                                             soundMenuSelect.play();
                                             menuMusic.stop();
+                                            sleep(seconds(1));
                                             soundBye.play();
                                             sleep(seconds(1.5));
                                             w.close();
@@ -375,11 +385,13 @@ int main() {
                             }
                             //--   LOSE CONDITIONS:
                             if(stackFullHeart.size() == 0){ //Beginning of if lose.
+                                turboMusic.stop();
                                 gameOver.draw(&w);
                                 tryAgain.draw(&w);
                                 quit.draw(&w);
                                 if (Keyboard::isKeyPressed(Keyboard::Space)){
                                     vidas = 3;
+                                    soundBubbles.play();
                                     for(int i=0;i<3;i++){//Charge full hearts.
                                         stackFullHeart.push(1);
                                     }

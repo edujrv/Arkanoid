@@ -2,15 +2,21 @@
 
 
 //Builder.
-Playerbar::Playerbar(float xPlayerbar, float yPlayerbar, Texture *texturaPlayerbar) {
+Playerbar::Playerbar(RenderWindow* w, Texture *texturaPlayerbar, float playerbarSize) {
     //Sprite Loading.
     sPlayerbar.setTexture(*texturaPlayerbar);
     //Object Size.
     sPlayerbar.setScale(0.2,0.5);
 
     //Initial Variables.
+    float xPlayerbar=(float) (w->getSize().x / 2) - (playerbarSize / 2);
+    float yPlayerbar=(float) w->getSize().y - 100;
     this->xPlayerbar = xPlayerbar;
     this->yPlayerbar = yPlayerbar;
+    this->tPlayerbar=*texturaPlayerbar;
+    this->longPlayerbar=getLongX(texturaPlayerbar);
+    this->highPLayerbar=getLongY(texturaPlayerbar);
+    this->playerbarSize=playerbarSize;
     velPlayerbar = 10;
     longPlayerbar = 0;
     direccion = ' ';
@@ -55,8 +61,8 @@ float Playerbar::getLongY(Texture *texturaPlayerbar) {
 //End getLongX.
 
 //Centrar.
-void Playerbar::centrar(float desktopX, float playerbarSize) {
-    xPlayerbar= (desktopX / 2) - (playerbarSize / 2);
+void Playerbar::centrar(RenderWindow* w, Playerbar playerbar) {
+    xPlayerbar= (w->getSize().x / 2) - (playerbarSize / 2);
 }
 //End Centrar.
 

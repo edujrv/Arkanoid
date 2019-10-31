@@ -41,7 +41,7 @@ int main() {
 
        //*  MENU:
          //-   LOADING:
-            Menu menuPrincipal(w.getSize().x, w.getSize().y);
+            Menu menuPrincipal(&w);
          //-   PROPERTIES:
             char menu='V';
             /*
@@ -195,25 +195,10 @@ int main() {
             Sprite sMenuBackground;
             sMenuBackground.setTexture(tMenuBackground);
             sMenuBackground.setScale(((float)w.getSize().x / sMenuBackground.getTexture()->getSize().x), ((float)w.getSize().y / sMenuBackground.getTexture()->getSize().y));
-         //-   SET DIMENSIONS:
-            float ballSize = 28.7;  // Original ball size
-            float playerbarSize = 127.8;    // Original playerbar size
-            /*
-             * ballSize:        Tamaño original de la pelota.
-             * playerbarSize:   Tamaño original de la barra del jugador.
-             */
-         //-   SET POSITIONS:
-            float xPlayerbar= (float) (windowWidth / 2) - (playerbarSize / 2);
-            float yPlayerbar =(float) windowHeight - 100;
-            float xBall;
-            float yBall;
          //-   START OBJECTS:
-            Playerbar playerbar(xPlayerbar, yPlayerbar, &tPlayerbar);
-            xBall = playerbar.xPlayerbar + (playerbar.getLongX(&tPlayerbar) / 2) - (ballSize / 2);
-            yBall = yPlayerbar - playerbar.getLongY(&tPlayerbar);
-            Ball ball(xBall, yBall, &tBall);
-            float longBar = playerbar.getLongX(&tPlayerbar);
-            float highBar = playerbar.getLongY(&tPlayerbar);
+            Playerbar playerbar(&w,&tPlayerbar,127.8);
+            Ball ball(playerbar, &tBall,28.7);
+
        //*  SCOREBOARD:
          //-   SCOREBOARD SETTINGS:
 
@@ -278,17 +263,17 @@ int main() {
                                     }//End if.
                                     if(stackFullHeart.size() > 0) {//If user play.
                                         if (!ball.isDrew){//Move ball with the playerbar.
-                                            ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar,yPlayerbar); // Start on the middle of the bar
+                                            ball.moveBallWithPlayerbar(playerbar); // Start on the middle of the bar
                                         }
                                 //---   MOVE RIGHT:
                                     if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                                        if (playerbar.xPlayerbar >= (float) windowWidth - (longBar * 0.2)) {//Check limit.
+                                        if (playerbar.xPlayerbar >= (float) windowWidth - (playerbar.getLongX(&tPlayerbar) * 0.2)) {//Check limit.
                                             std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
                                         } else {
                                             playerbar.mover('d');
                                         }
                                         if (!ball.isDrew) {//Follow the playerbar.
-                                            ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                                            ball.moveBallWithPlayerbar(playerbar);
                                         }
                                     }
                                 //---   MOVE LEFT:
@@ -299,12 +284,12 @@ int main() {
                                                 playerbar.mover('i');
                                             }
                                             if (!ball.isDrew) {//Follow the playerbar.
-                                                ball.moveBallWithPlayerbar(longBar, highBar, playerbar.xPlayerbar, yPlayerbar);
+                                                ball.moveBallWithPlayerbar(playerbar);
                                             }
                                         }
                                 //---   TURBO:
                                         if (Keyboard::isKeyPressed(Keyboard::T)) {
-                                            w.setFramerateLimit(200);
+                                            w.setFramerateLimit(240);
                                             if(turboOn == 1){
                                                 gameMusic.setVolume(5);
                                                 turboMusic.play();
@@ -326,7 +311,7 @@ int main() {
                                         }
                                 //---   BALL DISPLACEMENT:
                                         if (ball.isDrew) {//Beginning If.
-                                            ball.move(longBar, highBar, playerbar.xPlayerbar, yPlayerbar, windowHeight,windowWidth,ballSize,&vidas,&resetPosition,&perdidaVida,&colisiono);
+                                            ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono);
                                             if(perdidaVida=='V'){//Lose a life.
                                                 perdidaVida='F';
                                                 stackFullHeart.pop();
@@ -334,7 +319,7 @@ int main() {
                                             }
                                             if (resetPosition == 'V') {//Restart position.
                                             soundHerida.play();
-                                            playerbar.centrar(windowWidth, playerbarSize);
+                                            playerbar.centrar(&w,playerbar);
                                             resetPosition = 'F';
                                             }
                                             if(colisiono == 'V'){
@@ -375,12 +360,12 @@ int main() {
                             int aux=0;
                             for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
                                 aux=i+1;
-                                Vidas vid(windowWidth,windowHeight,aux);
+                                Vidas vid(&w,aux);
                                 vid.draw(&w,0);
                             }
                             for (int i=0;i<stackFullHeart.size();i++){//Draw full hearts.
                                 aux=aux+1;
-                                Vidas vid(windowWidth,windowHeight,aux);
+                                Vidas vid(&w,aux);
                                 vid.draw(&w,1);
                             }
                             //--   LOSE CONDITIONS:

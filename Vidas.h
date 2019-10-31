@@ -17,7 +17,7 @@ private:
 
 
 public:
-     explicit Vidas( float width, float hight, int num);
+     explicit Vidas( RenderWindow* w, int num);
      void cambioIndicator(int indicador);
      void draw(RenderWindow *w, int indicador);
 };

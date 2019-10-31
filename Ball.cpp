@@ -3,16 +3,18 @@
 #include "iostream"
 
 //Builder.
-Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
+Ball::Ball(Playerbar playerbar, Texture *texturaBall, float ballSize) {
 
     sBall.setTexture(*texturaBall);   //Sprite Loading.
     sBall.setScale(0.7, 0.7);  //Object Size. 0.7
     tBall = *texturaBall;
 
-
+    float xBall = playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar) / 2) - (ballSize / 2);
+    float yBall = playerbar.yPlayerbar - playerbar.getLongY(&playerbar.tPlayerbar);
     //Initial Variables.
     this->xBall = xBall;
     this->yBall = yBall;
+    this->ballSize=ballSize;
      velBall = 5;
      velBallX = 2;
      velBallY = sqrt(velBall * velBall - velBallX * velBallX);
@@ -24,12 +26,12 @@ Ball::Ball(float xBall, float yBall, Texture *texturaBall) {
 
 
 // moveBallWithPlayerbar
-void Ball::moveBallWithPlayerbar(float longBar, float highBar, float xBar, float yBar) {
+void Ball::moveBallWithPlayerbar(Playerbar playerbar) {
 
     float scale;
-    scale = (float) (longBar * 0.2);
-    xBall = xBar + (scale / 2) - ((Ball::getRadio(&tBall) * 0.7) / 2);
-    yBall = yBar - highBar;
+    scale = (float) (playerbar.getLongX(&playerbar.tPlayerbar) * 0.2);
+    xBall = playerbar.xPlayerbar + (scale / 2) - ((Ball::getRadio(&tBall) * 0.7) / 2);
+    yBall = playerbar.yPlayerbar - playerbar.getLongY(&playerbar.tPlayerbar);
 
 }//End moveBallWithPlayerbar.
 
@@ -44,15 +46,15 @@ void Ball::draw(RenderWindow *w) {
 
 
 // Calculo  de delta X
-float Ball::deltaX(float xBall, float longbar, float xBar, float ballSize) {
+float Ball::deltaX(Ball ball, Playerbar playerbar) {
     float deltaX;
-    if ((xBall >= (xBar + (longbar*0.2) / 2) - (ballSize / 4)) && (xBall <= (xBar + (longbar*0.2) / 2) + (ballSize / 4))) {
+    if ((xBall >= (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) - (ballSize / 4)) && (xBall <= (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) + (ballSize / 4))) {
         deltaX = 0;
     } else {
-        if(xBall < (xBar + (longbar*0.2)/2) - (ballSize / 4)) {
-            deltaX = (xBar + (longbar*0.2) / 2) - (xBall + ballSize / 2) - (ballSize / 4);
-        } else if(xBall > (xBar + (longbar*0.2)/2) - (ballSize / 4)){
-            deltaX = (xBar + (longbar*0.2) / 2) - (xBall + ballSize / 2) + (ballSize / 4);
+        if(xBall < (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2)/2) - (ballSize / 4)) {
+            deltaX = (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) - (xBall + ballSize / 2) - (ballSize / 4);
+        } else if(xBall > (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2)/2) - (ballSize / 4)){
+            deltaX = (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) - (xBall + ballSize / 2) + (ballSize / 4);
         }
     }
     std::cout << "deltaX = "<< deltaX << std::endl;
@@ -73,8 +75,7 @@ float Ball::getRadio(Texture *texturaBall) {
 //End getRadio.
 
 
-void Ball::move(float longBar, float highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize,
-                int *vidas, char *resetPosition,char* perdidaVida, char* colisiono) {
+void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono) {
 
 
 
@@ -90,14 +91,14 @@ void Ball::move(float longBar, float highBar, float xBar, float yBar, float desk
         }
 
         //CONDICION DEFAULT
-        if (yBall + ballSize >= yBar ) {
-            if ((xBall+ballSize) >= (xBar) && xBall <= (xBar + (longBar * 0.2)) && (yBall <= yBar + highBar)) {
+        if (yBall + ballSize >= playerbar.yPlayerbar) {
+            if ((xBall+ballSize) >= (playerbar.xPlayerbar) && xBall <= (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar) * 0.2)) && (yBall <= playerbar.yPlayerbar + playerbar.getLongY(&playerbar.tPlayerbar))) {
                 velBallY *= -1;
-                velBallX = deltaX(xBall, longBar, xBar, ballSize);
-                yBall = (yBar-1)-ballSize;
+                velBallX = deltaX(ball,playerbar);
+                yBall = (playerbar.yPlayerbar-1)-ballSize;
                 *colisiono='V';
             } else {
-                if (yBall >= desktopY) {
+                if (yBall >= w->getSize().y) {
                     isDrew = false;
                     *perdidaVida='V';
                     (*vidas)--;
@@ -116,7 +117,7 @@ void Ball::move(float longBar, float highBar, float xBar, float yBar, float desk
 
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
-        if ((xBall <= 0) || (xBall >= (desktopX - ballSize))) {
+        if ((xBall <= 0) || (xBall >= (w->getSize().x - ballSize))) {
             velBallX *= -1;
             *colisiono='V';
         }

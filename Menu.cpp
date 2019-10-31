@@ -1,7 +1,9 @@
 
 #include "Menu.h"
 
-Menu::Menu(float width, float hight) {
+Menu::Menu(RenderWindow* w) {
+    float width= w->getSize().x;
+    float hight= w->getSize().y;
 
     if(!fontm.loadFromFile("fuentes/Retro.ttf")){
     }

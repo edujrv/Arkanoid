@@ -12,7 +12,7 @@ private:
     Font fontm;
     Text textm[2];
 public:
-    Menu(float width, float hight);
+    Menu(RenderWindow *w);
     ~Menu();
 
     void draw(RenderWindow &w);

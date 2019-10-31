@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Stack.h"
+#include "Playerbar.h"
+
 using namespace sf;
 
 
@@ -11,6 +13,7 @@ using namespace sf;
 class Ball {
     //Private Variables.
 private:
+    float ballSize;
     float velBall;
     float velBallX;
     float velBallY;
@@ -23,13 +26,13 @@ private:
     //Public Variables.
 public:
     bool isDrew = false;
-    Ball(float xBall, float yBall, Texture *texturaBall);
+    Ball(Playerbar playerbar, Texture *texturaBall, float ballSize);
     ~Ball();
     float getRadio(Texture *texturaBall);
-    float deltaX(float xBall, float longbar, float xBar, float ballSize);
+    float deltaX(Ball ball, Playerbar playerbar);
     void draw(RenderWindow *w);
-    void move(float  longBar, float  highBar, float xBar, float yBar, float desktopY, float desktopX, float ballSize, int *vidas, char *resetPosition,char* perdidaVida, char* colisiono);
-    void moveBallWithPlayerbar(float  longBar, float  highBar, float xBar, float yBar);
+    void move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono);
+    void moveBallWithPlayerbar(Playerbar playerbar);
 
 
 };//End Ball Class.

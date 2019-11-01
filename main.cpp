@@ -1,5 +1,6 @@
 //LIBRARIES:
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Playerbar.h"
@@ -8,6 +9,11 @@
 #include "Textos.h"
 #include "Vidas.h"
 #include "Stack.h"
+#include "Ladrillo.h"
+#include "LinkedList.h"
+
+void crearLadrillos(LinkedList <Ladrillo*> &bricks);
+void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
 //  //  //  //  //  //  //  //  //  //  //
 
 //TERMINOLOGY:
@@ -17,7 +23,9 @@ using namespace sf;
 
 //BEGINNING OF MAIN:
 int main() {
+    LinkedList<Ladrillo*> ladrillos;
 
+    crearLadrillos(ladrillos);
     // VARIABLES:
 
        //*  WINDOW:
@@ -29,7 +37,7 @@ int main() {
              * windowWidth:     Ancho de la pantalla. ->Original del fondo |2048|o|1368|.
              * */
          //-   LOADING:
-            RenderWindow w(VideoMode(windowWidth,windowHeight), "Breaking Bricks");
+            RenderWindow w(VideoMode(windowWidth,windowHeight), "Chimuelo Bricks");
          //-   PERFORMANCE:
             w.setFramerateLimit(40);
             char resetPosition = 'F';
@@ -157,7 +165,7 @@ int main() {
             menuMusic.setVolume(40);
             menuMusic.play();
             menuMusic.setLoop(true);
-            turboMusic.setVolume(40);
+            turboMusic.setVolume(100);
             turboMusic.setLoop(true);
             /*
              * gameMusic:   Musica que sonara durante la partida.
@@ -198,6 +206,7 @@ int main() {
          //-   START OBJECTS:
             Playerbar playerbar(&w,&tPlayerbar,127.8);
             Ball ball(playerbar, &tBall,28.7);
+            crearLadrillos(ladrillos);
 
        //*  SCOREBOARD:
          //-   SCOREBOARD SETTINGS:
@@ -289,9 +298,9 @@ int main() {
                                         }
                                 //---   TURBO:
                                         if (Keyboard::isKeyPressed(Keyboard::T)) {
-                                            w.setFramerateLimit(240);
+                                            w.setFramerateLimit(120);
                                             if(turboOn == 1){
-                                                gameMusic.setVolume(5);
+                                                gameMusic.setVolume(3);
                                                 turboMusic.play();
                                                 turboOn=0;
                                             }
@@ -357,6 +366,7 @@ int main() {
                             ball.draw(&w);
                             lifes.draw(&w);
                             numLifes.draw(&w);
+                            mostrarLadrillos(ladrillos,&w);
                             int aux=0;
                             for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
                                 aux=i+1;
@@ -405,3 +415,37 @@ int main() {
     //*  CLOSING PROGRAM:
     return 0;
 }//END MAIN.
+
+void crearLadrillos(LinkedList <Ladrillo*> &bricks){
+    int idLadrilloX = 0, i = 0;
+    std::ifstream a;
+    std::string linea;
+    int fila =0;
+
+    a.open("level.txt");
+
+    while(getline(a,linea)){
+        for(int col =0; col < linea.length(); col++){
+            if(linea[col] == 'o')
+                bricks.put(new Ladrillo(140,0,col,fila), 0);
+
+        }
+        fila++;
+    }
+    a.close();
+
+
+//    for (idLadrilloX = 0; idLadrilloX < 10; idLadrilloX++){
+//
+//        bricks.put(new Ladrillo(140,0,idLadrilloX,0), i);
+//
+//        i++;
+//    }
+}
+
+void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
+
+    for(bricks.begin(); !bricks.ended() ; bricks.next()){
+        bricks.get()->draw(w);
+    }
+}

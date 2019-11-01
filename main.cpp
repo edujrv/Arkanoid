@@ -179,7 +179,7 @@ int main() {
             Texture tBall;
             tBall.loadFromFile("imagenes/ball.png");
             Texture tScreenBackground;
-            tScreenBackground.loadFromFile("imagenes/fondoAlargado.jpg");
+            tScreenBackground.loadFromFile("imagenes/fondoConMuro.jpg");
             Texture tMenuBackground;
             tMenuBackground.loadFromFile("imagenes/fondomenu.jpg");
             /*
@@ -267,7 +267,7 @@ int main() {
                                         }
                                 //---   MOVE RIGHT:
                                     if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                                        if (playerbar.xPlayerbar >= (float) windowWidth - (playerbar.getLongX(&tPlayerbar) * 0.2)) {//Check limit.
+                                        if (playerbar.xPlayerbar >= (float) windowWidth - 130 - (playerbar.getLongX(&tPlayerbar) * 0.2)) {//Check limit.
                                             std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
                                         } else {
                                             playerbar.mover('d');
@@ -278,7 +278,7 @@ int main() {
                                     }
                                 //---   MOVE LEFT:
                                         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-                                            if (playerbar.xPlayerbar <= 0) {//Check limit.
+                                            if (playerbar.xPlayerbar <= 140) {//Check limit.
                                                 std::cout << "Limite izquierdo de la pantalla alcanzado" << std::endl;
                                             } else {
                                                 playerbar.mover('i');

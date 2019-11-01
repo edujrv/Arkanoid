@@ -9,18 +9,16 @@ Vidas::Vidas( RenderWindow* w, int num) {
 
         tVidaEmpty.loadFromFile("imagenes/vidaPerdida.png");
         sVidaEmpty.setTexture(tVidaEmpty);
-        sVidaEmpty.setScale(0.13 , 0.13);
-        sVidaEmpty.setPosition(Vector2f(0 + (w->getSize().x/30),100 + w->getSize().y/8 * num));
-
-
+        sVidaEmpty.setScale(0.25 , 0.25);
+        sVidaEmpty.setPosition(Vector2f(0 + (w->getSize().x/30),100 + (w->getSize().y/8 * num)));
 
 
         tVidaFull.loadFromFile("imagenes/vida.png");
         sVidaFull.setTexture(tVidaFull);
-        sVidaFull.setScale(0.13 , 0.13);
+        sVidaFull.setScale(0.25 , 0.25);
         sVidaFull.setPosition(Vector2f(0 + (w->getSize().x/30),100 + w->getSize().y/8 * num));
 
-
+        indicator = 1;
 
 }
 

@@ -117,7 +117,7 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
 
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
-        if ((xBall <= 0) || (xBall >= (w->getSize().x - ballSize))) {
+        if ((xBall <= 140) || (xBall >= (w->getSize().x - ballSize - 130))) {
             velBallX *= -1;
             *colisiono='V';
         }

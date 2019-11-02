@@ -6,6 +6,7 @@
 #include "Stack.h"
 #include "Playerbar.h"
 #include "Ladrillo.h"
+#include "LinkedList.h"
 
 using namespace sf;
 

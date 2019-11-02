@@ -115,6 +115,8 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
                 **/
 
 
+
+
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
         if ((xBall <= 140) || (xBall >= (w->getSize().x - ballSize - 130))) {

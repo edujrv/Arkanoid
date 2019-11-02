@@ -1,3 +1,0 @@
-"D:\Program Files (x86)\JetBrians\CLion 2019.2\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\mySFML.dir/objects.a
-"D:\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\bin\ar.exe" cr CMakeFiles\mySFML.dir/objects.a @CMakeFiles\mySFML.dir\objects1.rsp
-"D:\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\bin\g++.exe" -g   -Wl,--whole-archive CMakeFiles\mySFML.dir/objects.a -Wl,--no-whole-archive  -o mySFML.exe -Wl,--out-implib,libmySFML.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\mySFML.dir\linklibs.rsp

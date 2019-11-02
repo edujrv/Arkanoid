@@ -1,3 +1,0 @@
-C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/CMakeFiles/mySFML.dir
-C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/CMakeFiles/rebuild_cache.dir

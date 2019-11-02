@@ -11,6 +11,7 @@
 #include "Stack.h"
 #include "Ladrillo.h"
 #include "LinkedList.h"
+#include <string>
 
 void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
@@ -417,12 +418,29 @@ int main() {
 }//END MAIN.
 
 void crearLadrillos(LinkedList <Ladrillo*> &bricks){
+
+   /*std::string linea_leer; //creamos una cadena string para poder leer el archivo
+    std::ifstream miArchivo("textos/level.txt"); //creamos un objeto llamado miArchivo de la clase ifstream para poder leer
+    // si bien los objetos se llaman iguales miArchivo, pero estan en distintos funciones, por lo que son validos solo en su ambito de la funcion.
+    if(miArchivo.is_open())
+    {
+        while(!miArchivo.eof()) //eof() es una funcion que lee hasta el final del archivo "End-of-File"
+        {
+            getline(miArchivo,linea_leer); //lee la lin
+            std::cout<<linea_leer<<"\n"; //imprime por pantalla la linea recien leida
+        }
+        miArchivo.close(); //cierra el archivo
+    }else{
+        std::cout<<"error al abrir el archivo para leer";
+    }*/
+
+
     int idLadrilloX = 0, i = 0;
-    std::ifstream a;
+    //std::ifstream a;
     std::string linea;
     int fila =0;
-
-    a.open("level.txt");
+    std::ifstream a("textos/level.txt");
+    //a.open("level.txt");*/
 
     while(getline(a,linea)){
         for(int col =0; col < linea.length(); col++){

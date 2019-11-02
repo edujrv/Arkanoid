@@ -125,6 +125,13 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
 
 }
 
+bool Ball::colisionoLadrillo(Ladrillo ladri) {
+    if (xBall >= (float)(ladri.getX() && xBall < (ladri.getX() + ladri.getXLong())) && (yBall >= ladri.getY() && yBall < (ladri.getY() + ladri.getYLong()))){
+
+    }
+    return false;
+}
+
 
 //Destroyer.
 Ball::~Ball() = default;

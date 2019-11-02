@@ -21,6 +21,22 @@ void Ladrillo::draw(RenderWindow *w) {
     w->draw(sLadri);
 }
 
+float Ladrillo::getX() {
+    return posX;
+}
+
+float Ladrillo::getY() {
+    return posY;
+}
+
+float Ladrillo::getXLong() {
+    return xLong;
+}
+
+float Ladrillo::getXLong() {
+    return yLong;
+}
+
 Ladrillo::Ladrillo() = default;
 
 Ladrillo::~Ladrillo() = default;

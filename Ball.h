@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Stack.h"
 #include "Playerbar.h"
+#include "Ladrillo.h"
 
 using namespace sf;
 
@@ -33,7 +34,7 @@ public:
     void draw(RenderWindow *w);
     void move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono);
     void moveBallWithPlayerbar(Playerbar playerbar);
-
+    bool colisionoLadrillo(Ladrillo ladri);
 
 };//End Ball Class.
 

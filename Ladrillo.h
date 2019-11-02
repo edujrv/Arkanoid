@@ -20,6 +20,10 @@ public:
     explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY);
     Ladrillo();
     void draw(RenderWindow *w);
+    float  getX();
+    float getY();
+    float  getXLong();
+    float  getYLong();
     ~Ladrillo();
 };
 

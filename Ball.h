@@ -26,6 +26,7 @@ private:
 
     //Public Variables.
 public:
+    bool isDrew;
     bool isPlaying = false;
     Ball(Playerbar playerbar, Texture *texturaBall, float ballSize);
     ~Ball();

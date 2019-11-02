@@ -2,7 +2,7 @@
 // Created by edu on 1/11/19.
 //
 
-#include "Ladrillo.h"
+#include "Ladrillo.h"     
 
 Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY) {
 

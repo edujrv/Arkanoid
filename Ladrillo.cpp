@@ -33,7 +33,7 @@ float Ladrillo::getXLong() {
     return xLong;
 }
 
-float Ladrillo::getXLong() {
+float Ladrillo::getYLong() {
     return yLong;
 }
 

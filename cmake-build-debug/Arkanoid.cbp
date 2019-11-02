@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Arkanoid"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\Program Files (x86)\;CMake Files\Program Files (x86)\JetBrians\;CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\;CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\;CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\;CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\;CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mySFML">
+				<Option output="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/mySFML.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 mySFML"/>
+					<CompileFile command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mySFML/fast">
+				<Option output="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/mySFML.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/include"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 mySFML/fast"/>
+					<CompileFile command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Ball.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Ball.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Ladrillo.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Ladrillo.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/LinkedList.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Menu.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Menu.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Nodo.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Playerbar.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Playerbar.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Stack.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Textos.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Textos.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Vidas.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Vidas.h">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/main.cpp">
+			<Option target="mySFML"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLConfig.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLConfigDependencies.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLSharedTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLSharedTargets-release.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="C:/Users/usuario/Desktop/Arkanoid V 2.0/Arkanoid/Program Files (x86)/JetBrians/CLion 2019.2/mingw32/lib/cmake/SFML/SFMLSharedTargets.cmake">
+			<Option virtualFolder="CMake Files\Program Files (x86)\JetBrians\CLion 2019.2\mingw32\lib\cmake\SFML\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

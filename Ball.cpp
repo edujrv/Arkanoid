@@ -111,12 +111,11 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
         }
         // COLISION DE LADRILLOS
         for (ladrillos.begin(); !ladrillos.ended() ; ladrillos.next()) {
-            *colisiono='V';
-            if ((yBall + ballSize) >= ladrillos.get()->getY() && yBall <= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() * 0.75))){
-                *colisiono='V';
-                if ((xBall - ballSize) >= ladrillos.get()->getX() &&  xBall <= (ladrillos.get()->getX() + (ladrillos.get()->getXLong() * 0.75))){
-                    *colisiono='V';
 
+            if ((yBall + ballSize) >= ladrillos.get()->getY() && yBall <= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() * 0.75))){
+                if ((xBall - ballSize) >= ladrillos.get()->getX() &&  xBall <= (ladrillos.get()->getX() + (ladrillos.get()->getXLong() * 0.75))){
+//                    if()
+                    *colisiono='V';
                 }
 
             }

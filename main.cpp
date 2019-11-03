@@ -321,7 +321,7 @@ int main() {
                                         }
                                 //---   BALL DISPLACEMENT:
                                         if (ball.isDrew) {//Beginning If.
-                                            ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono);
+                                            ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono, ladrillos);
                                             if(perdidaVida=='V'){//Lose a life.
                                                 perdidaVida='F';
                                                 stackFullHeart.pop();

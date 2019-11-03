@@ -15,15 +15,19 @@ private:
     Sprite sLadri;
     float xLong;
     float yLong;
+    int idLadri;
+    int col;
+    int fila;
 
 public:
-    explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY);
+    explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri);
     Ladrillo();
     void draw(RenderWindow *w);
     float  getX();
     float getY();
     float  getXLong();
     float  getYLong();
+    int getId();
     ~Ladrillo();
 };
 

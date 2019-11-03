@@ -7,7 +7,7 @@
 #include "Playerbar.h"
 #include "Ladrillo.h"
 #include "LinkedList.h"
-
+#include <fstream>
 using namespace sf;
 
 
@@ -25,6 +25,7 @@ private:
     float radioBall;
     Texture tBall;
 
+
     //Public Variables.
 public:
     bool isDrew;
@@ -36,7 +37,8 @@ public:
     void draw(RenderWindow *w);
     void move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono,  LinkedList <Ladrillo*> &ladrillos);
     void moveBallWithPlayerbar(Playerbar playerbar);
-    bool colisionoLadrillo(Ladrillo ladri);
+
+    float deltaLadris(Ball ball,Ladrillo &ladrillos);
 
 };//End Ball Class.
 

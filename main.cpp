@@ -420,16 +420,19 @@ int main() {
 void crearLadrillos(LinkedList <Ladrillo*> &bricks){
 
 
-    int idLadrilloX = 0, i = 0;
+    int idLadri = 0;
     std::string linea;
     int fila =0;
     std::ifstream a("textos/level.txt");
     fflush(stdin);
     while(getline(a,linea)){
         for(int col =0; col < linea.length(); col++){
-            if(linea[col] == 'o')
+            if(linea[col] == 'o') {
 
-                bricks.put(new Ladrillo(140,0,col,fila), 0);
+                bricks.put(new Ladrillo(140, 0, col, fila, idLadri), idLadri );
+                idLadri++;
+
+            }
 
         }
         fila++;

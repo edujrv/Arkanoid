@@ -4,7 +4,7 @@
 
 #include "Ladrillo.h"     
 
-Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY) {
+Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri) {
 
     tLadri.loadFromFile("imagenes/Brick1.png");
     sLadri.setTexture(tLadri);
@@ -15,6 +15,7 @@ Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY) {
     this->posX = posX + (xLong * (float) idLadrilloX);
     this->posY = posY + (yLong * (float) idLadrilloY);
     sLadri.setPosition(this->posX,this->posY);
+    this->idLadri = idLadri;
 }
 
 void Ladrillo::draw(RenderWindow *w) {
@@ -35,6 +36,10 @@ float Ladrillo::getXLong() {
 
 float Ladrillo::getYLong() {
     return yLong;
+}
+
+int Ladrillo::getId() {
+    return idLadri;
 }
 
 Ladrillo::Ladrillo() = default;

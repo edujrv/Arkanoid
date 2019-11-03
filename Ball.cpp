@@ -1,7 +1,7 @@
 #include "Ball.h"
-#include <math.h>
+#include <cmath>
 #include "iostream"
-
+#include <fstream>
 //Builder.
 Ball::Ball(Playerbar playerbar, Texture *texturaBall, float ballSize) {
 
@@ -45,7 +45,7 @@ void Ball::draw(RenderWindow *w) {
 }//End Dibujar.
 
 
-// Calculo  de delta X
+// Calculo  de delta X para la playerbar
 float Ball::deltaX(Ball ball, Playerbar playerbar) {
     float deltaX;
     if ((xBall >= (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) - (ballSize / 4)) && (xBall <= (playerbar.xPlayerbar + (playerbar.getLongX(&playerbar.tPlayerbar)*0.2) / 2) + (ballSize / 4))) {
@@ -77,8 +77,6 @@ float Ball::getRadio(Texture *texturaBall) {
 
 void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos) {
 
-
-
     if (isDrew) {
 
         yBall -= velBallY;
@@ -105,47 +103,99 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
                     *resetPosition = 'V';
                     velBallY = abs(velBallY);
                 }
-
             }
-
         }
-        // COLISION DE LADRILLOS
+
+        // // // // // // // // // // // //
+        //     COLISION DE LADRILLOS     //
+        // // // // // // // // // // // //
         for (ladrillos.begin(); !ladrillos.ended() ; ladrillos.next()) {
 
-            if ((yBall + ballSize) >= ladrillos.get()->getY() && yBall <= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() * 0.75))){
-                if ((xBall - ballSize) >= ladrillos.get()->getX() &&  xBall <= (ladrillos.get()->getX() + (ladrillos.get()->getXLong() * 0.75))){
-//                    if()
-                    *colisiono='V';
+            if ((ladrillos.get()->getY() + ladrillos.get()->getYLong() )>= yBall && (yBall + (ballSize * 0.7)) >= ladrillos.get()->getY() ){          // SI LA PELOTA CHOCA AL LADRILLO
+                if ((xBall + (ballSize * 0.7) )>= ladrillos.get()->getX() && xBall <= (ladrillos.get()->getX() + ladrillos.get()->getXLong())){       //
+
+                    //SI LA PELOTA CHOCA AL LADRILLO POR ABAJO
+                    if ((yBall) >= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() / 2))){
+                     //   ladrillos.remove(ladrillos.get()->getId());
+                        yBall += 5;
+                        velBallY = -velBall;
+                        *colisiono='V';
+                    }
+
+                    //SI LA PELOTA CHOCA AL LADRILLO POR IZQUIERDA
+                   else if ((xBall + (ballSize * 0.7)) <= (ladrillos.get()->getX() + (ballSize ))){
+                      //  ladrillos.remove(ladrillos.get()->getId());
+                        xBall -= 10;
+                        velBallX = velBall;
+                        *colisiono='V';
+                    }
+
+                    //SI LA PELOTA CHOOCA AL LADRILLO POR ARRIBA
+                   else if ((yBall + (ballSize * 0.7)) <= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() / 2))){
+                      //  ladrillos.remove(ladrillos.get()->getId());
+                        yBall -= 10;
+                        velBallY = velBall;
+                        *colisiono='V';
+                    }
+
+                    //SI LA PELOTA CHOCA AL LADRILLO POR DERECHA
+                  else if (xBall >= ((ladrillos.get()->getX() + ladrillos.get()->getXLong()) - ((ballSize * 0.7) / 2)) ) {
+                       // ladrillos.remove(ladrillos.get()->getId());
+                        yBall += 10;
+                        velBallY = -velBall;
+                        *colisiono='V';
+                    }
+                    //ladrillos.remove(ladrillos.get()->getId());
                 }
-
             }
+
+
         }
-
-        /*
-                * INSERTAR CONDICION DE COLISIONES EJE Y
-                **/
-
-
-
 
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
-        if ((xBall <= 140) || (xBall >= (w->getSize().x - ballSize - 130))) {
+        if ((xBall <= 140)) {
             velBallX *= -1;
+            xBall = 141;
+            *colisiono='V';
+        } else if ((xBall >= (w->getSize().x - ballSize - 130))){
+            velBallX *= -1;
+            xBall = (w->getSize().x - ballSize - 130) - 1;
             *colisiono='V';
         }
     }
 
 }
 
-bool Ball::colisionoLadrillo(Ladrillo ladri) {
-    if (xBall >= (float)(ladri.getX() && xBall < (ladri.getX() + ladri.getXLong())) && (yBall >= ladri.getY() && yBall < (ladri.getY() + ladri.getYLong()))){
-
-    }
-    return false;
-}
-
 
 //Destroyer.
 Ball::~Ball() = default;
 //End Destroyer.
+
+float Ball::deltaLadris(Ball ball, Ladrillo &ladrillos)  {
+    float deltaX = 0;
+
+        //EN EL EJE X
+
+        if ((xBall >= (ladrillos.getX() + (ladrillos.getXLong() * 0.75) / 2) - (ballSize / 4)) &&
+            (xBall <= (ladrillos.getX() + (ladrillos.getXLong() * 0.75) / 2) + (ballSize / 4))) {
+            deltaX = 0;
+        } else {
+            if (xBall < (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) / 2) - (ballSize / 4)) {
+                deltaX = (float) (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) -
+                                  (xBall + ballSize / 2) - (ballSize / 4));
+            } else if (xBall >
+                       (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) - (ballSize / 4))) {
+                deltaX = (float) (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) -
+                                  (xBall + ballSize / 2) + (ballSize / 4));
+            }
+        }
+        std::cout << "deltaX = " << deltaX << std::endl;
+        if (deltaX < 0) {
+            return (deltaX / 7) + 2;
+        }
+        if (deltaX > 0) {
+            return (deltaX / 7) - 2;
+        }
+        return deltaX / 7;
+}

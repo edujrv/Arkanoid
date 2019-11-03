@@ -28,6 +28,7 @@ public:
     float  getXLong();
     float  getYLong();
     int getId();
+
     ~Ladrillo();
 };
 

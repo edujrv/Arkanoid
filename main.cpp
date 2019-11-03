@@ -26,7 +26,8 @@ using namespace sf;
 int main() {
     LinkedList<Ladrillo*> ladrillos;
 
-    crearLadrillos(ladrillos);
+  //  crearLadrillos(ladrillos);
+
     // VARIABLES:
 
        //*  WINDOW:
@@ -322,6 +323,7 @@ int main() {
                                 //---   BALL DISPLACEMENT:
                                         if (ball.isDrew) {//Beginning If.
                                             ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono, ladrillos);
+                                            mostrarLadrillos(ladrillos,&w);
                                             if(perdidaVida=='V'){//Lose a life.
                                                 perdidaVida='F';
                                                 stackFullHeart.pop();
@@ -427,11 +429,11 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks){
     fflush(stdin);
     while(getline(a,linea)){
         for(int col =0; col < linea.length(); col++){
+
             if(linea[col] == 'o') {
 
                 bricks.put(new Ladrillo(140, 0, col, fila, idLadri), idLadri );
                 idLadri++;
-
             }
 
         }
@@ -454,3 +456,5 @@ void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
         bricks.get()->draw(w);
     }
 }
+
+

@@ -14,8 +14,8 @@ Ball::Ball(Playerbar playerbar, Texture *texturaBall, float ballSize) {
     //Initial Variables.
     this->xBall = xBall;
     this->yBall = yBall;
-    this->ballSize=ballSize;
-     velBall = 5;
+    this->ballSize = ballSize;
+     velBall = 7;
      velBallX = 2;
      velBallY = sqrt(velBall * velBall - velBallX * velBallX);
 
@@ -76,7 +76,7 @@ float Ball::getRadio(Texture *texturaBall) {
 
 
 void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos) {
-
+int i = 0;
     if (isDrew) {
 
         yBall -= velBallY;
@@ -116,7 +116,7 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR ABAJO
                     if ((yBall) >= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() / 2))){
-                     //   ladrillos.remove(ladrillos.get()->getId());
+                      //  ladrillos.remove(ladrillos.get()->getId());
                         yBall += 5;
                         velBallY = -velBall;
                         *colisiono='V';
@@ -132,7 +132,7 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
 
                     //SI LA PELOTA CHOOCA AL LADRILLO POR ARRIBA
                    else if ((yBall + (ballSize * 0.7)) <= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() / 2))){
-                      //  ladrillos.remove(ladrillos.get()->getId());
+                      // ladrillos.remove(ladrillos.get()->getId());
                         yBall -= 10;
                         velBallY = velBall;
                         *colisiono='V';
@@ -140,12 +140,15 @@ void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR DERECHA
                   else if (xBall >= ((ladrillos.get()->getX() + ladrillos.get()->getXLong()) - ((ballSize * 0.7) / 2)) ) {
-                       // ladrillos.remove(ladrillos.get()->getId());
+                       //ladrillos.remove(ladrillos.get()->getId());
                         yBall += 10;
                         velBallY = -velBall;
                         *colisiono='V';
                     }
-                    //ladrillos.remove(ladrillos.get()->getId());
+                    i = ladrillos.get()->getId();
+
+                  std::cout<<"id del ladrillo "<< i <<std::endl;
+                    ladrillos.remove(i);
                 }
             }
 

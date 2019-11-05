@@ -139,7 +139,7 @@ int i = 0;
                     }
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR DERECHA
-                  else if (xBall >= ((ladrillos.get()->getX() + (ladrillos.get()->getXLong()) - 1) - ((ballSize * 0.7) / 2)) ) {
+                  else if (xBall >= ((ladrillos.get()->getX() + ladrillos.get()->getXLong()) - ((ballSize * 0.7) / 2)) ) {
                        //ladrillos.remove(ladrillos.get()->getId());
                         yBall += 10;
                         velBallY = -velBall;
@@ -158,9 +158,9 @@ int i = 0;
 
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
-        if ((xBall <= 140)) {
+        if ((xBall <= 130)) {
             velBallX *= -1;
-            xBall = 141;
+            xBall = 131;
             *colisiono='V';
         } else if ((xBall >= (w->getSize().x - ballSize - 130))){
             velBallX *= -1;

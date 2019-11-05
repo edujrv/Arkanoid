@@ -470,7 +470,7 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks){
 
             if(linea[col] == 'o') {
 
-                bricks.put(new Ladrillo(140, 0, col, fila, idLadri), idLadri );
+                bricks.put(new Ladrillo(130, 0, col, fila, idLadri), idLadri );
                 idLadri++;
             }
 

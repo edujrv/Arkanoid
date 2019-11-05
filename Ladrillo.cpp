@@ -9,7 +9,8 @@ Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int
     tLadri.loadFromFile("imagenes/Brick1.png");
     sLadri.setTexture(tLadri);
     sLadri.setScale(0.75,0.75);
-    xLong = (float) (tLadri.getSize().x * 0.75) + 1;
+
+    xLong = (float) (tLadri.getSize().x * 0.75);
     yLong = (float) (tLadri.getSize().y * 0.75);
 
     this->posX = posX + (xLong * (float) idLadrilloX);

@@ -37,3 +37,5 @@ void Vidas::draw(RenderWindow *w, int indicador) {
         }
 
 }
+
+Vidas::~Vidas()=default;

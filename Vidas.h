@@ -20,6 +20,7 @@ public:
      explicit Vidas( RenderWindow* w, int num);
      void cambioIndicator(int indicador);
      void draw(RenderWindow *w, int indicador);
+    ~Vidas();
 };
 
 

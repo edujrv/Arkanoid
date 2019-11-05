@@ -148,7 +148,7 @@ int i = 0;
                     i = ladrillos.get()->getId();
 
                   std::cout<<"id del ladrillo "<< i <<std::endl;
-                    ladrillos.remove(i);
+                  //  ladrillos.remove(i);
                     *verifColisionPowerup = true;
                 }
             }

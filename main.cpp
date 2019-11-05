@@ -14,12 +14,13 @@
 #include <string>
 #include "Queue.h"
 #include <ctime>
+#include "IconPower.h"
 
 
 void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
 void cargarPoweup(Queue <int> &powerup);
-void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated);
+void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated, bool *activarReloj);
 //  //  //  //  //  //  //  //  //  //  //
 
 //TERMINOLOGY:
@@ -32,8 +33,9 @@ int main() {
     LinkedList<Ladrillo*> ladrillos;
     Queue <int> powerup;
     cargarPoweup(powerup);
-    Clock* relojPowerUp;
-    Time* timePowerUp;
+
+
+
   //  crearLadrillos(ladrillos);
 
     // VARIABLES:
@@ -61,6 +63,12 @@ int main() {
              * colisiono: Si es verdadera signufica que la pelota colisiono con algo.
              * verifPowerup: si es verdadera significa que se activa el powerup.
              */
+
+       //*  TIMES:
+         //-   LOADING:
+         Clock* clockPower;
+         Time*   timePower;
+         bool activarReloj=true;
 
        //*  MENU:
          //-   LOADING:
@@ -112,6 +120,7 @@ int main() {
             SoundBuffer bufferMenuMove;
             SoundBuffer bufferMenuSelect;
             SoundBuffer bufferBubbles;
+            SoundBuffer bufferPower;
             /*
              * bufferHerida: Sonara cuando se pierda una vida.
              * bufferRebote:Sonara cuando la pelota rebote en alguna superficie.
@@ -119,8 +128,13 @@ int main() {
              * bufferMenuMove: Sonara cuando se baje o suba por las opciones del menu.
              * bufferMenuSelect: Sonara cuando se seleccione una opcion en el menu.
              * bufferBubbles: Sonara cuando se recarguen las vidas.
+             * bufferPower: Sonara cuando se consiga el poder de velocidad.
              */
          //-   SOUNDS LOADING:
+            Sound soundPower;
+            if(!bufferPower.loadFromFile("audios/Powersound.wav")){
+                std::cout<<"No se pudo cargar el sonido"<<std::endl;
+            }
             Sound soundBubbles;
             if(!bufferBubbles.loadFromFile("audios/Bubbles.wav")){
                 std::cout<<"No se pudo cargar el sonido"<<std::endl;
@@ -147,6 +161,7 @@ int main() {
             }
          //-   SOUNDS ASSIGNMENT:
             soundHerida.setBuffer(bufferHerida);
+            soundPower.setBuffer(bufferPower);
             soundRebote.setBuffer(bufferRebote);
             soundBye.setBuffer(bufferBye);
             soundMenuMove.setBuffer(bufferMenuMove);
@@ -221,7 +236,9 @@ int main() {
          //-   START OBJECTS:
             Playerbar playerbar(&w,&tPlayerbar,127.8);
             Ball ball(playerbar, &tBall,28.7);
+            IconPower powerIcon(&w);
             crearLadrillos(ladrillos);
+
 
        //*  SCOREBOARD:
          //-   SCOREBOARD SETTINGS:
@@ -257,7 +274,7 @@ int main() {
                                     soundMenuMove.play();
                                 }
                                 //---   SELECT:
-                                if (Keyboard::isKeyPressed(Keyboard::Enter)) {//Beginning If.
+                                if ((Keyboard::isKeyPressed(Keyboard::Enter))||(Keyboard::isKeyPressed(Keyboard::Space))) {//Beginning If.
                                     switch (menuPrincipal.getSelectedItemIndex()){//Beginning Switch.
                                         case 0://START.
                                             soundMenuSelect.play();
@@ -316,7 +333,7 @@ int main() {
                                             }
                                         }
                                         //---   TURBO:
-                                        if (Keyboard::isKeyPressed(Keyboard::T) || isPowerupActivated) {
+                                        if (Keyboard::isKeyPressed(Keyboard::T)) {
                                             w.setFramerateLimit(120);
                                             if (turboOn == 1) {
                                                 gameMusic.setVolume(3);
@@ -324,29 +341,36 @@ int main() {
                                                 turboOn = 0;
                                             }
                                         } else {
-                                            gameMusic.setVolume(40);
-                                            turboOn = 1;
-                                            w.setFramerateLimit(40);
-                                            turboMusic.stop();
+                                            if (isPowerupActivated) {
+                                                w.setFramerateLimit(120);
+                                                if(activarReloj){
+                                                    soundPower.setVolume(50);
+                                                    soundPower.play();
+                                                    clockPower=new Clock();
+                                                    timePower=new Time();
+                                                    std::cout<<"Tiempo activado"<<std::endl;
+                                                    activarReloj= false;
+                                                }
+                                                if (turboOn == 1) {
+                                                    gameMusic.setVolume(3);
+                                                    turboMusic.play();
+                                                    turboOn = 0;
+                                                }
+                                                *timePower=clockPower->getElapsedTime();
+                                                std::cout<<timePower->asSeconds()<<std::endl;
+                                                if((timePower->asSeconds()) >= 5){
+                                                    isPowerupActivated=false;
+                                                    std::cout<<"Tiempo terminado"<<std::endl;
+                                                    clockPower->restart();
+                                                    soundPower.play();
+                                                }
+                                            }else {
+                                                gameMusic.setVolume(40);
+                                                turboOn = 1;
+                                                w.setFramerateLimit(40);
+                                                turboMusic.stop();
+                                            }
                                         }
-
-                                        /* if (isPowerupActivated) {
-
-                                             w.setFramerateLimit(120);
-                                             if (turboOn == 1) {
-                                                 gameMusic.setVolume(3);
-                                                 turboMusic.play();
-                                                 turboOn = 0;
-                                                 //isPowerupActivated = false;
-
-                                             } else {
-                                                 gameMusic.setVolume(40);
-                                                 turboOn = 1;
-                                                 w.setFramerateLimit(40);
-                                                 turboMusic.stop();
-                                             }*/
-                                    //}
-
 
                                     if (Keyboard::isKeyPressed(Keyboard::Space)) {
                                             if (!ball.isDrew) {
@@ -374,7 +398,7 @@ int main() {
                                             }
                                             if(verifPowerup){//.
                                                 verifPowerup = false;
-                                                generarPoweup(powerup, &isPowerupActivated);
+                                                generarPoweup(powerup, &isPowerupActivated,&activarReloj);
                                             }
                                         }//End if.
                                     }//End if user play.
@@ -408,6 +432,9 @@ int main() {
                             lifes.draw(&w);
                             numLifes.draw(&w);
                             mostrarLadrillos(ladrillos,&w);
+                            if(isPowerupActivated){
+                                powerIcon.draw(&w);
+                            }
                             int aux=0;
                             for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
                                 aux=i+1;
@@ -494,15 +521,21 @@ void cargarPoweup(Queue <int> &powerup){
     }
 }
 
-void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated){
+void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated,bool *activarReloj){
     srand(time(NULL));
-    int numeroRnd;
+    int numeroRnd=0;
     numeroRnd=rand() %100+1;
-
-    if (numeroRnd >= 70){
+    std::cout<<"El numero rnd es:"<<numeroRnd<<std::endl;
+    if ((numeroRnd <= 60) && (numeroRnd >= 40)){
+        if(*isPowerupActivated == false){
+        std::cout<<"poder activado"<<std::endl;
         std::cout<<powerup.front()<<std::endl;
         powerup.dequeue();
         *isPowerupActivated = true;
+        *activarReloj=true;
+        } else{
+
+        }
     }
 
 

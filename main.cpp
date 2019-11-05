@@ -12,9 +12,14 @@
 #include "Ladrillo.h"
 #include "LinkedList.h"
 #include <string>
+#include "Queue.h"
+#include <ctime>
+
 
 void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
+void cargarPoweup(Queue <int> &powerup);
+void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated);
 //  //  //  //  //  //  //  //  //  //  //
 
 //TERMINOLOGY:
@@ -25,7 +30,10 @@ using namespace sf;
 //BEGINNING OF MAIN:
 int main() {
     LinkedList<Ladrillo*> ladrillos;
-
+    Queue <int> powerup;
+    cargarPoweup(powerup);
+    Clock* relojPowerUp;
+    Time* timePowerUp;
   //  crearLadrillos(ladrillos);
 
     // VARIABLES:
@@ -44,9 +52,14 @@ int main() {
             w.setFramerateLimit(40);
             char resetPosition = 'F';
             char colisiono = 'F';
+            bool verifPowerup = false;
+            bool isPowerupActivated = false;
+            bool comienzoPoder = true;
+
             /*
              * resetPosition: Si esta es verdadera, la barra del usuario se dibujara en el centro de la pantalla.
              * colisiono: Si es verdadera signufica que la pelota colisiono con algo.
+             * verifPowerup: si es verdadera significa que se activa el powerup.
              */
 
        //*  MENU:
@@ -266,28 +279,32 @@ int main() {
                             }//End if menu.
                     }//End while event action.
                             //--   INGAME ACTIONS:
-                                if(menu=='F'){//Beginning If.
-                                    if((stackFullHeart.size()==0) && !missed){ //If user lose.
+                                if(menu=='F') {//Beginning If.
+                                    if ((stackFullHeart.size() == 0) && !missed) { //If user lose.
+                                        ball.moveBallWithPlayerbar(playerbar);
                                         gameMusic.stop();
                                         sadMusic.play();
-                                        missed=true;
+                                        missed = true;
                                     }//End if.
-                                    if(stackFullHeart.size() > 0) {//If user play.
-                                        if (!ball.isDrew){//Move ball with the playerbar.
+                                    //---   BALL RELEASE:
+                                    if (stackFullHeart.size() > 0) {//If user play.
+                                        if (!ball.isDrew) {//Move ball with the playerbar.
                                             ball.moveBallWithPlayerbar(playerbar); // Start on the middle of the bar
                                         }
-                                //---   MOVE RIGHT:
-                                    if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                                        if (playerbar.xPlayerbar >= (float) windowWidth - 130 - (playerbar.getLongX(&tPlayerbar) * 0.2)) {//Check limit.
-                                            std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
-                                        } else {
-                                            playerbar.mover('d');
+                                        //---   MOVE RIGHT:
+                                        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+                                            if (playerbar.xPlayerbar >= (float) windowWidth - 130 -
+                                                                        (playerbar.getLongX(&tPlayerbar) *
+                                                                         0.2)) {//Check limit.
+                                                std::cout << "Limite derecho de la pantalla alcanzado" << std::endl;
+                                            } else {
+                                                playerbar.mover('d');
+                                            }
+                                            if (!ball.isDrew) {//Follow the playerbar.
+                                                ball.moveBallWithPlayerbar(playerbar);
+                                            }
                                         }
-                                        if (!ball.isDrew) {//Follow the playerbar.
-                                            ball.moveBallWithPlayerbar(playerbar);
-                                        }
-                                    }
-                                //---   MOVE LEFT:
+                                        //---   MOVE LEFT:
                                         if (Keyboard::isKeyPressed(Keyboard::Left)) {
                                             if (playerbar.xPlayerbar <= 140) {//Check limit.
                                                 std::cout << "Limite izquierdo de la pantalla alcanzado" << std::endl;
@@ -298,23 +315,40 @@ int main() {
                                                 ball.moveBallWithPlayerbar(playerbar);
                                             }
                                         }
-                                //---   TURBO:
-                                        if (Keyboard::isKeyPressed(Keyboard::T)) {
+                                        //---   TURBO:
+                                        if (Keyboard::isKeyPressed(Keyboard::T) || isPowerupActivated) {
                                             w.setFramerateLimit(120);
-                                            if(turboOn == 1){
+                                            if (turboOn == 1) {
                                                 gameMusic.setVolume(3);
                                                 turboMusic.play();
-                                                turboOn=0;
+                                                turboOn = 0;
                                             }
-
-                                        }else{
+                                        } else {
                                             gameMusic.setVolume(40);
-                                            turboOn=1;
+                                            turboOn = 1;
                                             w.setFramerateLimit(40);
                                             turboMusic.stop();
                                         }
-                                //---   BALL RELEASE:
-                                        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+
+                                        /* if (isPowerupActivated) {
+
+                                             w.setFramerateLimit(120);
+                                             if (turboOn == 1) {
+                                                 gameMusic.setVolume(3);
+                                                 turboMusic.play();
+                                                 turboOn = 0;
+                                                 //isPowerupActivated = false;
+
+                                             } else {
+                                                 gameMusic.setVolume(40);
+                                                 turboOn = 1;
+                                                 w.setFramerateLimit(40);
+                                                 turboMusic.stop();
+                                             }*/
+                                    //}
+
+
+                                    if (Keyboard::isKeyPressed(Keyboard::Space)) {
                                             if (!ball.isDrew) {
                                                 soundRebote.play();
                                                 ball.isDrew = true;
@@ -322,7 +356,7 @@ int main() {
                                         }
                                 //---   BALL DISPLACEMENT:
                                         if (ball.isDrew) {//Beginning If.
-                                            ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono, ladrillos);
+                                            ball.move(playerbar,ball,&w,&vidas,&resetPosition,&perdidaVida,&colisiono, ladrillos, &verifPowerup);
                                             mostrarLadrillos(ladrillos,&w);
                                             if(perdidaVida=='V'){//Lose a life.
                                                 perdidaVida='F';
@@ -337,6 +371,10 @@ int main() {
                                             if(colisiono == 'V'){
                                                 colisiono='F';
                                                 soundRebote.play();
+                                            }
+                                            if(verifPowerup){//.
+                                                verifPowerup = false;
+                                                generarPoweup(powerup, &isPowerupActivated);
                                             }
                                         }//End if.
                                     }//End if user play.
@@ -440,14 +478,6 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks){
         fila++;
     }
     a.close();
-
-
-//    for (idLadrilloX = 0; idLadrilloX < 10; idLadrilloX++){
-//
-//        bricks.put(new Ladrillo(140,0,idLadrilloX,0), i);
-//
-//        i++;
-//    }
 }
 
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
@@ -457,4 +487,25 @@ void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
     }
 }
 
+void cargarPoweup(Queue <int> &powerup){
 
+    for (int i = 0; i < 10; i++ ){
+        powerup.enqueue(i);
+    }
+}
+
+void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated){
+    srand(time(NULL));
+    int numeroRnd;
+    numeroRnd=rand() %100+1;
+
+    if (numeroRnd >= 70){
+        std::cout<<powerup.front()<<std::endl;
+        powerup.dequeue();
+        *isPowerupActivated = true;
+    }
+
+
+
+
+}

@@ -35,7 +35,7 @@ public:
     float getRadio(Texture *texturaBall);
     float deltaX(Ball ball, Playerbar playerbar);
     void draw(RenderWindow *w);
-    void move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono,  LinkedList <Ladrillo*> &ladrillos);
+    void move(Playerbar playerbar, Ball ball, RenderWindow *w, int *vidas, char *resetPosition, char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos, bool *verifColisionPowerup);
     void moveBallWithPlayerbar(Playerbar playerbar);
 
     float deltaLadris(Ball ball,Ladrillo &ladrillos);

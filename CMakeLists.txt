@@ -7,7 +7,7 @@ find_package(SFML REQUIRED COMPONENTS system graphics window audio)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(mySFML main.cpp Playerbar.cpp Playerbar.h Ball.cpp Ball.h Menu.cpp Menu.h Textos.cpp Textos.h Vidas.cpp
-        Vidas.h Nodo.h Stack.h Ladrillo.cpp Ladrillo.h LinkedList.h)
+        Vidas.h Nodo.h Stack.h Ladrillo.cpp Ladrillo.h LinkedList.h Queue.h)
 
 target_link_libraries(mySFML sfml-graphics sfml-window sfml-system sfml-audio)
 

@@ -75,7 +75,7 @@ float Ball::getRadio(Texture *texturaBall) {
 //End getRadio.
 
 
-void Ball::move(Playerbar playerbar,Ball ball,RenderWindow *w,int *vidas, char *resetPosition,char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos) {
+void Ball::move(Playerbar playerbar, Ball ball, RenderWindow *w, int *vidas, char *resetPosition, char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos, bool *verifColisionPowerup) {
 int i = 0;
     if (isDrew) {
 
@@ -139,7 +139,7 @@ int i = 0;
                     }
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR DERECHA
-                  else if (xBall >= ((ladrillos.get()->getX() + ladrillos.get()->getXLong()) - ((ballSize * 0.7) / 2)) ) {
+                  else if (xBall >= ((ladrillos.get()->getX() + (ladrillos.get()->getXLong()) - 1) - ((ballSize * 0.7) / 2)) ) {
                        //ladrillos.remove(ladrillos.get()->getId());
                         yBall += 10;
                         velBallY = -velBall;
@@ -148,7 +148,8 @@ int i = 0;
                     i = ladrillos.get()->getId();
 
                   std::cout<<"id del ladrillo "<< i <<std::endl;
-                    ladrillos.remove(i);
+                    //ladrillos.remove(i);
+                    *verifColisionPowerup = true;
                 }
             }
 

@@ -28,7 +28,7 @@ public:
     void setSize(int size);
     void setPosition(int x, int y);
     void draw(RenderWindow *w);
-    void enterName(std::string letra, int indicador);
+    void enterName(std::string letra);
     ~Textos();
 };
 

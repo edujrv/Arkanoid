@@ -82,6 +82,7 @@ int main() {
             bool enterPressed=false;
             int indicador=0;
             String aux;
+            bool podio=false;
             /*
              * Mientras este en verdadero, el usuario se mantendrá en el menú.
              */
@@ -114,8 +115,8 @@ int main() {
             retroFont->loadFromFile("fuentes/Retro.ttf");
          //-   TEXTS LOADING:
             Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
-            Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) - 80);
-            Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) - 40);
+            Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) + 80);
+            Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) + 120);
             Textos lifes("LIFES: ",retroFont,40, 0, 0);
             Textos numLifes("3",retroFont,40, 100, 0);
             Textos ingUser("Ingrese su nombre de usuario:",retroFont,40, (windowWidth/2)-200, (windowHeight/2)-50);
@@ -319,7 +320,7 @@ int main() {
                                         default://Cualquier letra
                                         if(indicador < 10){
                                             letra.push_back(e.text.unicode);
-                                            usuario.enterName(letra,indicador);
+                                            usuario.enterName(letra);
                                             indicador++;
                                         }
                                             break;
@@ -339,11 +340,41 @@ int main() {
                                   }
                                   enterPressed= false;
                                   escritura= false;
+                                  podio=true;
+
                               }
 
                             }
+                            if(podio){
+                                if (Keyboard::isKeyPressed(Keyboard::Space)){
+                                    vidas = 3;
+                                    soundBubbles.setVolume(180);
+                                    soundBubbles.play();
+                                    for(int i=0;i<3;i++){//Charge full hearts.
+                                        stackFullHeart.push(1);
+                                    }
+                                    for(int i=0;i<3;i++){//Empty empty hearts.
+                                        stackEmptyHeart.pop();
+                                    }
+                                    sadMusic.stop();
+                                    missed=false;
+                                    podio= false;
+                                    menuFinal= false;
+                                    escritura=true;
+                                    letra="";
+                                    usuario.enterName(letra);
+                                    gameMusic.play();
+                                }
+                                if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                                    sadMusic.stop();
+                                    soundBye.play();
+                                    sleep(seconds(1.5));
+                                    w.close();
+                                }
+                                //Insertar bloque de mostrar  mejores tiempo junto con las opciones de salir y volver a jugar;
+                            }
 
-                            //Insertar bloque de mostrar tu tiempo y mejores tiempo;
+
                         }
                     }//End while event action.
                             //--   INGAME ACTIONS:
@@ -486,11 +517,13 @@ int main() {
                                 }//End if play.
                         //-   OBJECT ILLUSTRATION:
                             w.draw(sScreenBackground);
-                            playerbar.dibujar(&w);
-                            ball.draw(&w);
+                                if(stackFullHeart.size() > 0){
+                                    playerbar.dibujar(&w);
+                                    ball.draw(&w);
+                                    mostrarLadrillos(ladrillos,&w);
+                                }
                             lifes.draw(&w);
                             numLifes.draw(&w);
-                            mostrarLadrillos(ladrillos,&w);
                             if(isPowerupActivated){
                                 powerIcon.draw(&w);
                             }
@@ -508,34 +541,20 @@ int main() {
                             //--   LOSE CONDITIONS:
                             if(stackFullHeart.size() == 0){ //Beginning of if lose.
                                 turboMusic.stop();
-
-                                gameOver.draw(&w);
-                                //tryAgain.draw(&w);
-                                //quit.draw(&w);
-
-                                w.draw(barra);
-                                ingUser.draw(&w);
-                                usuario.draw(&w);
-                                /*if (Keyboard::isKeyPressed(Keyboard::Space)){
-                                    vidas = 3;
-                                    soundBubbles.setVolume(180);
-                                    soundBubbles.play();
-                                    for(int i=0;i<3;i++){//Charge full hearts.
-                                        stackFullHeart.push(1);
-                                    }
-                                    for(int i=0;i<3;i++){//Empty empty hearts.
-                                        stackEmptyHeart.pop();
-                                    }
-                                    sadMusic.stop();
-                                    missed=false;
-                                    gameMusic.play();
-                                }*/
-                                if (Keyboard::isKeyPressed(Keyboard::Escape)){
-                                    sadMusic.stop();
-                                    soundBye.play();
-                                    sleep(seconds(1.5));
-                                    w.close();
+                                if(menuFinal && !podio){
+                                    gameOver.draw(&w);
+                                    w.draw(barra);
+                                    ingUser.draw(&w);
+                                    usuario.draw(&w);
                                 }
+                                if(menuFinal && podio){
+                                    gameOver.draw(&w);
+                                    tryAgain.draw(&w);
+                                    quit.draw(&w);
+                                }
+
+
+
                             }//End if lose.
                     }//End if play.
                     else{

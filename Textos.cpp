@@ -42,7 +42,7 @@ void Textos::setPosition(int x, int y) {
     txt->setPosition((float) posX, (float) posY);
 }
 
-void Textos::enterName(std::string letra,int indicador) {
+void Textos::enterName(std::string letra) {
     std::cout<<"letra:"<<letra<<std::endl;
     txt->setString(letra);
 

@@ -3,7 +3,7 @@
 //
 
 #include "Textos.h"
-#include<SFML/Graphics.hpp>
+//#include<SFML/Graphics.hpp>
 
 using namespace sf;
 
@@ -40,6 +40,12 @@ void Textos::setPosition(int x, int y) {
     this->posX = x;
     this->posY = y;
     txt->setPosition((float) posX, (float) posY);
+}
+
+void Textos::enterName(std::string letra,int indicador) {
+    std::cout<<"letra:"<<letra<<std::endl;
+    txt->setString(letra);
+
 }
 
 void Textos::draw(RenderWindow *w) {

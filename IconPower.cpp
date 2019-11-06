@@ -8,6 +8,7 @@ IconPower::IconPower(RenderWindow* w){
     sIconPower.setPosition(Vector2f(0 + (w->getSize().x/40),100 + (w->getSize().y/8 * 4)));
 
 }
+
 void IconPower::draw(RenderWindow *w) {
     w->draw(sIconPower);
 }

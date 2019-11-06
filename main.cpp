@@ -17,6 +17,7 @@
 #include "IconPower.h"
 
 
+
 void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
 void cargarPoweup(Queue <int> &powerup);
@@ -33,7 +34,7 @@ int main() {
     LinkedList<Ladrillo*> ladrillos;
     Queue <int> powerup;
     cargarPoweup(powerup);
-
+    std::ofstream fileNames;
 
 
   //  crearLadrillos(ladrillos);
@@ -75,6 +76,12 @@ int main() {
             Menu menuPrincipal(&w);
          //-   PROPERTIES:
             char menu='V';
+            bool menuFinal=false;
+            std::string letra;
+            bool escritura= true;
+            bool enterPressed=false;
+            int indicador=0;
+            String aux;
             /*
              * Mientras este en verdadero, el usuario se mantendrá en el menú.
              */
@@ -111,6 +118,8 @@ int main() {
             Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) - 40);
             Textos lifes("LIFES: ",retroFont,40, 0, 0);
             Textos numLifes("3",retroFont,40, 100, 0);
+            Textos ingUser("Ingrese su nombre de usuario:",retroFont,40, (windowWidth/2)-200, (windowHeight/2)-50);
+            Textos usuario("............",retroFont,40, (windowWidth/2)-60,(windowHeight/2)-5);
 
        //*  NOISES:
          //-   BUFFERS LOADING:
@@ -240,6 +249,12 @@ int main() {
             crearLadrillos(ladrillos);
 
 
+    RectangleShape barra(Vector2f(400,40));
+    barra.setPosition(Vector2f((windowWidth/2)-200,(windowHeight/2)));
+    barra.setOutlineColor(Color::Black);
+    barra.setFillColor (Color::White);
+
+
        //*  SCOREBOARD:
          //-   SCOREBOARD SETTINGS:
 
@@ -294,14 +309,52 @@ int main() {
                                     }//End switch.
                                 }//End if.
                             }//End if menu.
+                        if(menuFinal){//Menu al perder
+                            if(escritura){
+                                if(e.type == Event::TextEntered){
+                                    switch(e.text.unicode){
+                                        case 13:
+                                            enterPressed=true;
+                                            break;
+                                        default://Cualquier letra
+                                        if(indicador < 10){
+                                            letra.push_back(e.text.unicode);
+                                            usuario.enterName(letra,indicador);
+                                            indicador++;
+                                        }
+                                            break;
+                                    }
+                                }
+                              if(enterPressed){
+                                  std::cout<<"La letra."<<letra<<std::endl;
+                                  fileNames.open("textos/nombres.txt",std::ios::out);
+                                  if(fileNames.is_open())
+                                  {
+
+                                      fileNames<< "\n";
+                                      fileNames<<letra<< "\n";
+                                      fileNames.close();
+                                  }else{
+                                      std::cout<<"error al abrir el archivo";
+                                  }
+                                  enterPressed= false;
+                                  escritura= false;
+                              }
+
+                            }
+
+                            //Insertar bloque de mostrar tu tiempo y mejores tiempo;
+                        }
                     }//End while event action.
                             //--   INGAME ACTIONS:
+
                                 if(menu=='F') {//Beginning If.
                                     if ((stackFullHeart.size() == 0) && !missed) { //If user lose.
                                         ball.moveBallWithPlayerbar(playerbar);
                                         gameMusic.stop();
                                         sadMusic.play();
                                         missed = true;
+                                        menuFinal=true;
                                     }//End if.
                                     //---   BALL RELEASE:
                                     if (stackFullHeart.size() > 0) {//If user play.
@@ -391,6 +444,12 @@ int main() {
                                             soundHerida.play();
                                             playerbar.centrar(&w,playerbar);
                                             resetPosition = 'F';
+                                            if(isPowerupActivated){
+                                                isPowerupActivated=false;
+                                                std::cout<<"Tiempo terminado"<<std::endl;
+                                                clockPower->restart();
+                                                soundPower.play();
+                                            }
                                             }
                                             if(colisiono == 'V'){
                                                 colisiono='F';
@@ -449,11 +508,17 @@ int main() {
                             //--   LOSE CONDITIONS:
                             if(stackFullHeart.size() == 0){ //Beginning of if lose.
                                 turboMusic.stop();
+
                                 gameOver.draw(&w);
-                                tryAgain.draw(&w);
-                                quit.draw(&w);
-                                if (Keyboard::isKeyPressed(Keyboard::Space)){
+                                //tryAgain.draw(&w);
+                                //quit.draw(&w);
+
+                                w.draw(barra);
+                                ingUser.draw(&w);
+                                usuario.draw(&w);
+                                /*if (Keyboard::isKeyPressed(Keyboard::Space)){
                                     vidas = 3;
+                                    soundBubbles.setVolume(180);
                                     soundBubbles.play();
                                     for(int i=0;i<3;i++){//Charge full hearts.
                                         stackFullHeart.push(1);
@@ -464,7 +529,7 @@ int main() {
                                     sadMusic.stop();
                                     missed=false;
                                     gameMusic.play();
-                                }
+                                }*/
                                 if (Keyboard::isKeyPressed(Keyboard::Escape)){
                                     sadMusic.stop();
                                     soundBye.play();
@@ -527,7 +592,7 @@ void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated,bool *activarR
     numeroRnd=rand() %100+1;
     std::cout<<"El numero rnd es:"<<numeroRnd<<std::endl;
     if ((numeroRnd <= 60) && (numeroRnd >= 40)){
-        if(*isPowerupActivated == false){
+        if((*isPowerupActivated == false) && (!Keyboard::isKeyPressed(Keyboard::T))){
         std::cout<<"poder activado"<<std::endl;
         std::cout<<powerup.front()<<std::endl;
         powerup.dequeue();

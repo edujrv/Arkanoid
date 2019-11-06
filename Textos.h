@@ -3,7 +3,8 @@
 #define ARKANOID_TEXTOS_H
 
 #include <SFML/Graphics.hpp>
-
+#include<iostream>
+#include<string>
 using namespace sf;
 
 class Textos {
@@ -20,12 +21,14 @@ private:
 
 
 public:
+    String user;
     Textos(String newMessage, Font *Font, int newSize, int x, int y);
     void setMessage(String message);
     void setFont(Font *font);
     void setSize(int size);
     void setPosition(int x, int y);
     void draw(RenderWindow *w);
+    void enterName(std::string letra, int indicador);
     ~Textos();
 };
 

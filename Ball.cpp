@@ -77,6 +77,8 @@ float Ball::getRadio(Texture *texturaBall) {
 
 void Ball::move(Playerbar playerbar, Ball ball, RenderWindow *w, int *vidas, char *resetPosition, char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos, bool *verifColisionPowerup) {
 int i = 0;
+Ladrillo *aBorrar = nullptr;
+
     if (isDrew) {
 
         yBall -= velBallY;
@@ -149,13 +151,17 @@ int i = 0;
 
                   std::cout<<"id del ladrillo "<< i <<std::endl;
                   //  ladrillos.remove(i);
+                    aBorrar = ladrillos.get();
                     *verifColisionPowerup = true;
                 }
             }
 
 
         }
-
+        if(aBorrar != nullptr){ // si tengo que borrar ese ladrillo lo saco de la lista
+            ladrillos.remove(aBorrar);
+            delete aBorrar; // Como había echo un new, hago un delete.
+        }
         xBall -= velBallX;
         // sBall.setPosition(xBall, yBall);
         if ((xBall <= 130)) {

@@ -26,6 +26,7 @@ public:
     T search(T dato);
 
     void remove(int pos);
+    void remove(T pos);
 
     unsigned int size();
 
@@ -115,6 +116,30 @@ void LinkedList<T>::remove(int pos) {
 
         aux->next = aBorrar->next;
 
+        delete aBorrar;
+        tamanio--;
+    } else {
+        aBorrar = inicio;
+        inicio = aBorrar->next;
+        delete aBorrar;
+        tamanio--;
+    }
+}
+
+template<typename T>
+void LinkedList<T>::remove(T dato) {
+    Nodo<T> *aux = inicio;
+    Nodo<T> *aBorrar = inicio;
+
+    while (aBorrar != nullptr && aBorrar->dato != dato) {
+        aux = aBorrar;
+        aBorrar = aBorrar->next;
+    }
+    if (aBorrar == nullptr)
+        throw 404; // Llegué al final
+
+    if (aBorrar != inicio) {
+        aux->next = aBorrar->next;
         delete aBorrar;
         tamanio--;
     } else {

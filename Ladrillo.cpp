@@ -4,9 +4,9 @@
 
 #include "Ladrillo.h"     
 
-Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri) {
+Ladrillo::Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri, String pic) {
 
-    tLadri.loadFromFile("imagenes/Brick1.png");
+    tLadri.loadFromFile(pic);
     sLadri.setTexture(tLadri);
     sLadri.setScale(0.75,0.75);
 

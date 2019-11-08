@@ -22,6 +22,10 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
 void cargarPoweup(Queue <int> &powerup);
 void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated, bool *activarReloj);
+void readFilesLevel(std::ifstream*,LinkedList <Ladrillo*> &bricks);
+void mapClean(LinkedList <Ladrillo*> &bricks);
+void vericarGanar(LinkedList <Ladrillo*> &bricks, bool* menuGanar);
+
 //  //  //  //  //  //  //  //  //  //  //
 
 //TERMINOLOGY:
@@ -58,6 +62,7 @@ int main() {
             bool verifPowerup = false;
             bool isPowerupActivated = false;
             bool comienzoPoder = true;
+            bool quedanladrillos=true;
 
             /*
              * resetPosition: Si esta es verdadera, la barra del usuario se dibujara en el centro de la pantalla.
@@ -69,14 +74,22 @@ int main() {
          //-   LOADING:
          Clock* clockPower;
          Time*   timePower;
+         Clock* clockGame;
+         Time* timeGame;
          bool activarReloj=true;
+         int minutos=0;
+         int segundos=0;
+         int milisegundos=0;
+         bool activarRelojPrincipal=true;
 
        //*  MENU:
          //-   LOADING:
             Menu menuPrincipal(&w);
          //-   PROPERTIES:
             char menu='V';
-            bool menuFinal=false;
+            bool juego=false;
+            bool menuGanar=false;
+            bool menuPerder=false;
             std::string letra;
             bool escritura= true;
             bool enterPressed=false;
@@ -121,7 +134,10 @@ int main() {
             Textos numLifes("3",retroFont,40, 100, 0);
             Textos ingUser("Ingrese su nombre de usuario:",retroFont,40, (windowWidth/2)-200, (windowHeight/2)-50);
             Textos usuario("............",retroFont,40, (windowWidth/2)-60,(windowHeight/2)-5);
-
+            Textos tiempo("Tu tiempo es:",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
+            Textos minutes("",retroFont,60, ((int)windowWidth / 2) - 90 , ((int)windowHeight / 2) - 150);
+            Textos second("",retroFont,60, ((int)windowWidth / 2) - 80 , ((int)windowHeight / 2) - 150);
+            Textos millis("",retroFont,60, ((int)windowWidth / 2) - 70 , ((int)windowHeight / 2) - 150);
        //*  NOISES:
          //-   BUFFERS LOADING:
             SoundBuffer bufferHerida;
@@ -298,6 +314,7 @@ int main() {
                                             sleep(seconds(1));
                                             gameMusic.play();
                                             menu='F';
+                                            juego= true;
                                             break;
                                         case 1://QUIT.
                                             soundMenuSelect.play();
@@ -310,7 +327,7 @@ int main() {
                                     }//End switch.
                                 }//End if.
                             }//End if menu.
-                        if(menuFinal){//Menu al perder
+                        if(menuGanar){//Menu al ganar       //Hacer una funcion que evalue si quedan ladrillos y menuGanar=true
                             if(escritura){
                                 if(e.type == Event::TextEntered){
                                     switch(e.text.unicode){
@@ -359,11 +376,15 @@ int main() {
                                     sadMusic.stop();
                                     missed=false;
                                     podio= false;
-                                    menuFinal= false;
+                                    menuGanar= false;
+                                    juego= true;
                                     escritura=true;
                                     letra="";
                                     usuario.enterName(letra);
                                     gameMusic.play();
+                                    mapClean(ladrillos);
+                                    crearLadrillos(ladrillos);
+
                                 }
                                 if (Keyboard::isKeyPressed(Keyboard::Escape)){
                                     sadMusic.stop();
@@ -379,16 +400,45 @@ int main() {
                     }//End while event action.
                             //--   INGAME ACTIONS:
 
-                                if(menu=='F') {//Beginning If.
+                                if(juego) {//Beginning If.
+
+
+
                                     if ((stackFullHeart.size() == 0) && !missed) { //If user lose.
                                         ball.moveBallWithPlayerbar(playerbar);
                                         gameMusic.stop();
                                         sadMusic.play();
                                         missed = true;
-                                        menuFinal=true;
+                                        segundos=0;
+                                        milisegundos=0;
+                                        minutos=0;
+                                        activarRelojPrincipal= true;
+
                                     }//End if.
                                     //---   BALL RELEASE:
                                     if (stackFullHeart.size() > 0) {//If user play.
+                                        if(activarRelojPrincipal){
+                                            clockGame=new Clock();
+                                            timeGame=new Time();
+                                            std::cout<<"Tiempo activado"<<std::endl;
+                                            activarRelojPrincipal= false;
+                                        }
+                                        *timeGame=clockGame->getElapsedTime();
+                                        milisegundos=timeGame->asMilliseconds();
+                                        std::cout<<timeGame->asMilliseconds()<<std::endl;
+                                        if((timeGame->asMilliseconds()) >= 1000 ){
+                                            std::cout<<"SEGUNDO"<<std::endl;
+                                            clockGame->restart();
+                                            segundos++;
+                                            milisegundos=0;
+                                        }
+                                        if(segundos >= 60 ){
+                                            std::cout<<"Minuto"<<std::endl;
+                                            clockGame->restart();
+                                            segundos=0;
+                                            minutos++;
+                                        }
+
                                         if (!ball.isDrew) {//Move ball with the playerbar.
                                             ball.moveBallWithPlayerbar(playerbar); // Start on the middle of the bar
                                         }
@@ -490,12 +540,18 @@ int main() {
                                                 verifPowerup = false;
                                                 generarPoweup(powerup, &isPowerupActivated,&activarReloj);
                                             }
+
+                                          vericarGanar(ladrillos,&menuGanar);
+                                            if(menuGanar){
+                                                juego= false;
+                                            }
+
                                         }//End if.
                                     }//End if user play.
                             //--   REFRESH SCREEN:
                                 w.clear(Color(20, 20, 100, 150));
                             //--   LIFES CONTROL:
-                                if(menu == 'F'){//Beginning of play.
+                                if(juego){//Beginning of play.
                                     switch (vidas) {//Beginning of switch.
                                         case 1:{
                                             numLifes.setMessage("1");
@@ -517,12 +573,42 @@ int main() {
                                 }//End if play.
                         //-   OBJECT ILLUSTRATION:
                             w.draw(sScreenBackground);
-                                if(stackFullHeart.size() > 0){
+                                if((stackFullHeart.size() > 0)&&(!menuGanar)){
                                     playerbar.dibujar(&w);
                                     ball.draw(&w);
                                     mostrarLadrillos(ladrillos,&w);
+                                    lifes.draw(&w);
+                                    numLifes.draw(&w);
+                                    if(isPowerupActivated){
+                                        powerIcon.draw(&w);
+                                    }
+                                    int aux=0;
+                                    for (int i=0;i<stackEmptyHeart.size();i++){//Draw empty hearts.
+                                        aux=i+1;
+                                        Vidas vid(&w,aux);
+                                        vid.draw(&w,0);
+                                    }
+                                    for (int i=0;i<stackFullHeart.size();i++){//Draw full hearts.
+                                        aux=aux+1;
+                                        Vidas vid(&w,aux);
+                                        vid.draw(&w,1);
+                                    }
                                 }
-                            lifes.draw(&w);
+                                    if(menuGanar && !podio){
+
+                                        tiempo.setMessage("Tu tiempo es:");
+                                        tiempo.draw(&w);
+                                        minutes.setMessage(std::to_string(minutos));
+                                        minutes.draw(&w);
+                                        second.setMessage(std::to_string(segundos));
+                                        second.draw(&w);
+                                        millis.setMessage(std::to_string(milisegundos));
+                                        millis.draw(&w);
+                                        w.draw(barra);
+                                        ingUser.draw(&w);
+                                        usuario.draw(&w);
+                                    }
+                           /* lifes.draw(&w);
                             numLifes.draw(&w);
                             if(isPowerupActivated){
                                 powerIcon.draw(&w);
@@ -537,27 +623,43 @@ int main() {
                                 aux=aux+1;
                                 Vidas vid(&w,aux);
                                 vid.draw(&w,1);
-                            }
+                            }*/
                             //--   LOSE CONDITIONS:
-                            if(stackFullHeart.size() == 0){ //Beginning of if lose.
+                            if((stackFullHeart.size() == 0)&&(!menuGanar)){ //Beginning of if lose.
                                 turboMusic.stop();
-                                if(menuFinal && !podio){
-                                    gameOver.draw(&w);
-                                    w.draw(barra);
-                                    ingUser.draw(&w);
-                                    usuario.draw(&w);
-                                }
-                                if(menuFinal && podio){
-                                    gameOver.draw(&w);
-                                    tryAgain.draw(&w);
-                                    quit.draw(&w);
-                                }
+                                gameOver.draw(&w);
+                                tryAgain.draw(&w);
+                                quit.draw(&w);
 
+                                if (Keyboard::isKeyPressed(Keyboard::Space)){
+                                    vidas = 3;
+                                    soundBubbles.setVolume(180);
+                                    soundBubbles.play();
+                                    for(int i=0;i<3;i++){//Charge full hearts.
+                                        stackFullHeart.push(1);
+                                    }
+                                    for(int i=0;i<3;i++){//Empty empty hearts.
+                                        stackEmptyHeart.pop();
+                                    }
+                                    sadMusic.stop();
+                                    missed=false;
+                                    gameMusic.play();
+                                    mapClean(ladrillos);
+                                    crearLadrillos(ladrillos);
+                                    juego=true;
+
+                                }
+                                if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                                    sadMusic.stop();
+                                    soundBye.play();
+                                    sleep(seconds(1.5));
+                                    w.close();
+                                }
 
 
                             }//End if lose.
                     }//End if play.
-                    else{
+                    if(menu=='V'){
                         w.draw(sMenuBackground);
                         menuPrincipal.draw(w);
                     }
@@ -567,30 +669,84 @@ int main() {
     //*  CLOSING PROGRAM:
     return 0;
 }//END MAIN.
-
+void mapClean(LinkedList <Ladrillo*> &bricks){
+    Ladrillo *aBorrar = nullptr;
+    for(bricks.begin(); !bricks.ended() ; bricks.next()){
+        aBorrar = bricks.get();
+        bricks.remove(aBorrar);
+        delete aBorrar;
+    }
+}
 void crearLadrillos(LinkedList <Ladrillo*> &bricks){
+    srand(time(NULL));
+    int numeroRnd=0;
+    numeroRnd=rand() %5+1;
+   if(numeroRnd==1){
+       std::ifstream a("textos/level.txt");
+       readFilesLevel(&a,bricks);
+   } else if(numeroRnd==2){
+       std::ifstream a("textos/level1.txt");
+       readFilesLevel(&a,bricks);
+   } else if(numeroRnd==3){
+       std::ifstream a("textos/level2.txt");
+       readFilesLevel(&a,bricks);
+   }else if(numeroRnd==4){
+       std::ifstream a("textos/level3.txt");
+       readFilesLevel(&a,bricks);
+   }else if(numeroRnd==5){
+       std::ifstream a("textos/level4.txt");
+       readFilesLevel(&a,bricks);
+   }
 
 
+}
+void vericarGanar(LinkedList <Ladrillo*> &bricks,bool *menuGanar){
+
+
+
+        if(bricks.getSize() == 0){
+            *menuGanar= true;
+        }
+
+
+
+}
+
+void readFilesLevel(std::ifstream* a,LinkedList <Ladrillo*> &bricks){
     int idLadri = 0;
     std::string linea;
     int fila =0;
-    std::ifstream a("textos/level.txt");
     fflush(stdin);
-    while(getline(a,linea)){
+    while(getline(*a,linea)){
         for(int col =0; col < linea.length(); col++){
-
-            if(linea[col] == 'o') {
-
-                bricks.put(new Ladrillo(130, 0, col, fila, idLadri), idLadri );
-                idLadri++;
+            switch (linea[col]){
+                case 'o':{
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri,"imagenes/Brick1v2.png"), idLadri );
+                    idLadri++;
+                    break;
+                }
+                case 'l':{
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri,"imagenes/Brick5.png"), idLadri );
+                    idLadri++;
+                    break;
+                }
+                case 'm':{
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri,"imagenes/Brick7.png"), idLadri );
+                    idLadri++;
+                    break;
+                }
+                case 'r':{
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri,"imagenes/Brick4.png"), idLadri );
+                    idLadri++;
+                    break;
+                }
             }
 
         }
         fila++;
     }
-    a.close();
+    a->close();
 }
-
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
 
     for(bricks.begin(); !bricks.ended() ; bricks.next()){
@@ -621,8 +777,5 @@ void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated,bool *activarR
 
         }
     }
-
-
-
 
 }

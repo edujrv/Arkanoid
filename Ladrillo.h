@@ -20,7 +20,7 @@ private:
     int fila;
 
 public:
-    explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri);
+    explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri, String pic);
     Ladrillo();
     void draw(RenderWindow *w);
     float  getX();

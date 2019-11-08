@@ -86,6 +86,7 @@ Ladrillo *aBorrar = nullptr;
 
         // DEFAULT CONDITION
         if (yBall <= 0) {
+            yBall += 10;
             velBallY *= -1;
             *colisiono='V';
         }

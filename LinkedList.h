@@ -59,6 +59,10 @@ public:
         return posActual->dato;
     }
 
+    int getSize(){
+        return tamanio;
+    }
+
 };
 
 template<typename T>
@@ -127,6 +131,8 @@ void LinkedList<T>::remove(int pos) {
 }
 
 template<typename T>
+
+
 void LinkedList<T>::remove(T dato) {
     Nodo<T> *aux = inicio;
     Nodo<T> *aBorrar = inicio;
@@ -156,6 +162,9 @@ LinkedList<T>::~LinkedList() {
         remove(0);
     }
 }
+
+
+
 
 template<typename T>
 unsigned int LinkedList<T>::size() {

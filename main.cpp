@@ -334,6 +334,11 @@ int main() {
                                         case 13:
                                             enterPressed=true;
                                             break;
+                                        case 8:
+                                            letra = letra.substr(0,letra.length()-1);
+                                            usuario.enterName(letra);
+                                            indicador--;
+                                            break;
                                         default://Cualquier letra
                                         if(indicador < 10){
                                             letra.push_back(e.text.unicode);
@@ -573,7 +578,7 @@ int main() {
                                 }//End if play.
                         //-   OBJECT ILLUSTRATION:
                             w.draw(sScreenBackground);
-                                if((stackFullHeart.size() > 0)&&(!menuGanar)){
+                                if((stackFullHeart.size() > 0) && (!menuGanar)){
                                     playerbar.dibujar(&w);
                                     ball.draw(&w);
                                     mostrarLadrillos(ladrillos,&w);
@@ -595,7 +600,8 @@ int main() {
                                     }
                                 }
                                     if(menuGanar && !podio){
-
+                                        juego = false;
+                                        menu = 'F';
                                         tiempo.setMessage("Tu tiempo es:");
                                         tiempo.draw(&w);
                                         minutes.setMessage(std::to_string(minutos));
@@ -642,11 +648,11 @@ int main() {
                                         stackEmptyHeart.pop();
                                     }
                                     sadMusic.stop();
-                                    missed=false;
+                                    missed = false;
                                     gameMusic.play();
                                     mapClean(ladrillos);
                                     crearLadrillos(ladrillos);
-                                    juego=true;
+                                    juego = true;
 
                                 }
                                 if (Keyboard::isKeyPressed(Keyboard::Escape)){
@@ -681,35 +687,20 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks){
     srand(time(NULL));
     int numeroRnd=0;
     numeroRnd=rand() %5+1;
-   if(numeroRnd==1){
-       std::ifstream a("textos/level.txt");
-       readFilesLevel(&a,bricks);
-   } else if(numeroRnd==2){
-       std::ifstream a("textos/level1.txt");
-       readFilesLevel(&a,bricks);
-   } else if(numeroRnd==3){
-       std::ifstream a("textos/level2.txt");
-       readFilesLevel(&a,bricks);
-   }else if(numeroRnd==4){
-       std::ifstream a("textos/level3.txt");
-       readFilesLevel(&a,bricks);
-   }else if(numeroRnd==5){
-       std::ifstream a("textos/level4.txt");
-       readFilesLevel(&a,bricks);
-   }
+    numeroRnd = 4;
+   std::ifstream a;
+   std::string nombreA = "textos/level";
+   nombreA += std::to_string(numeroRnd);
+   nombreA += ".txt";
+   a.open(nombreA);
+   readFilesLevel(&a,bricks);
 
 
 }
 void vericarGanar(LinkedList <Ladrillo*> &bricks,bool *menuGanar){
-
-
-
         if(bricks.getSize() == 0){
             *menuGanar= true;
         }
-
-
-
 }
 
 void readFilesLevel(std::ifstream* a,LinkedList <Ladrillo*> &bricks){
@@ -741,7 +732,6 @@ void readFilesLevel(std::ifstream* a,LinkedList <Ladrillo*> &bricks){
                     break;
                 }
             }
-
         }
         fila++;
     }

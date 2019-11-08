@@ -58,7 +58,9 @@ public:
             throw 404;
         return posActual->dato;
     }
-
+    int getSize(){
+        return tamanio;
+    }
 };
 
 template<typename T>

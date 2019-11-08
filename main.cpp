@@ -22,6 +22,10 @@ void crearLadrillos(LinkedList <Ladrillo*> &bricks);
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w);
 void cargarPoweup(Queue <int> &powerup);
 void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated, bool *activarReloj);
+void readFilesLevel(std::ifstream*,LinkedList <Ladrillo*> &bricks);
+void mapClean(LinkedList <Ladrillo*> &bricks);
+void vericarGanar(LinkedList <Ladrillo*> &bricks, bool* menuGanar);
+
 //  //  //  //  //  //  //  //  //  //  //
 
 //TERMINOLOGY:
@@ -37,92 +41,102 @@ int main() {
     std::ofstream fileNames;
 
 
-  //  crearLadrillos(ladrillos);
+    //  crearLadrillos(ladrillos);
 
     // VARIABLES:
 
-       //*  WINDOW:
-         //-   RESOLUTIONS:
-            unsigned int windowHeight= 782;
-            unsigned int windowWidth= 1368;
-            /*
-             * windowHeight:    Alto de la pantalla. -> Original del fondo |1152|.
-             * windowWidth:     Ancho de la pantalla. ->Original del fondo |2048|o|1368|.
-             * */
-         //-   LOADING:
-            RenderWindow w(VideoMode(windowWidth,windowHeight), "Chimuelo Bricks");
-         //-   PERFORMANCE:
-            w.setFramerateLimit(40);
-            char resetPosition = 'F';
-            char colisiono = 'F';
-            bool verifPowerup = false;
-            bool isPowerupActivated = false;
-            bool comienzoPoder = true;
+    //*  WINDOW:
+    //-   RESOLUTIONS:
+    unsigned int windowHeight= 782;
+    unsigned int windowWidth= 1368;
+    /*
+     * windowHeight:    Alto de la pantalla. -> Original del fondo |1152|.
+     * windowWidth:     Ancho de la pantalla. ->Original del fondo |2048|o|1368|.
+     * */
+    //-   LOADING:
+    RenderWindow w(VideoMode(windowWidth,windowHeight), "Chimuelo Bricks");
+    //-   PERFORMANCE:
+    w.setFramerateLimit(40);
+    char resetPosition = 'F';
+    char colisiono = 'F';
+    bool verifPowerup = false;
+    bool isPowerupActivated = false;
+    bool comienzoPoder = true;
+    bool quedanladrillos=true;
 
-            /*
-             * resetPosition: Si esta es verdadera, la barra del usuario se dibujara en el centro de la pantalla.
-             * colisiono: Si es verdadera signufica que la pelota colisiono con algo.
-             * verifPowerup: si es verdadera significa que se activa el powerup.
-             */
+    /*
+     * resetPosition: Si esta es verdadera, la barra del usuario se dibujara en el centro de la pantalla.
+     * colisiono: Si es verdadera signufica que la pelota colisiono con algo.
+     * verifPowerup: si es verdadera significa que se activa el powerup.
+     */
 
-       //*  TIMES:
-         //-   LOADING:
-         Clock* clockPower;
-         Time*   timePower;
-         bool activarReloj=true;
+    //*  TIMES:
+    //-   LOADING:
+    Clock* clockPower;
+    Time*   timePower;
+    Clock* clockGame;
+    Time* timeGame;
+    bool activarReloj=true;
+    int minutos=0;
+    int segundos=0;
+    int milisegundos=0;
+    bool activarRelojPrincipal=true;
 
-       //*  MENU:
-         //-   LOADING:
-            Menu menuPrincipal(&w);
-         //-   PROPERTIES:
-            char menu='V';
-            bool menuFinal=false;
-            std::string letra;
-            bool escritura= true;
-            bool enterPressed=false;
-            int indicador=0;
-            String aux;
-            bool podio=false;
-            /*
-             * Mientras este en verdadero, el usuario se mantendrá en el menú.
-             */
+    //*  MENU:
+    //-   LOADING:
+    Menu menuPrincipal(&w);
+    //-   PROPERTIES:
+    char menu='V';
+    bool menuGanar=false;
+    std::string letra;
+    bool escritura= true;
+    bool enterPressed=false;
+    int indicador=0;
+    String aux;
+    bool podio=false;
+    /*
+     * Mientras este en verdadero, el usuario se mantendrá en el menú.
+     */
 
-       //*  STACKS:
-         //-   LOADING:
-            Stack<int> stackFullHeart;
-            Stack<int> stackEmptyHeart;
-            /*
-             * stackFullHeart:  Esta pila contiente la cantidad de corazones llenos.
-             * stackEmptyHeart: Esta pila contiente la cantidad de corazones vacíos.
-             */
+    //*  STACKS:
+    //-   LOADING:
+    Stack<int> stackFullHeart;
+    Stack<int> stackEmptyHeart;
+    /*
+     * stackFullHeart:  Esta pila contiente la cantidad de corazones llenos.
+     * stackEmptyHeart: Esta pila contiente la cantidad de corazones vacíos.
+     */
 
-       //*  LIFES:
-         //-   LOADING:
-            int vidas = 3;
-         //-   STACK CHARGING:
-            for(int i=0;i<3;i++){
-                stackFullHeart.push(1);
-             }//END FOR.
-         //-   PROPERTIES:
-            char perdidaVida='F';
-            /*
-             * Cuando esta se vuelva verdadera, significara que el usuario perdió una vida.
-             */
+    //*  LIFES:
+    //-   LOADING:
+    int vidas = 3;
+    //-   STACK CHARGING:
+    for(int i=0;i<3;i++){
+        stackFullHeart.push(1);
+    }//END FOR.
+    //-   PROPERTIES:
+    char perdidaVida='F';
+    /*
+     * Cuando esta se vuelva verdadera, significara que el usuario perdió una vida.
+     */
 
-       //*  TEXTS:
-         //-   FONT LOADING:
-            Font * retroFont = new Font();
-            retroFont->loadFromFile("fuentes/Retro.ttf");
-         //-   TEXTS LOADING:
-            Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
-            Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) + 80);
-            Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) + 120);
-            Textos lifes("LIFES: ",retroFont,40, 0, 0);
-            Textos numLifes("3",retroFont,40, 100, 0);
-            Textos ingUser("Ingrese su nombre de usuario:",retroFont,40, (windowWidth/2)-200, (windowHeight/2)-50);
-            Textos usuario("............",retroFont,40, (windowWidth/2)-60,(windowHeight/2)-5);
-
-       //*  NOISES:
+    //*  TEXTS:
+    //-   FONT LOADING:
+    Font * retroFont = new Font();
+    retroFont->loadFromFile("fuentes/Retro.ttf");
+    //-   TEXTS LOADING:
+    Textos gameOver("GAME OVER",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
+    Textos tryAgain("Press space to try again",retroFont,30, ((int)windowWidth / 2) - 120, ((int)windowHeight / 2) + 80);
+    Textos quit("Press esc to quit",retroFont,30, ((int)windowWidth / 2) - 75, ((int)windowHeight / 2) + 120);
+    Textos lifes("LIFES: ",retroFont,40, 0, 0);
+    Textos numLifes("3",retroFont,40, 100, 0);
+    Textos ingUser("Ingrese su nombre de usuario:",retroFont,40, (windowWidth/2)-200, (windowHeight/2)-50);
+    Textos usuario("............",retroFont,40, (windowWidth/2)-60,(windowHeight/2)-5);
+    Textos tiempo("Tu tiempo es:",retroFont,60, ((int)windowWidth / 2) - 100 , ((int)windowHeight / 2) - 150);
+    Textos minutes("",retroFont,60, ((int)windowWidth / 2) - 90 , ((int)windowHeight / 2) - 150);
+    Textos second("",retroFont,60, ((int)windowWidth / 2) - 80 , ((int)windowHeight / 2) - 150);
+    Textos millis("",retroFont,60, ((int)windowWidth / 2) - 70 , ((int)windowHeight / 2) - 150);
+    //*  NOISES:
          //-   BUFFERS LOADING:
             SoundBuffer bufferHerida;
             SoundBuffer bufferRebote;
@@ -310,7 +324,7 @@ int main() {
                                     }//End switch.
                                 }//End if.
                             }//End if menu.
-                        if(menuFinal){//Menu al perder
+                        if(menuGanar){//Menu al ganar
                             if(escritura){
                                 if(e.type == Event::TextEntered){
                                     switch(e.text.unicode){
@@ -359,11 +373,13 @@ int main() {
                                     sadMusic.stop();
                                     missed=false;
                                     podio= false;
-                                    menuFinal= false;
+                                    menuGanar= false;
                                     escritura=true;
                                     letra="";
                                     usuario.enterName(letra);
                                     gameMusic.play();
+                                    mapClean(ladrillos);
+                                    crearLadrillos(ladrillos);
                                 }
                                 if (Keyboard::isKeyPressed(Keyboard::Escape)){
                                     sadMusic.stop();
@@ -385,10 +401,31 @@ int main() {
                                         gameMusic.stop();
                                         sadMusic.play();
                                         missed = true;
-                                        menuFinal=true;
+
                                     }//End if.
                                     //---   BALL RELEASE:
                                     if (stackFullHeart.size() > 0) {//If user play.
+                                        if(activarRelojPrincipal){
+                                            clockGame=new Clock();
+                                            timeGame=new Time();
+                                            std::cout<<"Tiempo activado"<<std::endl;
+                                            activarRelojPrincipal= false;
+                                        }
+                                        *timeGame=clockGame->getElapsedTime();
+                                        milisegundos=timeGame->asMilliseconds();
+                                        std::cout<<timeGame->asMilliseconds()<<std::endl;
+                                        if((timeGame->asMilliseconds()) >= 1000 ){
+                                            std::cout<<"SEGUNDO"<<std::endl;
+                                            clockGame->restart();
+                                            segundos++;
+                                            milisegundos=0;
+                                        }
+                                        if(segundos >= 60 ){
+                                            std::cout<<"Minuto"<<std::endl;
+                                            clockGame->restart();
+                                            segundos=0;
+                                            minutos++;
+                                        }
                                         if (!ball.isDrew) {//Move ball with the playerbar.
                                             ball.moveBallWithPlayerbar(playerbar); // Start on the middle of the bar
                                         }
@@ -490,6 +527,7 @@ int main() {
                                                 verifPowerup = false;
                                                 generarPoweup(powerup, &isPowerupActivated,&activarReloj);
                                             }
+                                            vericarGanar(ladrillos,&menuGanar);
                                         }//End if.
                                     }//End if user play.
                             //--   REFRESH SCREEN:
@@ -538,22 +576,51 @@ int main() {
                                 Vidas vid(&w,aux);
                                 vid.draw(&w,1);
                             }
+
+                                    if(menuGanar && !podio){
+                                        gameOver.draw(&w);
+                                        w.draw(barra);
+                                        ingUser.draw(&w);
+                                        usuario.draw(&w);
+                                    }
+                                    if(menuGanar && podio){
+                                        gameOver.draw(&w);
+                                        tryAgain.draw(&w);
+                                        quit.draw(&w);
+                                    }
                             //--   LOSE CONDITIONS:
                             if(stackFullHeart.size() == 0){ //Beginning of if lose.
                                 turboMusic.stop();
-                                if(menuFinal && !podio){
-                                    gameOver.draw(&w);
-                                    w.draw(barra);
-                                    ingUser.draw(&w);
-                                    usuario.draw(&w);
-                                }
-                                if(menuFinal && podio){
-                                    gameOver.draw(&w);
-                                    tryAgain.draw(&w);
-                                    quit.draw(&w);
-                                }
+                                gameOver.draw(&w);
+                                tryAgain.draw(&w);
+                                quit.draw(&w);
+                                std::cout<<minutos<<":"<<segundos<<":"<<milisegundos<<std::endl;
 
 
+                                if (Keyboard::isKeyPressed(Keyboard::Space)){
+                                    vidas = 3;
+                                    soundBubbles.setVolume(180);
+                                    soundBubbles.play();
+                                    for(int i=0;i<3;i++){//Charge full hearts.
+                                        stackFullHeart.push(1);
+                                    }
+                                    for(int i=0;i<3;i++){//Empty empty hearts.
+                                        stackEmptyHeart.pop();
+                                    }
+                                    sadMusic.stop();
+                                    missed=false;
+                                    gameMusic.play();
+                                    mapClean(ladrillos);
+                                    crearLadrillos(ladrillos);
+
+
+                                }
+                                if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                                    sadMusic.stop();
+                                    soundBye.play();
+                                    sleep(seconds(1.5));
+                                    w.close();
+                                }
 
                             }//End if lose.
                     }//End if play.
@@ -567,30 +634,65 @@ int main() {
     //*  CLOSING PROGRAM:
     return 0;
 }//END MAIN.
-
+void mapClean(LinkedList <Ladrillo*> &bricks){
+    Ladrillo *aBorrar = nullptr;
+    for(bricks.begin(); !bricks.ended() ; bricks.next()){
+        aBorrar = bricks.get();
+        bricks.remove(aBorrar);
+        delete aBorrar;
+    }
+}
 void crearLadrillos(LinkedList <Ladrillo*> &bricks){
+    srand(time(NULL));
+    int numeroRnd=0;
+    numeroRnd=rand() %5+1;
+    if(numeroRnd==1){
+        std::ifstream a("textos/level.txt");
+        readFilesLevel(&a,bricks);
+    } else if(numeroRnd==2){
+        std::ifstream a("textos/level1.txt");
+        readFilesLevel(&a,bricks);
+    } else if(numeroRnd==3){
+        std::ifstream a("textos/level2.txt");
+        readFilesLevel(&a,bricks);
+    }else if(numeroRnd==4){
+        std::ifstream a("textos/level3.txt");
+        readFilesLevel(&a,bricks);
+    }else if(numeroRnd==5){
+        std::ifstream a("textos/level4.txt");
+        readFilesLevel(&a,bricks);
+    }
 
 
+}
+void vericarGanar(LinkedList <Ladrillo*> &bricks,bool *menuGanar){
+
+
+
+    if(bricks.getSize() == 0){
+        *menuGanar= true;
+    }
+
+
+
+}
+
+void readFilesLevel(std::ifstream* a,LinkedList <Ladrillo*> &bricks){
     int idLadri = 0;
     std::string linea;
     int fila =0;
-    std::ifstream a("textos/level.txt");
     fflush(stdin);
-    while(getline(a,linea)){
+    while(getline(*a,linea)){
         for(int col =0; col < linea.length(); col++){
-
             if(linea[col] == 'o') {
-
                 bricks.put(new Ladrillo(130, 0, col, fila, idLadri), idLadri );
                 idLadri++;
             }
-
         }
         fila++;
     }
-    a.close();
+    a->close();
 }
-
 void mostrarLadrillos(LinkedList <Ladrillo*> &bricks, RenderWindow *w) {
 
     for(bricks.begin(); !bricks.ended() ; bricks.next()){
@@ -612,17 +714,14 @@ void generarPoweup(Queue <int> &powerup, bool *isPowerupActivated,bool *activarR
     std::cout<<"El numero rnd es:"<<numeroRnd<<std::endl;
     if ((numeroRnd <= 60) && (numeroRnd >= 40)){
         if((*isPowerupActivated == false) && (!Keyboard::isKeyPressed(Keyboard::T))){
-        std::cout<<"poder activado"<<std::endl;
-        std::cout<<powerup.front()<<std::endl;
-        powerup.dequeue();
-        *isPowerupActivated = true;
-        *activarReloj=true;
+            std::cout<<"poder activado"<<std::endl;
+            std::cout<<powerup.front()<<std::endl;
+            powerup.dequeue();
+            *isPowerupActivated = true;
+            *activarReloj=true;
         } else{
 
         }
     }
-
-
-
 
 }

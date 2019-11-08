@@ -74,6 +74,11 @@ float Ball::getRadio(Texture *texturaBall) {
 }
 //End getRadio.
 
+void Ball::changeIsDrew(){
+    isDrew = false;
+}
+
+
 
 void Ball::move(Playerbar playerbar, Ball ball, RenderWindow *w, int *vidas, char *resetPosition, char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos, bool *verifColisionPowerup) {
 int i = 0;

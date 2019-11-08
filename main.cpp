@@ -90,11 +90,16 @@ int main() {
     Time *timePower;
     Clock *clockGame;
     Time *timeGame;
+    Clock* clockTimer;
+    Time* timeTimer;
+    bool activarRelojTimer = true;
     bool activarReloj = true;
     int minutos = 0;
     int segundos = 0;
     int milisegundos = 0;
     bool activarRelojPrincipal = true;
+    std::string timerUser;
+    bool tiempoOn=true;
 
     //*  MENU:
     //-   LOADING:
@@ -142,10 +147,8 @@ int main() {
     Textos numLifes("3", retroFont, 40, 100, 0);
     Textos ingUser("Ingrese su nombre de usuario:", retroFont, 40, (windowWidth / 2) - 200, (windowHeight / 2) - 50);
     Textos usuario("............", retroFont, 40, (windowWidth / 2) - 60, (windowHeight / 2) - 5);
-    Textos tiempo("Tu tiempo es:", retroFont, 60, ((int) windowWidth / 2) - 100, ((int) windowHeight / 2) - 150);
-    Textos minutes("", retroFont, 60, ((int) windowWidth / 2) - 90, ((int) windowHeight / 2) - 150);
-    Textos second("", retroFont, 60, ((int) windowWidth / 2) - 80, ((int) windowHeight / 2) - 150);
-    Textos millis("", retroFont, 60, ((int) windowWidth / 2) - 70, ((int) windowHeight / 2) - 150);
+    Textos tiempo("Tu tiempo es:", retroFont, 60, 100, 0);
+    Textos timeUserTxt("", retroFont, 60, 400, 0);
     //*  NOISES:
     //-   BUFFERS LOADING:
     SoundBuffer bufferHerida;
@@ -320,9 +323,11 @@ int main() {
                             estado = PODIO;
                             break;
                         case 8:
+                            if(indicador > 0){
                             letra = letra.substr(0, letra.length() - 1);
                             usuario.enterName(letra);
                             indicador--;
+                            }
                             break;
                         default://Cualquier letra
                             if (indicador < 10) {
@@ -372,8 +377,50 @@ int main() {
                 break;
             case GANADOR: //Menu al ganar       //Hacer una funcion que evalue si quedan ladrillos y menuGanar=true
                 // me fui al loop de eventos
+                if (activarRelojTimer) {
+                    clockTimer = new Clock();
+                    timeTimer = new Time();
+                    activarRelojTimer = false;
+                }
+                *timeTimer = clockTimer->getElapsedTime();
+                if ((timeTimer->asSeconds()) >= 1) {
+                    clockTimer->restart();
+                    if(tiempoOn){
+                        tiempoOn= false;
+                    } else{
+                        tiempoOn=true;
+                    }
+                }
+
+                if(minutos < 10){
+                    timerUser="0";
+                    timerUser+=std::to_string(minutos);
+                }else{
+                    timerUser=std::to_string(minutos);
+                }
+                timerUser+=":";
+                if(segundos < 10){
+                    timerUser+="0";
+                    timerUser+=std::to_string(segundos);
+                }else{
+                    timerUser+=std::to_string(segundos);
+                }
+                timerUser+=":";
+                if(milisegundos < 10){
+                    timerUser+="00";
+                    timerUser+=std::to_string(milisegundos);
+                }else if((milisegundos > 10) && (milisegundos < 100)){
+                    timerUser+="0";
+                    timerUser+=std::to_string(milisegundos);
+                }else{
+                    timerUser+=std::to_string(milisegundos);
+                }
+                tiempo.setMessage("Tu tiempo es:");
+                timeUserTxt.setMessage(timerUser);
+
                 break;
             case PODIO:
+
                 if (Keyboard::isKeyPressed(Keyboard::Space)) {
                     vidas = 3;
                     soundBubbles.setVolume(180);
@@ -381,20 +428,26 @@ int main() {
                     while(stackFullHeart.size() < 3){
                         stackFullHeart.push(1);
                     }
-                    //for (int i = 0; i < (3-vidas); i++) {//Charge full hearts.
-                    //}
+
                     while (stackEmptyHeart.size() > 0) {//Empty empty hearts.
                         stackEmptyHeart.pop();
                     }
                     sadMusic.stop();
-
+                    isPowerupActivated=false;
+                    segundos=0;
+                    milisegundos=0;
+                    minutos=0;
                     letra = "";
                     usuario.enterName(letra);
                     gameMusic.play();
+                    mapClean(ladrillos);
                     crearLadrillos(ladrillos);
-
+                    menuGanar= false;
+                    activarRelojPrincipal=true;
                     playerbar.centrar(&w, playerbar);
                     estado = MENU;
+                    ball.changeIsDrew();
+                    tiempoOn=true;
                     sleep(seconds(1));
                 }
                 if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -426,10 +479,14 @@ int main() {
                     }
                     sadMusic.stop();
                     gameMusic.play();
+                    milisegundos=0;
+                    segundos=0;
+                    minutos=0;
                     mapClean(ladrillos);
                     crearLadrillos(ladrillos);
                     sleep(seconds(1));
                     estado = MENU;
+                    activarRelojPrincipal=true;
                     playerbar.centrar(&w, playerbar);
                 }
                 if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -631,14 +688,10 @@ int main() {
                 break;
             }
             case GANADOR:
-                tiempo.setMessage("Tu tiempo es:");
-                tiempo.draw(&w);
-                minutes.setMessage(std::to_string(minutos));
-                minutes.draw(&w);
-                second.setMessage(std::to_string(segundos));
-                second.draw(&w);
-                millis.setMessage(std::to_string(milisegundos));
-                millis.draw(&w);
+                if(tiempoOn){
+                    tiempo.draw(&w);
+                    timeUserTxt.draw(&w);
+                }
                 w.draw(barra);
                 ingUser.draw(&w);
                 usuario.draw(&w);
@@ -677,7 +730,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1;
-    numeroRnd = 5;
+    numeroRnd = 4;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);

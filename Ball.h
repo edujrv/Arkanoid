@@ -37,6 +37,7 @@ public:
     void draw(RenderWindow *w);
     void move(Playerbar playerbar, Ball ball, RenderWindow *w, int *vidas, char *resetPosition, char* perdidaVida, char* colisiono, LinkedList <Ladrillo*> &ladrillos, bool *verifColisionPowerup);
     void moveBallWithPlayerbar(Playerbar playerbar);
+    void changeIsDrew();
 
     float deltaLadris(Ball ball,Ladrillo &ladrillos);
 

@@ -17,14 +17,7 @@
 #include "IconPower.h"
 
 
-enum {
-    MENU,
-    JUGANDO,
-    GANADOR,
-    PODIO,
-    PERDEDOR,
-};
-int estado = MENU;
+
 
 void crearLadrillos(LinkedList<Ladrillo *> &bricks);
 
@@ -49,6 +42,17 @@ using namespace sf;
 
 //BEGINNING OF MAIN:
 int main() {
+
+    enum {
+        MENU,
+        JUGANDO,
+        GANADOR,
+        PODIO,
+        PERDEDOR,
+    };
+    int estado = MENU;
+
+
     LinkedList<Ladrillo *> ladrillos;
     Queue<int> powerup;
     cargarPoweup(powerup);
@@ -143,12 +147,14 @@ int main() {
     Textos tryAgain("Press space to try again", retroFont, 30, ((int) windowWidth / 2) - 120,
                     ((int) windowHeight / 2) + 80);
     Textos quit("Press esc to quit", retroFont, 30, ((int) windowWidth / 2) - 75, ((int) windowHeight / 2) + 120);
-    Textos lifes("LIFES: ", retroFont, 40, 0, 0);
+    Textos lifes("LIFES: ", retroFont, 40, 10, 0);
     Textos numLifes("3", retroFont, 40, 100, 0);
     Textos ingUser("Ingrese su nombre de usuario:", retroFont, 40, (windowWidth / 2) - 200, (windowHeight / 2) - 50);
     Textos usuario("............", retroFont, 40, (windowWidth / 2) - 60, (windowHeight / 2) - 5);
-    Textos tiempo("Tu tiempo es:", retroFont, 60, 100, 0);
-    Textos timeUserTxt("", retroFont, 60, 400, 0);
+    Textos tiempo("Tu tiempo es:", retroFont, 40, 150, 10);
+    Textos timeUserTxt("", retroFont, 40, 350, 10);
+    Textos win("GANASTE MISTER!", retroFont, 60, (windowWidth / 2) - 150, (windowHeight / 2) - 300);
+
     //*  NOISES:
     //-   BUFFERS LOADING:
     SoundBuffer bufferHerida;
@@ -692,6 +698,7 @@ int main() {
                     tiempo.draw(&w);
                     timeUserTxt.draw(&w);
                 }
+                win.draw(&w);
                 w.draw(barra);
                 ingUser.draw(&w);
                 usuario.draw(&w);
@@ -730,7 +737,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1;
-    numeroRnd = 4;
+    //numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);

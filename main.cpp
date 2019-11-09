@@ -16,8 +16,12 @@
 #include <ctime>
 #include "IconPower.h"
 
+struct bestPlayer{
+    std::string userName[10];
+    std::string timeUsuar[10];
+};
 
-
+void compararTiempos(std::string[10], std::string tiempo, std::string[10]);
 
 void crearLadrillos(LinkedList<Ladrillo *> &bricks);
 
@@ -57,6 +61,7 @@ int main() {
     Queue<int> powerup;
     cargarPoweup(powerup);
     std::ofstream fileNames;
+
 
 
     //  crearLadrillos(ladrillos);
@@ -104,6 +109,7 @@ int main() {
     bool activarRelojPrincipal = true;
     std::string timerUser;
     bool tiempoOn=true;
+    bestPlayer top;
 
     //*  MENU:
     //-   LOADING:
@@ -315,7 +321,54 @@ int main() {
             if(estado == GANADOR){
                 if ( e.type == Event::TextEntered) {
                     switch (e.text.unicode) {
-                        case 13:
+                        case 13: {
+                            std::string linea;
+                            int fila = 0;
+                            int col = 0;
+                            int i=0;
+                            fflush(stdin);
+                            std::ifstream archtop;
+                            archtop.open("textos/nombres.txt");
+                            while (getline(archtop,linea)){
+                                for(col=0; col < (linea.length())/2; col++){
+                                    top.userName[i]+=linea[col];
+                                }
+                                i++;
+                            }
+                            archtop.close();
+                            archtop.open("textos/nombres.txt");
+                            i=0;
+                            while (getline(archtop,linea)){
+                                for(col= ((linea.length())/2); col < linea.length(); col++){
+                                    top.timeUsuar[i]+=linea[col];
+                                }
+                                i++;
+                            }
+                            archtop.close();
+                            //Muestra por consola
+                            fila=0;
+                            col=0;
+                            std::string auxTimeUsers[10];
+                            std::string auxUsers[10];
+
+                            for(fila=0;fila<10;fila++){
+                                for(col=0;col<2;col++){
+                                    if(col==0){
+                                        auxUsers[fila]=top.timeUsuar[fila];
+                                        std::cout<<top.userName[fila]<<"\t";
+                                    }
+                                    if(col==1){
+                                        auxTimeUsers[fila]=top.timeUsuar[fila];
+                                        std::cout<<top.timeUsuar[fila]<<"\t";
+                                    }
+                                }
+                                std::cout<<std::endl;
+                            }
+                            compararTiempos(auxTimeUsers, timerUser,auxUsers);
+
+
+                        //Escritura
+                            /*
                             std::cout << "La letra." << letra << std::endl;
                             fileNames.open("textos/nombres.txt", std::ios::out);
                             if (fileNames.is_open()) {
@@ -325,9 +378,10 @@ int main() {
                                 fileNames.close();
                             } else {
                                 std::cout << "error al abrir el archivo";
-                            }
+                            }*/
                             estado = PODIO;
                             break;
+                        }
                         case 8:
                             if(indicador > 0){
                             letra = letra.substr(0, letra.length() - 1);
@@ -737,7 +791,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1;
-    //numeroRnd = 5;
+    numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
@@ -819,5 +873,10 @@ void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarR
 
         }
     }
+
+}
+void compararTiempos(std::string usuariosTiempo[10], std::string tiempo,std::string usuarios[10]) {
+//Crear funcion que acomode los tiempos y nombres de usuario por orden y escriba el nuevo podio.
+
 
 }

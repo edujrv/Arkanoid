@@ -15,7 +15,8 @@
 #include "Queue.h"
 #include <ctime>
 #include "IconPower.h"
-
+#include <string.h>
+#include <cstring>
 struct bestPlayer{
     std::string userName[10];
     std::string timeUsuar[10];
@@ -354,7 +355,7 @@ int main() {
                             for(fila=0;fila<10;fila++){
                                 for(col=0;col<2;col++){
                                     if(col==0){
-                                        auxUsers[fila]=top.timeUsuar[fila];
+                                        auxUsers[fila]=top.userName[fila];
                                         std::cout<<top.userName[fila]<<"\t";
                                     }
                                     if(col==1){
@@ -364,6 +365,24 @@ int main() {
                                 }
                                 std::cout<<std::endl;
                             }
+
+
+                                char* auxtime;
+                            auxtime = (char *)timerUser.c_str();
+                            for(i=0;i<10;i++){
+                                char* taux;
+                                    taux = (char *)auxUsers[i].c_str();
+                                char* taux2;
+                                    taux2 = (char *)auxTimeUsers[i].c_str();
+
+                            std::cout<<auxtime;
+
+
+                                if(std::strcmp(auxtime,taux2) > 0){
+                                    std::cout<<"Es menor que el tiempo de: "<<top.userName[i]<<std::endl;
+                                }
+                            }
+
                             compararTiempos(auxTimeUsers, timerUser,auxUsers);
 
 
@@ -791,7 +810,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1;
-    numeroRnd = 5;
+    //numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);

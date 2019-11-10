@@ -17,12 +17,21 @@
 #include "IconPower.h"
 #include <string.h>
 #include <cstring>
+#include <utility>
+
 struct bestPlayer{
-    std::string userName[10];
-    std::string timeUsuar[10];
+    std::string userName;
+    std::string min;
+    std::string sec;
+    std::string ms;
 };
 
-void compararTiempos(std::string[10], std::string tiempo, std::string[10]);
+void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName);
+
+std::string leerPodio();
+
+
+void ordenarTop(bestPlayer *top, int userMin, int userSec, int userMs, std::string userName, int pos);
 
 void crearLadrillos(LinkedList<Ladrillo *> &bricks);
 
@@ -110,7 +119,10 @@ int main() {
     bool activarRelojPrincipal = true;
     std::string timerUser;
     bool tiempoOn=true;
-    bestPlayer top;
+    auto *top = new bestPlayer [10];
+    bool mostrar = false;
+
+    int gika[50];
 
     //*  MENU:
     //-   LOADING:
@@ -151,9 +163,8 @@ int main() {
     retroFont->loadFromFile("fuentes/Retro.ttf");
     //-   TEXTS LOADING:
     Textos gameOver("GAME OVER", retroFont, 60, ((int) windowWidth / 2) - 100, ((int) windowHeight / 2) - 150);
-    Textos tryAgain("Press space to try again", retroFont, 30, ((int) windowWidth / 2) - 120,
-                    ((int) windowHeight / 2) + 80);
-    Textos quit("Press esc to quit", retroFont, 30, ((int) windowWidth / 2) - 75, ((int) windowHeight / 2) + 120);
+    Textos tryAgain("Press space to try again", retroFont, 30, 650,((int) windowHeight) - 120);
+    Textos quit("Press esc to quit", retroFont, 30, 450, ((int) windowHeight) - 120);
     Textos lifes("LIFES: ", retroFont, 40, 10, 0);
     Textos numLifes("3", retroFont, 40, 100, 0);
     Textos ingUser("Ingrese su nombre de usuario:", retroFont, 40, (windowWidth / 2) - 200, (windowHeight / 2) - 50);
@@ -161,6 +172,8 @@ int main() {
     Textos tiempo("Tu tiempo es:", retroFont, 40, 150, 10);
     Textos timeUserTxt("", retroFont, 40, 350, 10);
     Textos win("GANASTE MISTER!", retroFont, 60, (windowWidth / 2) - 150, (windowHeight / 2) - 300);
+    Textos scores(" ", retroFont, 40, (windowWidth / 2) - 150, 200);
+    Textos tituloScores(" PODIO ", retroFont, 40, (windowWidth / 2) - 150, 100);
 
     //*  NOISES:
     //-   BUFFERS LOADING:
@@ -330,61 +343,33 @@ int main() {
                             fflush(stdin);
                             std::ifstream archtop;
                             archtop.open("textos/nombres.txt");
-                            while (getline(archtop,linea)){
-                                for(col=0; col < (linea.length())/2; col++){
-                                    top.userName[i]+=linea[col];
-                                }
-                                i++;
+
+                            for (int j = 0; j < 10; ++j) {
+                                top[j].userName = "";
+                                top[j].min = "";
+                                top[j].sec ="";
+                                top[j].ms = "";
+                            }
+
+                            while (getline(archtop,linea,'-')){
+
+                                    top[i].userName += linea;
+                                    getline(archtop, linea, ':');
+                                    top[i].min += linea;
+                                    getline(archtop, linea, ':');
+                                    top[i].sec += linea;
+                                    getline(archtop, linea, '\n');
+                                    top[i].ms += linea;
+                                    i++;
+
+
                             }
                             archtop.close();
                             archtop.open("textos/nombres.txt");
                             i=0;
-                            while (getline(archtop,linea)){
-                                for(col= ((linea.length())/2); col < linea.length(); col++){
-                                    top.timeUsuar[i]+=linea[col];
-                                }
-                                i++;
-                            }
+
+
                             archtop.close();
-                            //Muestra por consola
-                            fila=0;
-                            col=0;
-                            std::string auxTimeUsers[10];
-                            std::string auxUsers[10];
-
-                            for(fila=0;fila<10;fila++){
-                                for(col=0;col<2;col++){
-                                    if(col==0){
-                                        auxUsers[fila]=top.userName[fila];
-                                        std::cout<<top.userName[fila]<<"\t";
-                                    }
-                                    if(col==1){
-                                        auxTimeUsers[fila]=top.timeUsuar[fila];
-                                        std::cout<<top.timeUsuar[fila]<<"\t";
-                                    }
-                                }
-                                std::cout<<std::endl;
-                            }
-
-
-                                char* auxtime;
-                            auxtime = (char *)timerUser.c_str();
-                            for(i=0;i<10;i++){
-                                char* taux;
-                                    taux = (char *)auxUsers[i].c_str();
-                                char* taux2;
-                                    taux2 = (char *)auxTimeUsers[i].c_str();
-
-                            std::cout<<auxtime;
-
-
-                                if(std::strcmp(auxtime,taux2) > 0){
-                                    std::cout<<"Es menor que el tiempo de: "<<top.userName[i]<<std::endl;
-                                }
-                            }
-
-                            compararTiempos(auxTimeUsers, timerUser,auxUsers);
-
 
                         //Escritura
                             /*
@@ -422,6 +407,7 @@ int main() {
         //--   MENU ACTIONS:
         switch (estado) {//Beginning If.
             case MENU:
+                mostrar = false;
                 //---   MOVE UP:
                 if (Keyboard::isKeyPressed(Keyboard::Up)) {
                     menuPrincipal.moveUp();
@@ -499,6 +485,12 @@ int main() {
 
                 break;
             case PODIO:
+                    if (!mostrar) {
+                        compararTiempos(top, minutos, segundos, milisegundos, letra);
+                        letra = "";
+                        mostrar = true;
+                    }
+                    scores.setMessage(leerPodio());
 
                 if (Keyboard::isKeyPressed(Keyboard::Space)) {
                     vidas = 3;
@@ -535,6 +527,7 @@ int main() {
                     sleep(seconds(1.5));
                     w.close();
                 }
+
                 break;
                 //Insertar bloque de mostrar  mejores tiempo junto con las opciones de salir y volver a jugar;
             case PERDEDOR:
@@ -777,6 +770,8 @@ int main() {
                 usuario.draw(&w);
                 break;
             case PODIO:
+                tituloScores.draw(&w);
+                scores.draw(&w);
                 tryAgain.draw(&w);
                 quit.draw(&w);
                 break;
@@ -810,7 +805,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1;
-    //numeroRnd = 5;
+    numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
@@ -894,8 +889,173 @@ void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarR
     }
 
 }
-void compararTiempos(std::string usuariosTiempo[10], std::string tiempo,std::string usuarios[10]) {
-//Crear funcion que acomode los tiempos y nombres de usuario por orden y escriba el nuevo podio.
+
+void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName) {
+
+    int topMin[10] = {0}, topSec[10] = {0}, topMs[10] = {0}, i = 0;
+
+    /*std::cout<<"------- PODIO --------"<<"\n";
+    for (int j = 0; j <10 ; ++j) {
+        std::cout<<top[j].userName<<"\t";
+        std::cout<<top[j].min<<"\t";
+        std::cout<<top[j].sec<<"\t";
+        std::cout<<top[j].ms<<"\n";
+    }*/
+
+    for (i = 0; i < 10; i++) {
+        //std::cout<<top[i].min<<std::endl;
+        topMin[i] = std::stoi(top[i].min);
+        topSec[i] = std::stoi(top[i].sec);
+        topMs[i] = std::stoi(top[i].ms);
 
 
+        if (topMin[i] > userMin){
+            ordenarTop(top, userMin, userSec, userMs, userName, i);
+            break;
+
+        } else if (topSec[i] > userSec){
+            ordenarTop(top, userMin, userSec, userMs, userName, i);
+            break;
+
+        } else if (topMs[i] > userMs){
+            ordenarTop(top, userMin, userSec, userMs, userName, i);
+            break;
+        }
+    }
+
+}
+
+void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName, int pos){
+    bestPlayer aux[10];
+    //userName = userName + "\t";
+    std::ofstream archivo;
+    archivo.open("textos/nombres.txt");//std::ios::out
+
+    /*std::cout<<"------- PODIO --------"<<"\n";
+       for (int j = 0; j <10 ; ++j) {
+           std::cout<<top[j].userName<<"\t";
+           std::cout<<top[j].min<<"\t";
+           std::cout<<top[j].sec<<"\t";
+           std::cout<<top[j].ms<<"\n";
+       }*/
+    for (int j = 0; j < 10 ; ++j) {
+        aux[j].min = "";
+        aux[j].sec = "";
+        aux[j].ms = "";
+        aux[j].userName = "";
+    }
+
+    for (int j = 0; j < 10 ; ++j) {
+
+if (j < pos) {
+    aux[j].min = top[j].min;
+    aux[j].sec = top[j].sec;
+    aux[j].ms = top[j].ms;
+    aux[j].userName = top[j].userName;
+}
+        if (j == pos) {
+            aux[j].min = std::to_string(userMin);
+            if (aux[j].min.size() < 2){
+                aux[j].min = "0" + aux[j].min;
+            }
+            aux[j].sec = std::to_string(userSec);
+            if (aux[j].sec.size() < 2){
+                aux[j].sec = "0" + aux[j].sec;
+            }
+            aux[j].ms = std::to_string(userMs);
+            aux[j].userName = userName;
+
+            switch (aux[j].userName.size()){
+                case 1:{
+                    aux[j].userName = userName + "           ";
+                    break;
+                }
+                case 2:{
+                    aux[j].userName = userName + "          ";
+                    break;
+                }
+                case 3:{
+                    aux[j].userName = userName + "         ";
+                    break;
+                }
+                case 4:{
+                    aux[j].userName = userName + "        ";
+                    break;
+                }
+                case 5:{
+                    aux[j].userName = userName + "       ";
+                    break;
+                }
+                case 6:{
+                    aux[j].userName = userName + "      ";
+                    break;
+                }
+                case 7:{
+                    aux[j].userName = userName + "     ";
+                    break;
+                }
+                case 8:{
+                    aux[j].userName = userName + "    ";
+                    break;
+                }
+                case 9:{
+                    aux[j].userName = userName + "   ";
+                    break;
+                }
+                case 10:{
+                    aux[j].userName = userName + "  ";
+                    break;
+                }
+                case 11:{
+                    aux[j].userName = userName + " ";
+                    break;
+                }
+            }
+        }
+        if (j > pos) {
+            aux[j].min = top[j - 1].min;
+            aux[j].sec = top[j - 1].sec;
+            aux[j].ms = top[j - 1].ms;
+            aux[j].userName = top[j - 1].userName;
+        }
+
+        /*std::cout<<aux[j].userName<<"\t";
+        std::cout<<aux[j].min<<"\t";
+        std::cout<<aux[j].sec<<"\t";
+        std::cout<<aux[j].ms<<"\n";*/
+
+    }
+    for (int j = 0; j < 10 ; ++j) {
+        top[j].min = aux[j].min;
+        top[j].sec = aux[j].sec;
+        top[j].ms= aux[j].ms ;
+        top[j].userName = aux[j].userName;
+
+        archivo << top[j].userName << "-" + top[j].min << ":" + top[j].sec << ":" + top[j].ms << std::endl;
+
+       /* std::cout<<top[j].userName<<"\t";
+        std::cout<<top[j].min<<"\t";
+        std::cout<<top[j].sec<<"\t";
+        std::cout<<top[j].ms<<"\n";*/
+    }
+
+    std::cout<<leerPodio();
+}
+
+std::string leerPodio(){
+    std::ifstream archivo;
+    archivo.open("textos/nombres.txt", std::ios::in);
+    std::string podio;
+    std::string linea;
+
+    if (!archivo.is_open()) {
+        std::cout << "Error al abrir el archivo" << std::endl;
+    }
+
+    while (!archivo.eof()){
+        getline(archivo,linea);
+        podio += linea + "\n";
+    }
+
+    return podio;
 }

@@ -172,8 +172,8 @@ int main() {
     Textos tiempo("Tu tiempo es:", retroFont, 40, 150, 10);
     Textos timeUserTxt("", retroFont, 40, 350, 10);
     Textos win("GANASTE MISTER!", retroFont, 60, (windowWidth / 2) - 150, (windowHeight / 2) - 300);
-    Textos scores(" ", retroFont, 40, (windowWidth / 2) - 150, 200);
-    Textos tituloScores(" PODIO ", retroFont, 40, (windowWidth / 2) - 150, 100);
+    Textos scores(" ", retroFont, 40, (windowWidth / 2) - 100, 200);
+    Textos tituloScores(" WALL OF FAME ", retroFont, 60, (windowWidth / 2) - 100, 100);
 
     //*  NOISES:
     //-   BUFFERS LOADING:
@@ -1051,7 +1051,7 @@ std::string leerPodio(){
     if (!archivo.is_open()) {
         std::cout << "Error al abrir el archivo" << std::endl;
     }
-
+int i=0;
     while (!archivo.eof()){
         getline(archivo,linea);
         podio += linea + "\n";

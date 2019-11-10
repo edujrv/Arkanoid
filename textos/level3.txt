@@ -1,5 +1,16 @@
-o       o
-    o
-o   o   o
- o     o
-  ooooo
+rllllllllr
+ml      lo
+ol      lm
+ol  m   lo
+ollmmmr lo
+lllllll lo
+l       lo
+l       lo
+l lllllllo
+l lllllllo
+l        o
+l        o
+llllllll m
+rlllllll r
+
+

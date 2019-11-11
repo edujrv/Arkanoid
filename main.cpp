@@ -792,61 +792,63 @@ int main() {
 //*  CLOSING PROGRAM:
     return 0;
 }//END MAIN.
-void mapClean(LinkedList<Ladrillo *> &bricks) {
+void mapClean(LinkedList<Ladrillo *> &bricks) { //Elimina la lista de ladrillos.
     Ladrillo *aBorrar = nullptr;
-    for (bricks.begin(); !bricks.ended(); bricks.next()) {
+    for (bricks.begin(); !bricks.ended(); bricks.next()) {//Recorre toda la lista.
         aBorrar = bricks.get();
         bricks.remove(aBorrar);
         delete aBorrar;
     }
 }
 
-void crearLadrillos(LinkedList<Ladrillo *> &bricks) {
+void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriamente.
     srand(time(NULL));
     int numeroRnd = 0;
-    numeroRnd = rand() % 5 + 1;
+    numeroRnd = rand() % 5 + 1; //Elije un numero aleatoriamente del uno al 5
     numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
     nombreA += ".txt";
     a.open(nombreA);
-    readFilesLevel(&a, bricks);
+    readFilesLevel(&a, bricks); //Lee el nivel escogido.
 
 
 }
 
-void vericarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar) {
-    if (bricks.getSize() == 0) {
+void vericarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar) { //Se fija si el jugador paso el nivel.
+    if (bricks.getSize() == 0) { //si no existen mas ladrillos para eliminar.
         *menuGanar = true;
     }
 }
 
-void readFilesLevel(std::ifstream *a, LinkedList<Ladrillo *> &bricks) {
+void readFilesLevel(std::ifstream *a, LinkedList<Ladrillo *> &bricks) { //Lee desde un archivo el nivel
     int idLadri = 0;
     std::string linea;
     int fila = 0;
     fflush(stdin);
-    while (getline(*a, linea)) {
-        for (int col = 0; col < linea.length(); col++) {
+
+    while (getline(*a, linea)) { //Mientras exista una linea que leer
+
+        for (int col = 0; col < linea.length(); col++) { //Recorre la linea entera caracter por caracter.
             switch (linea[col]) {
-                case 'o': {
-                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick1v2.png"), idLadri);
+                case 'o': { //Si el caracer encontrado es una O
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick1v2.png"), idLadri); //Se dibuja este tipo de ladrillo.
                     idLadri++;
                     break;
                 }
-                case 'l': {
-                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick5.png"), idLadri);
+                case 'l': {//Si el caracer encontrado es una L
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick5.png"), idLadri);//Se dibuja este tipo de ladrillo.
                     idLadri++;
                     break;
                 }
-                case 'm': {
-                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick7.png"), idLadri);
+                case 'm': {//Si el caracer encontrado es una M
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick7.png"), idLadri);//Se dibuja este tipo de ladrillo.
                     idLadri++;
                     break;
                 }
-                case 'r': {
-                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick4.png"), idLadri);
+                case 'r': {//Si el caracer encontrado es una R
+                    bricks.put(new Ladrillo(130, 0, col, fila, idLadri, "imagenes/Brick4.png"), idLadri);//Se dibuja este tipo de ladrillo.
                     idLadri++;
                     break;
                 }
@@ -857,30 +859,31 @@ void readFilesLevel(std::ifstream *a, LinkedList<Ladrillo *> &bricks) {
     a->close();
 }
 
-void mostrarLadrillos(LinkedList<Ladrillo *> &bricks, RenderWindow *w) {
+void mostrarLadrillos(LinkedList<Ladrillo *> &bricks, RenderWindow *w) { //Muestra en la pantalla todos los ladrillos sin eliminar.
 
-    for (bricks.begin(); !bricks.ended(); bricks.next()) {
-        bricks.get()->draw(w);
+    for (bricks.begin(); !bricks.ended(); bricks.next()) {  //Recorre toda la lista de ladrillos.
+        bricks.get()->draw(w);      //Dibuja cada ladrillo encontrado
     }
 }
 
 void cargarPoweup(Queue<int> &powerup) {
 
-    for (int i = 0; i < 10; i++) {
-        powerup.enqueue(i);
+    for (int i = 0; i < 10; i++) {  //Solo hay 10 powerUp disponibles por nivel.
+        powerup.enqueue(i); //Encola los 10 powerUp.
     }
 }
 
-void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj) {
-    srand(time(NULL));
+void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj) { //Activa el powerUp
+    srand(time(NULL)); // Permite crear numeros aleatorios distintos.
     int numeroRnd = 0;
-    numeroRnd = rand() % 100 + 1;
+    numeroRnd = rand() % 100 + 1;   //Se establece un numero aleatorio a una variable
     std::cout << "El numero rnd es:" << numeroRnd << std::endl;
-    if ((numeroRnd <= 60) && (numeroRnd >= 40)) {
-        if ((*isPowerupActivated == false) && (!Keyboard::isKeyPressed(Keyboard::T))) {
-            std::cout << "poder activado" << std::endl;
+
+    if ((numeroRnd <= 60) && (numeroRnd >= 40)) { //Existe un 20% de posibilidad de que se obtenga un powerUp
+        if ((*isPowerupActivated == false) && (!Keyboard::isKeyPressed(Keyboard::T)) && !powerup.isEmpty()) { //solo si no hay otro powerUp activado
+            std::cout << "poder activado" << std::endl;                                                   //y queden porwerUps disponibles se podra obtener un powerUp
             std::cout << powerup.front() << std::endl;
-            powerup.dequeue();
+            powerup.dequeue();  //Se desencola un powerUp, ahora hay uno menos disponible!
             *isPowerupActivated = true;
             *activarReloj = true;
         } else {
@@ -890,34 +893,26 @@ void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarR
 
 }
 
-void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName) {
-
+void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName) { //Compara los tiempos del podio con los del jugador y si el jugador merece
+    //estar en el podio se llama a otra funcion para que lo agregue al mismo.
     int topMin[10] = {0}, topSec[10] = {0}, topMs[10] = {0}, i = 0;
 
-    /*std::cout<<"------- PODIO --------"<<"\n";
-    for (int j = 0; j <10 ; ++j) {
-        std::cout<<top[j].userName<<"\t";
-        std::cout<<top[j].min<<"\t";
-        std::cout<<top[j].sec<<"\t";
-        std::cout<<top[j].ms<<"\n";
-    }*/
-
     for (i = 0; i < 10; i++) {
-        //std::cout<<top[i].min<<std::endl;
-        topMin[i] = std::stoi(top[i].min);
+
+        topMin[i] = std::stoi(top[i].min); // Se convirten los datos que estan en String a int para poder realizar las comparaciones de tiempo
         topSec[i] = std::stoi(top[i].sec);
         topMs[i] = std::stoi(top[i].ms);
 
 
-        if (topMin[i] > userMin){
+        if (topMin[i] > userMin){       //Comparacion de los minutos.
             ordenarTop(top, userMin, userSec, userMs, userName, i);
             break;
 
-        } else if (topSec[i] > userSec){
+        } else if (topMin[i] == userMin && topSec[i] > userSec){        //Comparacion de los Segundos.
             ordenarTop(top, userMin, userSec, userMs, userName, i);
             break;
 
-        } else if (topMs[i] > userMs){
+        } else if (topMin[i] == userMin && topSec[i] == userSec && topMs[i] > userMs){      //Comparacion de las milesimas de segundo.
             ordenarTop(top, userMin, userSec, userMs, userName, i);
             break;
         }
@@ -925,47 +920,41 @@ void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, s
 
 }
 
-void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName, int pos){
-    bestPlayer aux[10];
-    //userName = userName + "\t";
-    std::ofstream archivo;
-    archivo.open("textos/nombres.txt");//std::ios::out
+void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::string userName, int pos){  //Se establece un nuevo podio a partir de los datos del jugador.
+    bestPlayer aux[10]; // auxiliar que facilita re-oordenar el podio
 
-    /*std::cout<<"------- PODIO --------"<<"\n";
-       for (int j = 0; j <10 ; ++j) {
-           std::cout<<top[j].userName<<"\t";
-           std::cout<<top[j].min<<"\t";
-           std::cout<<top[j].sec<<"\t";
-           std::cout<<top[j].ms<<"\n";
-       }*/
-    for (int j = 0; j < 10 ; ++j) {
+    std::ofstream archivo;
+    archivo.open("textos/nombres.txt",std::ios::out);//Se abre el archivo y se le indica que se quiere escribir en el.
+
+
+    for (int j = 0; j < 10 ; ++j) {     //Incializacion de las variables auxiliares
         aux[j].min = "";
         aux[j].sec = "";
         aux[j].ms = "";
         aux[j].userName = "";
     }
 
-    for (int j = 0; j < 10 ; ++j) {
+    for (int j = 0; j < 10 ; ++j) { //Inicio de pasaje de los datos en orden.
 
-if (j < pos) {
-    aux[j].min = top[j].min;
-    aux[j].sec = top[j].sec;
-    aux[j].ms = top[j].ms;
-    aux[j].userName = top[j].userName;
-}
-        if (j == pos) {
+        if (j < pos) {              //Si J es menor que la posicion en la cual se debe hacer el cambio, el arreglo no se inmuta.
+            aux[j].min = top[j].min;
+            aux[j].sec = top[j].sec;
+            aux[j].ms = top[j].ms;
+            aux[j].userName = top[j].userName;
+        }
+        if (j == pos) {     //Si J es igual a la posicion en la cual se debe hacer el cambio, se realiza el cambio.
             aux[j].min = std::to_string(userMin);
-            if (aux[j].min.size() < 2){
+            if (aux[j].min.size() < 2){     //Como se necesita dos digitos (porque en la lectura lee 2 si o si), se le agregara un 0 en caso de que sea un numero menor a 10.
                 aux[j].min = "0" + aux[j].min;
             }
-            aux[j].sec = std::to_string(userSec);
+            aux[j].sec = std::to_string(userSec);// Idem comentario anterior
             if (aux[j].sec.size() < 2){
                 aux[j].sec = "0" + aux[j].sec;
             }
-            aux[j].ms = std::to_string(userMs);
+            aux[j].ms = std::to_string(userMs); //En este caso no hace falta porque se termina la linea.
             aux[j].userName = userName;
 
-            switch (aux[j].userName.size()){
+            switch (aux[j].userName.size()){  //Para que en el archivo quede bien ordenado el podio, se le agregara espacios dependiendo la longitud del nombre de usuario.
                 case 1:{
                     aux[j].userName = userName + "           ";
                     break;
@@ -1012,49 +1001,45 @@ if (j < pos) {
                 }
             }
         }
-        if (j > pos) {
+        if (j > pos) {      //Si J es mayor que la posicion en la que se debe hacer el cambio, se guarda la posicion anterior del podio
             aux[j].min = top[j - 1].min;
             aux[j].sec = top[j - 1].sec;
             aux[j].ms = top[j - 1].ms;
             aux[j].userName = top[j - 1].userName;
         }
 
-        /*std::cout<<aux[j].userName<<"\t";
-        std::cout<<aux[j].min<<"\t";
-        std::cout<<aux[j].sec<<"\t";
-        std::cout<<aux[j].ms<<"\n";*/
-
     }
-    for (int j = 0; j < 10 ; ++j) {
+    for (int j = 0; j < 10 ; ++j) {         // Se transfiere la informacion almacenada en el auxiliar al verctor que almacena los datos del podio.
         top[j].min = aux[j].min;
         top[j].sec = aux[j].sec;
         top[j].ms= aux[j].ms ;
         top[j].userName = aux[j].userName;
 
-        archivo << top[j].userName << "-" + top[j].min << ":" + top[j].sec << ":" + top[j].ms << std::endl;
+        archivo << top[j].userName << "-" + top[j].min << ":" + top[j].sec << ":" + top[j].ms << std::endl; //Se escribe en el arhivo txt abierto anteriormente, los datos del podio.
 
-       /* std::cout<<top[j].userName<<"\t";
-        std::cout<<top[j].min<<"\t";
-        std::cout<<top[j].sec<<"\t";
-        std::cout<<top[j].ms<<"\n";*/
+        /* std::cout<<top[j].userName<<"\t";
+         std::cout<<top[j].min<<"\t";
+         std::cout<<top[j].sec<<"\t";
+         std::cout<<top[j].ms<<"\n";*/
     }
 
-    std::cout<<leerPodio();
+    std::cout<<leerPodio();//Se imprime, por consola, el podio.
+    archivo.close(); // Cierre del archivo que contiene los datos del podio.
 }
 
 std::string leerPodio(){
     std::ifstream archivo;
-    archivo.open("textos/nombres.txt", std::ios::in);
+    archivo.open("textos/nombres.txt", std::ios::in); // Se abre el archivo; se le indica al programa que se quiere leer el archivo.
     std::string podio;
     std::string linea;
 
-    if (!archivo.is_open()) {
+    if (!archivo.is_open()) { //Pregunta si se pudo abrir el archivo.
         std::cout << "Error al abrir el archivo" << std::endl;
     }
-int i=0;
-    while (!archivo.eof()){
+
+    while (!archivo.eof()){ //Mientras el archivo no termine, es decir, mientras quede texto para leer.
         getline(archivo,linea);
-        podio += linea + "\n";
+        podio += linea + "\n"; // Se le agrega al string PODIO la ultima linea que se leyo del arhivo.
     }
 
     return podio;

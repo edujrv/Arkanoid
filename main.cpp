@@ -162,7 +162,7 @@ int main() {
     Font *retroFont = new Font();
     retroFont->loadFromFile("fuentes/Retro.ttf");
     //-   TEXTS LOADING:
-    Textos gameOver("GAME OVER", retroFont, 60, ((int) windowWidth / 2) - 100, ((int) windowHeight / 2) - 150);
+    Textos gameOver("     GAME OVER \n  WALL OF FAME", retroFont, 60, ((int) windowWidth / 2) - 150, 50);
     Textos tryAgain("Press space to try again", retroFont, 30, 650,((int) windowHeight) - 120);
     Textos quit("Press esc to quit", retroFont, 30, 450, ((int) windowHeight) - 120);
     Textos lifes("LIFES: ", retroFont, 40, 10, 0);
@@ -531,6 +531,7 @@ int main() {
                 break;
                 //Insertar bloque de mostrar  mejores tiempo junto con las opciones de salir y volver a jugar;
             case PERDEDOR:
+                scores.setMessage(leerPodio());
                 ball.moveBallWithPlayerbar(playerbar);
                 gameMusic.stop();
                 sadMusic.play();
@@ -778,6 +779,7 @@ int main() {
             case PERDEDOR:
                 turboMusic.stop();
                 gameOver.draw(&w);
+                scores.draw(&w);
                 tryAgain.draw(&w);
                 quit.draw(&w);
 
@@ -805,7 +807,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriam
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1; //Elije un numero aleatoriamente del uno al 5
-    numeroRnd = 5;
+   // numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);

@@ -1,7 +1,6 @@
 #include "Ball.h"
 #include <cmath>
 #include "iostream"
-#include <fstream>
 //Builder.
 Ball::Ball(Playerbar playerbar, Texture *texturaBall, float ballSize) {
 
@@ -124,7 +123,6 @@ Ladrillo *aBorrar = nullptr;
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR ABAJO
                     if ((yBall) >= (ladrillos.get()->getY() + (ladrillos.get()->getYLong() / 2))){
-                      //  ladrillos.remove(ladrillos.get()->getId());
                         yBall += 5;
                         velBallY = -velBall;
                         *colisiono='V';
@@ -148,7 +146,6 @@ Ladrillo *aBorrar = nullptr;
 
                     //SI LA PELOTA CHOCA AL LADRILLO POR DERECHA
                   else if (xBall >= ((ladrillos.get()->getX() + ladrillos.get()->getXLong()) - ((ballSize * 0.7) / 2)) ) {
-                       //ladrillos.remove(ladrillos.get()->getId());
                         yBall += 10;
                         velBallY = -velBall;
                         *colisiono='V';
@@ -156,7 +153,6 @@ Ladrillo *aBorrar = nullptr;
                     i = ladrillos.get()->getId();
 
                   std::cout<<"id del ladrillo "<< i <<std::endl;
-                  //  ladrillos.remove(i);
                     aBorrar = ladrillos.get();
                     *verifColisionPowerup = true;
                 }
@@ -169,7 +165,6 @@ Ladrillo *aBorrar = nullptr;
             delete aBorrar; // Como había echo un new, hago un delete.
         }
         xBall -= velBallX;
-        // sBall.setPosition(xBall, yBall);
         if ((xBall <= 130)) {
             velBallX *= -1;
             xBall = 131;
@@ -188,30 +183,4 @@ Ladrillo *aBorrar = nullptr;
 Ball::~Ball() = default;
 //End Destroyer.
 
-float Ball::deltaLadris(Ball ball, Ladrillo &ladrillos)  {
-    float deltaX = 0;
 
-        //EN EL EJE X
-
-        if ((xBall >= (ladrillos.getX() + (ladrillos.getXLong() * 0.75) / 2) - (ballSize / 4)) &&
-            (xBall <= (ladrillos.getX() + (ladrillos.getXLong() * 0.75) / 2) + (ballSize / 4))) {
-            deltaX = 0;
-        } else {
-            if (xBall < (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) / 2) - (ballSize / 4)) {
-                deltaX = (float) (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) -
-                                  (xBall + ballSize / 2) - (ballSize / 4));
-            } else if (xBall >
-                       (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) - (ballSize / 4))) {
-                deltaX = (float) (ladrillos.getX() + ((ladrillos.getXLong() * 0.75) / 2) -
-                                  (xBall + ballSize / 2) + (ballSize / 4));
-            }
-        }
-        std::cout << "deltaX = " << deltaX << std::endl;
-        if (deltaX < 0) {
-            return (deltaX / 7) + 2;
-        }
-        if (deltaX > 0) {
-            return (deltaX / 7) - 2;
-        }
-        return deltaX / 7;
-}

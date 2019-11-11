@@ -16,8 +16,7 @@ private:
     float xLong;
     float yLong;
     int idLadri;
-    int col;
-    int fila;
+
 
 public:
     explicit Ladrillo(float posX, float posY, int idLadrilloX, int idLadrilloY, int idLadri, String pic);

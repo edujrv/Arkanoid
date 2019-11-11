@@ -1,6 +1,5 @@
 //LIBRARIES:
 #include <iostream>
-#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Playerbar.h"
@@ -15,9 +14,8 @@
 #include "Queue.h"
 #include <ctime>
 #include "IconPower.h"
-#include <string.h>
-#include <cstring>
-#include <utility>
+#include <fstream>
+
 
 struct bestPlayer{
     std::string userName;
@@ -30,22 +28,21 @@ void compararTiempos(bestPlayer top[10], int userMin, int userSec, int userMs, s
 
 std::string leerPodio();
 
-
 void ordenarTop(bestPlayer *top, int userMin, int userSec, int userMs, std::string userName, int pos);
 
 void crearLadrillos(LinkedList<Ladrillo *> &bricks);
 
 void mostrarLadrillos(LinkedList<Ladrillo *> &bricks, RenderWindow *w);
 
-void cargarPoweup(Queue<int> &powerup);
+void cargarPowerUp(Queue<int> &powerup);
 
-void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj);
+void generarPowerUp(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj);
 
 void readFilesLevel(std::ifstream *, LinkedList<Ladrillo *> &bricks);
 
 void mapClean(LinkedList<Ladrillo *> &bricks);
 
-void vericarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar);
+void verificarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar);
 
 //  //  //  //  //  //  //  //  //  //  //
 
@@ -66,11 +63,11 @@ int main() {
     };
     int estado = MENU;
 
-
+    //Otras variables:
     LinkedList<Ladrillo *> ladrillos;
     Queue<int> powerup;
-    cargarPoweup(powerup);
-    std::ofstream fileNames;
+    cargarPowerUp(powerup);
+
 
 
 
@@ -122,7 +119,7 @@ int main() {
     auto *top = new bestPlayer [10];
     bool mostrar = false;
 
-    int gika[50];
+
 
     //*  MENU:
     //-   LOADING:
@@ -173,7 +170,7 @@ int main() {
     Textos timeUserTxt("", retroFont, 40, 350, 10);
     Textos win("GANASTE MISTER!", retroFont, 60, (windowWidth / 2) - 150, (windowHeight / 2) - 300);
     Textos scores(" ", retroFont, 40, (windowWidth / 2) - 100, 200);
-    Textos tituloScores(" WALL OF FAME ", retroFont, 60, (windowWidth / 2) - 100, 100);
+    Textos tituloScores(" HALL OF FAME ", retroFont, 60, (windowWidth / 2) - 100, 100);
 
     //*  NOISES:
     //-   BUFFERS LOADING:
@@ -266,7 +263,6 @@ int main() {
      * menuMusic:   Musica que sonara durante el menú.
      */
     //-   PROPERTIES:
-    bool missed = false;
     int turboOn = 1;
     /*
      * missed: Si esta en verdadero, indicara que se ha perdido y empezara a sonar la música triste.
@@ -311,9 +307,6 @@ int main() {
     barra.setFillColor(Color::White);
 
 
-    //*  SCOREBOARD:
-    //-   SCOREBOARD SETTINGS:
-
 //  //  //  //  //  //  //  //  //  //  //
 
     //*  WINDOWS OPEN:
@@ -337,8 +330,6 @@ int main() {
                     switch (e.text.unicode) {
                         case 13: {
                             std::string linea;
-                            int fila = 0;
-                            int col = 0;
                             int i=0;
                             fflush(stdin);
                             std::ifstream archtop;
@@ -367,23 +358,9 @@ int main() {
                             archtop.close();
                             archtop.open("textos/nombres.txt");
                             i=0;
-
-
                             archtop.close();
-
-                        //Escritura
-                            /*
-                            std::cout << "La letra." << letra << std::endl;
-                            fileNames.open("textos/nombres.txt", std::ios::out);
-                            if (fileNames.is_open()) {
-
-                                fileNames << "\n";
-                                fileNames << letra << "\n";
-                                fileNames.close();
-                            } else {
-                                std::cout << "error al abrir el archivo";
-                            }*/
                             estado = PODIO;
+                            menuMusic.stop();
                             break;
                         }
                         case 8:
@@ -534,7 +511,6 @@ int main() {
                 scores.setMessage(leerPodio());
                 ball.moveBallWithPlayerbar(playerbar);
                 gameMusic.stop();
-                sadMusic.play();
                 segundos = 0;
                 milisegundos = 0;
                 minutos = 0;
@@ -677,6 +653,7 @@ int main() {
                         stackEmptyHeart.push(1);
                         if (stackFullHeart.empty()) {
                             estado = PERDEDOR;
+                            sadMusic.play();
                         }
                     }
                     if (resetPosition == 'V') {//Restart position.
@@ -696,13 +673,15 @@ int main() {
                     }
                     if (verifPowerup) {//.
                         verifPowerup = false;
-                        generarPoweup(powerup, &isPowerupActivated, &activarReloj);
+                        generarPowerUp(powerup, &isPowerupActivated, &activarReloj);
                     }
 
-                    vericarGanar(ladrillos, &menuGanar);
+                    verificarGanar(ladrillos, &menuGanar);
                     if (menuGanar) {
                         menuGanar = false;
                         estado = GANADOR;
+                        menuMusic.play();
+                        gameMusic.stop();
                     }
 
                 }//End if.
@@ -807,7 +786,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriam
     srand(time(NULL));
     int numeroRnd = 0;
     numeroRnd = rand() % 5 + 1; //Elije un numero aleatoriamente del uno al 5
-   // numeroRnd = 5;
+    //numeroRnd = 5;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
@@ -818,7 +797,7 @@ void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriam
 
 }
 
-void vericarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar) { //Se fija si el jugador paso el nivel.
+void verificarGanar(LinkedList<Ladrillo *> &bricks, bool *menuGanar) { //Se fija si el jugador paso el nivel.
     if (bricks.getSize() == 0) { //si no existen mas ladrillos para eliminar.
         *menuGanar = true;
     }
@@ -868,14 +847,14 @@ void mostrarLadrillos(LinkedList<Ladrillo *> &bricks, RenderWindow *w) { //Muest
     }
 }
 
-void cargarPoweup(Queue<int> &powerup) {
+void cargarPowerUp(Queue<int> &powerup) {
 
     for (int i = 0; i < 10; i++) {  //Solo hay 10 powerUp disponibles por nivel.
         powerup.enqueue(i); //Encola los 10 powerUp.
     }
 }
 
-void generarPoweup(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj) { //Activa el powerUp
+void generarPowerUp(Queue<int> &powerup, bool *isPowerupActivated, bool *activarReloj) { //Activa el powerUp
     srand(time(NULL)); // Permite crear numeros aleatorios distintos.
     int numeroRnd = 0;
     numeroRnd = rand() % 100 + 1;   //Se establece un numero aleatorio a una variable
@@ -962,7 +941,7 @@ void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::s
                     break;
                 }
                 case 2:{
-                    aux[j].userName = userName + "          ";
+                    aux[j].userName = userName + "            ";
                     break;
                 }
                 case 3:{
@@ -978,27 +957,27 @@ void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::s
                     break;
                 }
                 case 6:{
-                    aux[j].userName = userName + "      ";
+                    aux[j].userName = userName + "        ";
                     break;
                 }
                 case 7:{
-                    aux[j].userName = userName + "     ";
+                    aux[j].userName = userName + "        ";
                     break;
                 }
                 case 8:{
-                    aux[j].userName = userName + "    ";
+                    aux[j].userName = userName + "       ";
                     break;
                 }
                 case 9:{
-                    aux[j].userName = userName + "   ";
+                    aux[j].userName = userName + "        ";
                     break;
                 }
                 case 10:{
-                    aux[j].userName = userName + "  ";
+                    aux[j].userName = userName + "       ";
                     break;
                 }
                 case 11:{
-                    aux[j].userName = userName + " ";
+                    aux[j].userName = userName + "        ";
                     break;
                 }
             }
@@ -1019,17 +998,13 @@ void ordenarTop(bestPlayer top[10], int userMin, int userSec, int userMs, std::s
 
         archivo << top[j].userName << "-" + top[j].min << ":" + top[j].sec << ":" + top[j].ms << std::endl; //Se escribe en el arhivo txt abierto anteriormente, los datos del podio.
 
-        /* std::cout<<top[j].userName<<"\t";
-         std::cout<<top[j].min<<"\t";
-         std::cout<<top[j].sec<<"\t";
-         std::cout<<top[j].ms<<"\n";*/
     }
 
     std::cout<<leerPodio();//Se imprime, por consola, el podio.
     archivo.close(); // Cierre del archivo que contiene los datos del podio.
 }
 
-std::string leerPodio(){
+std::string leerPodio(){  //Abre el archivo de texto de los podios, los guarda en una variable y devuelve el mismo.
     std::ifstream archivo;
     archivo.open("textos/nombres.txt", std::ios::in); // Se abre el archivo; se le indica al programa que se quiere leer el archivo.
     std::string podio;

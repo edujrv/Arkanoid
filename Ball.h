@@ -29,7 +29,6 @@ private:
     //Public Variables.
 public:
     bool isDrew;
-    bool isPlaying = false;
     Ball(Playerbar playerbar, Texture *texturaBall, float ballSize);
     ~Ball();
     float getRadio(Texture *texturaBall);
@@ -39,7 +38,7 @@ public:
     void moveBallWithPlayerbar(Playerbar playerbar);
     void changeIsDrew();
 
-    float deltaLadris(Ball ball,Ladrillo &ladrillos);
+
 
 };//End Ball Class.
 

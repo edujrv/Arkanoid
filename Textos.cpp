@@ -1,9 +1,7 @@
-//
-// Created by Edu on 10/27/2019.
-//
+
 
 #include "Textos.h"
-//#include<SFML/Graphics.hpp>
+
 
 using namespace sf;
 
@@ -26,21 +24,6 @@ void Textos::setMessage(String newMessage) {
     txt->setString( message);
 }
 
-void Textos::setFont(Font *Font) {
-    this->font = Font;
-    txt->setFont(*font);
-}
-
-void Textos::setSize(int newSize) {
-    this->size = newSize;
-    txt->setCharacterSize(size);
-}
-
-void Textos::setPosition(int x, int y) {
-    this->posX = x;
-    this->posY = y;
-    txt->setPosition((float) posX, (float) posY);
-}
 
 void Textos::enterName(std::string letra) {
     std::cout<<"letra:"<<letra<<std::endl;
@@ -59,7 +42,7 @@ Textos::~Textos() {
 
 
 
-// txt->setOrigin(txtGameOver->getGlobalBounds().width / 2, txtGameOver->getGlobalBounds().height / 2);
+
 
 
 

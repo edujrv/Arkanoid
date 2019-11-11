@@ -52,14 +52,6 @@ public:
         return dato;
     }
 
-    /**
-     * @brief Método que devuelve el valor actual de la cima sin modificar la pila
-     */
-    T top() {
-        if (cima == nullptr)
-            throw 404;
-        return cima->dato;
-    }
 
     /**
      * @brief Metodo  que devuelve el tamaño actual de la pila

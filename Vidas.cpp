@@ -1,6 +1,6 @@
 
 #include "Vidas.h"
-//#include <SFML/Graphics.hpp>
+
 
 //using namespace sf;
 
@@ -18,13 +18,11 @@ Vidas::Vidas( RenderWindow* w, int num) {
         sVidaFull.setScale(0.25 , 0.25);
         sVidaFull.setPosition(Vector2f(0 + (w->getSize().x/40),100 + w->getSize().y/8 * num));
 
-        indicator = 1;
+
 
 }
 
-void Vidas::cambioIndicator(int indicador){
-  indicator=indicador;
-}
+
 
 void Vidas::draw(RenderWindow *w, int indicador) {
 

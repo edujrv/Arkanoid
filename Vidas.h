@@ -13,12 +13,11 @@ private:
     Texture tVidaEmpty;
     Sprite sVidaFull;
     Sprite sVidaEmpty;
-    int indicator;
+
 
 
 public:
      explicit Vidas( RenderWindow* w, int num);
-     void cambioIndicator(int indicador);
      void draw(RenderWindow *w, int indicador);
     ~Vidas();
 };

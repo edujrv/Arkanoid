@@ -1,10 +1,10 @@
 HATCH       -00:00:001
-Juan        -00:50:71
-Jose        -00:58:184
-Pedrito     -01:01:564
-El cuco     -01:20:762
-Ant-Man     -01:41:831
-Pinocho     -01:50:927
-Flor        -02:01:138
-Nelson      -02:32:609
-pipi        -03:00:616
+Ghandi        -00:46:701
+SpiB        -00:55:621
+LUKA           -01:01:471
+pete        -01:16:374
+batman        -01:20:240
+Bool        -01:37:948
+Gauss       -01:40:574
+Taylor        -01:46:624
+Juan        -01:50:710

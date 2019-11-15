@@ -158,8 +158,10 @@ int main() {
     //-   FONT LOADING:
     Font *retroFont = new Font();
     retroFont->loadFromFile("fuentes/Retro.ttf");
+    Font *regularFont = new Font();
+    regularFont->loadFromFile("fuentes/Regular.ttf");
     //-   TEXTS LOADING:
-    Textos gameOver("     GAME OVER \n  WALL OF FAME", retroFont, 60, ((int) windowWidth / 2) - 150, 50);
+    Textos gameOver("     GAME OVER \n  HALL OF FAME", retroFont, 60, ((int) windowWidth / 2) - 150, 50);
     Textos tryAgain("Press space to try again", retroFont, 30, 650,((int) windowHeight) - 120);
     Textos quit("Press esc to quit", retroFont, 30, 450, ((int) windowHeight) - 120);
     Textos lifes("LIFES: ", retroFont, 40, 10, 0);
@@ -169,7 +171,7 @@ int main() {
     Textos tiempo("Tu tiempo es:", retroFont, 40, 150, 10);
     Textos timeUserTxt("", retroFont, 40, 350, 10);
     Textos win("GANASTE MISTER!", retroFont, 60, (windowWidth / 2) - 150, (windowHeight / 2) - 300);
-    Textos scores(" ", retroFont, 40, (windowWidth / 2) - 100, 200);
+    Textos scores(" ", regularFont, 45, (windowWidth / 2) - 175, 175);
     Textos tituloScores(" HALL OF FAME ", retroFont, 60, (windowWidth / 2) - 100, 100);
 
     //*  NOISES:
@@ -775,8 +777,8 @@ int main() {
 }//END MAIN.
 void mapClean(LinkedList<Ladrillo *> &bricks) { //Elimina la lista de ladrillos.
     Ladrillo *aBorrar = nullptr;
-    for (bricks.begin(); !bricks.ended(); bricks.next()) {//Recorre toda la lista.
-        aBorrar = bricks.get();
+    while (bricks.getSize() > 0) {//Recorre toda la lista.
+        aBorrar = bricks.get(0);
         bricks.remove(aBorrar);
         delete aBorrar;
     }
@@ -785,15 +787,14 @@ void mapClean(LinkedList<Ladrillo *> &bricks) { //Elimina la lista de ladrillos.
 void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriamente.
     srand(time(NULL));
     int numeroRnd = 0;
-    numeroRnd = rand() % 5 + 1; //Elije un numero aleatoriamente del uno al 5
-    //numeroRnd = 5;
+    numeroRnd = rand() % 4 + 1; //Elije un numero aleatoriamente del uno al 5
+    numeroRnd = 3;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
     nombreA += ".txt";
     a.open(nombreA);
     readFilesLevel(&a, bricks); //Lee el nivel escogido.
-
 
 }
 

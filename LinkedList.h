@@ -46,6 +46,7 @@ public:
         return tamanio;
     }
 
+    T get(int pos);
 };
 
 template<typename T>
@@ -141,6 +142,14 @@ LinkedList<T>::~LinkedList() {
     while (tamanio > 0) {
         remove(0);
     }
+}
+
+template<typename T>
+T LinkedList<T>::get(int pos) {
+
+    Nodo<T> *aux = getNodo(pos);
+
+    return aux->dato;
 }
 
 

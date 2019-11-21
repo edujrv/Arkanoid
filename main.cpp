@@ -489,7 +489,8 @@ int main() {
                     minutos=0;
                     letra = "";
                     usuario.enterName(letra);
-                    gameMusic.play();
+                    gameMusic.stop();
+                    menuMusic.play();
                     mapClean(ladrillos);
                     crearLadrillos(ladrillos);
                     menuGanar= false;
@@ -529,7 +530,6 @@ int main() {
                         stackEmptyHeart.pop();
                     }
                     sadMusic.stop();
-                    gameMusic.play();
                     milisegundos=0;
                     segundos=0;
                     minutos=0;
@@ -537,6 +537,8 @@ int main() {
                     crearLadrillos(ladrillos);
                     sleep(seconds(1));
                     estado = MENU;
+                    gameMusic.stop();
+                    menuMusic.play();
                     activarRelojPrincipal=true;
                     playerbar.centrar(&w, playerbar);
                 }
@@ -787,8 +789,8 @@ void mapClean(LinkedList<Ladrillo *> &bricks) { //Elimina la lista de ladrillos.
 void crearLadrillos(LinkedList<Ladrillo *> &bricks) {//Elije un nivel aleatoriamente.
     srand(time(NULL));
     int numeroRnd = 0;
-    numeroRnd = rand() % 4 + 1; //Elije un numero aleatoriamente del uno al 5
-    numeroRnd = 3;
+    numeroRnd = rand() % 5 + 1; //Elije un numero aleatoriamente del uno al 5
+    //numeroRnd = 3;
     std::ifstream a;
     std::string nombreA = "textos/level";
     nombreA += std::to_string(numeroRnd);
